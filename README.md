@@ -1,26 +1,137 @@
 # WikiArt — Catálogo de Obras
 
-Projeto de Estrutura de Dados II em **Java**, com interface pelo terminal (CLI), para comparar o desempenho de listas encadeadas e suas estratégias de busca e reorganização.
+Projeto de Estrutura de Dados II em **Java 21**, com interface de terminal (CLI), para estudar e comparar estratégias de busca sobre um catálogo de obras do WikiArt.
 
-## Ideia do projeto
+Na CLI, o usuário informa um ID e o programa executa todas as oito estratégias compatíveis com busca exata por chave primária. A tela mostra a obra encontrada, o nome da busca, comparações, reorganizações, tempo decorrido, tempo de CPU, número acumulado de buscas e eficácia. A sessão continua até receber `-1` ou ser interrompida com `Ctrl+C`.
 
-O usuário informa o ID de uma obra do WikiArt e escolhe um algoritmo de busca. O programa retorna os dados da obra, como artista, estilo e caminho da imagem, além das estatísticas da busca.
+As imagens continuam no disco: durante a busca guardamos apenas seus caminhos, evitando gastar memória e contaminar as medições com leitura de JPGs.
 
-O catálogo fica na memória, em uma **lista encadeada própria**, e as imagens ficam armazenadas no disco. Os campos do catálogo serão definidos conforme os metadados disponíveis no dataset.
+## As 14 buscas
 
-## Algoritmos
+| # | Busca | Estrutura usada | Custo esperado da busca |
+|---:|---|---|---|
+| 1 | Sequencial simples | Lista encadeada própria | O(n) |
+| 2 | Sequencial com transposição | Lista encadeada própria | O(n) |
+| 3 | Movimentação para o início | Lista encadeada própria | O(n) |
+| 4 | Binária | Vetor ordenado por ID | O(log n) |
+| 5 | Por interpolação | Vetor ordenado por ID | O(log log n) médio; O(n) pior caso |
+| 6 | Em lista com saltos (Skip List) | Lista encadeada em níveis | O(log n) esperado |
+| 7 | Fibonacci | Vetor ordenado por ID | O(log n) |
+| 8 | Com chave secundária | Lista encadeada, por artista | O(n) |
+| 9 | De piso | Vetor ordenado por ID | O(log n) |
+| 10 | De teto | Vetor ordenado por ID | O(log n) |
+| 11 | De intervalo | Vetor ordenado por ID | O(log n + k), para k resultados |
+| 12 | Dedilhada | Lista encadeada com cursor persistente | O(n) pior caso |
+| 13 | Da menor chave | Lista encadeada própria | O(n) |
+| 14 | Da maior chave | Lista encadeada própria | O(n) |
 
-- **Busca sequencial:** percorre a lista até encontrar a obra ou chegar ao final.
-- **Movimentação para o início:** move a obra encontrada para o começo da lista.
-- **Transposição:** troca a obra encontrada de posição com sua antecessora.
+Busca binária, interpolação e Fibonacci não foram forçadas sobre a lista simplesmente encadeada. Elas precisam acessar posições diretamente para manter sua vantagem, por isso o motor cria uma visão indexada e ordenada dos mesmos dados. A Skip List continua encadeada, mas acrescenta níveis de atalhos probabilísticos.
 
-## Funcionalidades planejadas
+As heurísticas que alteram a ordem — transposição e movimentação para o início — recebem cópias independentes da lista. Dessa forma, uma estratégia não favorece nem prejudica outra durante os experimentos.
 
-- Buscar obras por ID e escolher o algoritmo utilizado.
-- Cadastrar e remover entradas do catálogo.
-- Exibir os dados da obra e a quantidade de comparações e reordenações.
-- Comparar o desempenho de cada lista e sua estratégia de busca com a mesma ordem inicial e sequência de consultas.
-- Exportar os resultados dos experimentos em CSV, incluindo tempo de CPU, tempo de execução, comparações e reordenações.
+## O que já está implementado
+
+- Importação dos metadados das obras a partir de CSV.
+- As 14 estratégias de busca descritas acima.
+- Estruturas próprias de lista encadeada, tabela ordenada e Skip List.
+- CLI contínua para comparar as oito buscas exatas por ID.
+- Contagem de comparações e reorganizações.
+- Medição de tempo decorrido, tempo de CPU e estatísticas acumuladas da sessão.
+- Testes das 14 buscas, incluindo chaves ausentes e catálogo vazio.
+
+## Como rodar
+
+### Pré-requisitos
+
+- JDK 21 ou superior.
+- Maven 3.9 ou superior é recomendado, mas não obrigatório.
+- O arquivo `data/amostra-classes.csv` para executar com a configuração padrão.
+
+Confira se o Java está disponível:
+
+```bash
+java -version
+```
+
+Todos os comandos abaixo devem ser executados na raiz do projeto.
+
+### Opção 1 — com Maven
+
+Compile o projeto:
+
+```bash
+mvn compile
+```
+
+Execute a aplicação usando a amostra padrão:
+
+```bash
+java -cp target/classes br.edu.ufpb.wikiart.app.CatalogoCli
+```
+
+### Opção 2 — sem Maven
+
+O projeto também pode ser compilado diretamente com o JDK:
+
+```bash
+mkdir -p out
+java -m jdk.compiler/com.sun.tools.javac.Main \
+  -encoding UTF-8 \
+  -d out \
+  $(find src/main/java src/test/java -name '*.java')
+```
+
+Depois, execute a aplicação:
+
+```bash
+java -cp out br.edu.ufpb.wikiart.app.CatalogoCli
+```
+
+### Usando a CLI
+
+Informe os IDs das obras, um por vez. Digite `-1` para encerrar e mostrar o resumo:
+
+```text
+ID da obra (-1 encerra): 25
+ID da obra (-1 encerra): 100
+ID da obra (-1 encerra): -1
+```
+
+Para cada ID, a aplicação compara busca sequencial, transposição, movimentação para o início, binária, interpolação, Skip List, Fibonacci e dedilhada. As outras seis buscas estão disponíveis no `MotorDeBuscas`, mas não entram nessa comparação automática porque recebem artista, intervalo ou consultas de mínimo e máximo em vez de um ID exato.
+
+### Escolhendo o conjunto de dados
+
+Sem argumento, a aplicação usa `data/amostra-classes.csv`, que contém 5.007 obras. Para usar o catálogo completo, com 80.042 obras:
+
+```bash
+# Se compilou com Maven
+java -cp target/classes br.edu.ufpb.wikiart.app.CatalogoCli data/classes.csv
+
+# Se compilou diretamente com o JDK
+java -cp out br.edu.ufpb.wikiart.app.CatalogoCli data/classes.csv
+```
+
+Também é possível informar o caminho de qualquer CSV compatível:
+
+```bash
+java -cp out br.edu.ufpb.wikiart.app.CatalogoCli caminho/para/catalogo.csv
+```
+
+Como o dataset não fornece um ID primário único, o importador atribui IDs sequenciais e estáveis conforme a ordem das linhas. Somente os metadados e caminhos são carregados; os arquivos de imagem não são abertos durante as buscas.
+
+### Rodando os testes
+
+Após compilar pela opção sem Maven, execute:
+
+```bash
+java -ea -cp out br.edu.ufpb.wikiart.BuscaTest
+```
+
+O resultado esperado é:
+
+```text
+OK — 14 buscas validadas, incluindo ausências e catálogo vazio.
+```
 
 ## Comparação de desempenho
 
@@ -39,11 +150,30 @@ O objetivo é observar em quais cenários cada estratégia apresenta melhor dese
 
 ## Organização
 
-O código será dividido em quatro partes: **dados**, **lista encadeada**, **algoritmos de busca** e **aplicação CLI**. Os experimentos ficarão separados do uso normal do catálogo para permitir comparações reproduzíveis.
+```text
+src/main/java/br/edu/ufpb/wikiart/
+├── app/        # interface de terminal
+├── data/       # importação dos metadados
+├── metric/     # tempos e estatísticas acumuladas da sessão
+├── model/      # representação de uma obra
+├── search/     # algoritmos e resultados
+├── service/    # coordenação das estruturas
+└── structure/  # lista própria, tabela ordenada e Skip List
+```
+
+Os experimentos continuarão separados do uso normal do catálogo. A API `MotorDeBuscas` já devolve métricas sem imprimir durante a operação, o que facilita adicionar aquecimento da JVM, tempo de CPU, tempo decorrido e exportação CSV sem alterar os algoritmos.
 
 ## Status
 
-Em planejamento. A implementação começará com uma pequena base fictícia, seguida pela importação de uma amostra do WikiArt.
+As 14 buscas, o carregamento do CSV, as métricas, a CLI e os testes estão implementados.
+
+As próximas etapas são:
+
+- construir o módulo de experimentos reproduzíveis;
+- exportar os resultados dos experimentos em CSV;
+- implementar cadastro e remoção de obras, mantendo todas as estruturas sincronizadas;
+- criar uma interface web.
 
 ## Futuras implementações
-- Interface Web
+
+- Interface web.
