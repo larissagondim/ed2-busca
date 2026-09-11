@@ -1,0 +1,3 @@
+codigo_acervo,titulo,artista,estilo,caminho_imagem
+"A1","Obra A1","Artista desconhecido","Academic Art","src/test/resources/imagens/A1.jpg"
+"B1","Obra B1","Artista desconhecido","Barroco","src/test/resources/imagens/B1.jpg"
