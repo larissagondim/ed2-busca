@@ -13,6 +13,7 @@ frontend/playwright-report/
 frontend/test-results/
 frontend/*.tsbuildinfo
 frontend/*.js
+!frontend/eslint.config.js
 frontend/*.d.ts
 .mvn/apache-maven-*/
 .mvn/apache-maven.zip
