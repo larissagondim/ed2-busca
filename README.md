@@ -29,6 +29,21 @@ Busca binária, interpolação e Fibonacci não foram forçadas sobre a lista si
 
 As heurísticas que alteram a ordem — transposição e movimentação para o início — recebem cópias independentes da lista. Dessa forma, uma estratégia não favorece nem prejudica outra durante os experimentos.
 
+### Por que a comparação mostra 8, e não 14?
+
+Os 14 métodos estão implementados e são testados em `BuscaTest`. Entretanto, somente oito possuem o mesmo contrato: recebem uma chave primária e procuram exatamente a obra identificada por ela. Por isso, a comparação automática por ID ou código executa sequencial simples, transposição, movimentação para o início, binária, interpolação, Skip List, Fibonacci e dedilhada.
+
+Os seis restantes não estão ausentes; eles respondem a consultas diferentes e compará-los como se fossem buscas exatas produziria métricas enganosas:
+
+- **chave secundária:** recebe um artista e pode retornar várias obras; o catálogo atual registra `Artista desconhecido`, pois o dataset não fornece esse metadado de forma confiável;
+- **piso:** retorna a maior chave menor ou igual à chave informada;
+- **teto:** retorna a menor chave maior ou igual à chave informada;
+- **intervalo:** recebe dois limites e pode retornar várias obras;
+- **menor chave:** não recebe uma chave de busca e encontra o menor ID;
+- **maior chave:** não recebe uma chave de busca e encontra o maior ID.
+
+Esses métodos permanecem disponíveis em `MotorDeBuscas`. Para expô-los na interface será necessário criar formulários e resultados próprios para cada tipo de consulta, em vez de adicioná-los à tabela de busca exata.
+
 ## O que já está implementado
 
 - Geração e importação do catálogo a partir das pastas de imagens do dataset.
@@ -44,8 +59,10 @@ As heurísticas que alteram a ordem — transposição e movimentação para o i
 ### Pré-requisitos
 
 - JDK 21 ou superior.
-- Maven 3.9 ou superior é recomendado, mas não obrigatório.
-- O arquivo `data/amostra-classes.csv` para executar com a configuração padrão.
+- Node.js 22 ou superior e npm para compilar/testar o frontend.
+- `curl` e `unzip` na primeira execução do Maven Wrapper.
+
+Maven não precisa estar instalado: o script `mvnw` baixa a versão prevista pelo projeto. Node.js não é necessário para executar um JAR que já tenha sido gerado, mas é necessário para executar `./mvnw verify`, pois essa etapa testa e empacota o frontend.
 
 Confira se o Java está disponível:
 
@@ -55,102 +72,95 @@ java -version
 
 Todos os comandos abaixo devem ser executados na raiz do projeto.
 
-Depois de extrair o dataset em `data/wikiart`, gere o catálogo completo e a
-amostra antes da primeira execução (após compilar):
+### Execução rápida da aplicação web
 
-```bash
-# Se compilou com Maven
-java -cp target/classes br.edu.ufpb.wikiart.data.GeradorCatalogoCsv
-
-# Se compilou diretamente com o JDK
-java -cp out br.edu.ufpb.wikiart.data.GeradorCatalogoCsv
-```
-
-O dataset usado neste projeto contém apenas o estilo (nome da pasta) e um
-código numérico (nome do arquivo). Por isso, o gerador registra títulos como
-`Obra 232331` e o artista como `Artista desconhecido`; nenhuma imagem é aberta.
-
-### Aplicação web (JAR único)
-
-O Maven Wrapper valida backend e frontend, aplica os limites de cobertura e incorpora o React ao JAR:
+O repositório já contém `data/classes.csv`, com os 42.500 registros. Compile, teste e gere o JAR único:
 
 ```bash
 ./mvnw verify
 java -jar target/wikiart-catalogo-1.0.0-SNAPSHOT.jar
 ```
 
-Abra `http://localhost:8080`. O catálogo padrão é `data/classes.csv`; altere-o com `WIKIART_CATALOGO=/caminho/catalogo.csv`. Para exibir imagens, extraia `data/archive.zip` em `data/wikiart` sem remover o ZIP original.
+Abra `http://localhost:8080`.
+
+### É necessário ter as 42.500 imagens?
+
+**Não.** O projeto funciona sem os arquivos JPG. O catálogo, os 42.500 registros, os filtros, a paginação, as buscas, as reorganizações e as métricas usam apenas `data/classes.csv`. O carregador lê os metadados e os caminhos registrados, mas não tenta abrir nem validar as imagens durante a inicialização ou durante uma busca.
+
+Quando um JPG não existe:
+
+- a aplicação continua funcionando normalmente;
+- os endpoints de imagem respondem com erro `404` e código `IMAGEM_NAO_ENCONTRADA`;
+- o frontend mostra o estado “Imagem indisponível” nos cartões que não possuem miniatura.
+
+Para visualizar as obras, extraia opcionalmente `data/archive.zip` em `data/wikiart`, preservando o ZIP original. As miniaturas serão geradas sob demanda em `data/thumbnails`.
+
+### Usando outro catálogo
+
+O catálogo padrão da aplicação web é `data/classes.csv`. Para usar outro CSV compatível:
+
+```bash
+WIKIART_CATALOGO=/caminho/catalogo.csv \
+  java -jar target/wikiart-catalogo-1.0.0-SNAPSHOT.jar
+```
+
+O CSV atual usa as colunas `codigo_acervo,titulo,artista,estilo,caminho_imagem`. O ID interno não fica no arquivo: ele é atribuído sequencialmente conforme a ordem das linhas.
+
+Se você substituir o dataset de imagens, poderá gerar novamente o catálogo após compilar:
+
+```bash
+java -cp target/classes br.edu.ufpb.wikiart.data.GeradorCatalogoCsv
+```
+
+O dataset usado neste projeto contém apenas o estilo (nome da pasta) e um
+código numérico (nome do arquivo). Por isso, o gerador registra títulos como
+`Obra 232331` e o artista como `Artista desconhecido`; nenhuma imagem é aberta.
 
 ### CLI
 
-Compile o projeto:
+Compile o projeto e abra o menu textual usando a amostra de 5.007 registros:
 
 ```bash
-mvn compile
-```
-
-Execute a aplicação usando a amostra padrão:
-
-```bash
+./mvnw compile
 java -cp target/classes br.edu.ufpb.wikiart.app.CatalogoCli
 ```
 
-### Compilação direta (somente CLI)
-
-O projeto também pode ser compilado diretamente com o JDK:
+Para carregar os 42.500 registros, informe o CSV completo:
 
 ```bash
-mkdir -p out
-java -m jdk.compiler/com.sun.tools.javac.Main \
-  -encoding UTF-8 \
-  -d out \
-  $(find src/main/java src/test/java -name '*.java')
-```
-
-Depois, execute a aplicação:
-
-```bash
-java -cp out br.edu.ufpb.wikiart.app.CatalogoCli
+java -cp target/classes br.edu.ufpb.wikiart.app.CatalogoCli data/classes.csv
 ```
 
 ### Usando a CLI
 
-Informe os IDs das obras, um por vez. Digite `-1` para encerrar e mostrar o resumo:
+A CLI apresenta o seguinte menu:
 
 ```text
-ID da obra (-1 encerra): 25
-ID da obra (-1 encerra): 100
-ID da obra (-1 encerra): -1
+1 Períodos | 2 Filtro | 3 Listar | 4 ID | 5 Código | 6 Comparar | 7 Métricas | 8 Reiniciar | 9 Sair
 ```
 
 Para cada ID, a aplicação compara busca sequencial, transposição, movimentação para o início, binária, interpolação, Skip List, Fibonacci e dedilhada. As outras seis buscas estão disponíveis no `MotorDeBuscas`, mas não entram nessa comparação automática porque recebem artista, intervalo ou consultas de mínimo e máximo em vez de um ID exato.
 
-### Escolhendo o conjunto de dados
-
-Sem argumento, a aplicação usa `data/amostra-classes.csv`, que contém 5.007 obras. Para usar o catálogo completo, com 42.500 obras:
+Também é possível informar qualquer CSV compatível:
 
 ```bash
-# Se compilou com Maven
-java -cp target/classes br.edu.ufpb.wikiart.app.CatalogoCli data/classes.csv
-
-# Se compilou diretamente com o JDK
-java -cp out br.edu.ufpb.wikiart.app.CatalogoCli data/classes.csv
+java -cp target/classes br.edu.ufpb.wikiart.app.CatalogoCli caminho/para/catalogo.csv
 ```
 
-Também é possível informar o caminho de qualquer CSV compatível:
-
-```bash
-java -cp out br.edu.ufpb.wikiart.app.CatalogoCli caminho/para/catalogo.csv
-```
-
-Como o dataset não fornece um ID primário único, o importador atribui IDs sequenciais e estáveis conforme a ordem das linhas. Somente os metadados e caminhos são carregados; os arquivos de imagem não são abertos durante as buscas. O CSV usa as colunas `titulo,artista,estilo,caminho_imagem`.
+Como o dataset não fornece um ID primário único, o importador atribui IDs sequenciais e estáveis conforme a ordem das linhas. Somente os metadados e caminhos são carregados; os arquivos de imagem não são abertos durante as buscas.
 
 ### Rodando os testes
 
-Após compilar pela opção sem Maven, execute:
+Para executar backend, type-check, lint, testes e cobertura do frontend, gerar o frontend de produção, incorporá-lo ao JAR e validar a cobertura Java:
 
 ```bash
-java -ea -cp out br.edu.ufpb.wikiart.BuscaTest
+./mvnw verify
+```
+
+Depois de `./mvnw test`, o teste das estratégias também pode ser executado diretamente com:
+
+```bash
+java -ea -cp target/test-classes:target/classes br.edu.ufpb.wikiart.BuscaTest
 ```
 
 O resultado esperado é:
