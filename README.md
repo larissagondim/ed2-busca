@@ -74,11 +74,14 @@ Esses métodos permanecem disponíveis em `MotorDeBuscas`. Para expô-los na int
 
 Maven não precisa estar instalado: o script `mvnw` baixa a versão prevista pelo projeto. Node.js não é necessário para executar um JAR que já tenha sido gerado, mas é necessário para executar `./mvnw verify`, pois essa etapa testa e empacota o frontend.
 
-Confira se o Java está disponível:
+Confira se o runtime e o compilador Java estão disponíveis:
 
 ```bash
 java -version
+javac -version
 ```
+
+Os dois comandos devem indicar a versão 21 ou superior. Ter apenas o runtime (`java`) não é suficiente para compilar o projeto; é necessário instalar um JDK completo, que também fornece o `javac`.
 
 Todos os comandos abaixo devem ser executados na raiz do projeto.
 
