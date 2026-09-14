@@ -55,24 +55,35 @@ jobs:
           app_pid=$!
           trap 'kill "$app_pid" 2>/dev/null || true' EXIT
 
-          for tentativa in {1..60}; do
-            if curl --fail --silent --output /dev/null http://127.0.0.1:8080/; then
-              break
-            fi
+          aplicacao_pronta=false
 
+          for tentativa in {1..60}; do
             if ! kill -0 "$app_pid" 2>/dev/null; then
               echo "A aplicação encerrou antes de ficar disponível."
               wait "$app_pid"
               exit 1
             fi
 
-            if [ "$tentativa" -eq 60 ]; then
-              echo "A aplicação não ficou disponível em 60 segundos."
-              exit 1
+            status_http="$(
+              curl --silent \
+                --output /dev/null \
+                --write-out '%{http_code}' \
+                http://127.0.0.1:8080/ || true
+            )"
+
+            if [ "$status_http" = "200" ]; then
+              aplicacao_pronta=true
+              break
             fi
 
+            echo "Tentativa $tentativa/60: HTTP $status_http"
             sleep 1
           done
+
+          if [ "$aplicacao_pronta" != "true" ]; then
+            echo "A aplicação não respondeu com HTTP 200 em 60 segundos."
+            exit 1
+          fi
 
           cd frontend
           npx playwright test
