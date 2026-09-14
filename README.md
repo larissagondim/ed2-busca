@@ -53,6 +53,16 @@ Esses métodos permanecem disponíveis em `MotorDeBuscas`. Para expô-los na int
 - Contagem de comparações e reorganizações.
 - Medição de tempo decorrido, tempo de CPU e estatísticas acumuladas da sessão.
 - Testes das 14 buscas, incluindo chaves ausentes e catálogo vazio.
+- Interface React responsiva com catálogo por período, paginação, detalhes da obra e comparação das buscas exatas.
+- Build único de produção: o frontend é compilado e incorporado ao JAR Spring Boot.
+- CI com type-check, ESLint, testes unitários, cobertura e testes ponta a ponta com Playwright.
+
+## Mudanças recentes
+
+- O frontend passou a ter validação automatizada de tipos, lint e cobertura de testes.
+- O build Maven agora instala as dependências do frontend, executa suas verificações, gera `frontend/dist` e copia os arquivos para o JAR final.
+- A CI executa o JAR com um catálogo de teste e valida o fluxo completo no Chromium com Playwright.
+- A configuração do ESLint e o `package-lock.json` estão versionados para tornar os builds locais e da CI reproduzíveis.
 
 ## Como rodar
 
@@ -82,6 +92,43 @@ java -jar target/wikiart-catalogo-1.0.0-SNAPSHOT.jar
 ```
 
 Abra `http://localhost:8080`.
+
+O artefato gerado fica em:
+
+```text
+target/wikiart-catalogo-1.0.0-SNAPSHOT.jar
+```
+
+O mesmo JAR contém a API e os arquivos estáticos do frontend, portanto não é necessário manter um servidor Node.js separado em produção.
+
+### Desenvolvimento do frontend
+
+Para trabalhar com atualização automática da página, abra dois terminais na raiz do projeto.
+
+No primeiro, inicie a API:
+
+```bash
+./mvnw spring-boot:run
+```
+
+No segundo, inicie o Vite:
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
+Abra `http://localhost:5173`. Durante o desenvolvimento, o Vite encaminha as chamadas de `/api` para `http://localhost:8080`.
+
+Para gerar somente os arquivos estáticos do frontend:
+
+```bash
+cd frontend
+npm run build
+```
+
+O resultado fica em `frontend/dist`.
 
 ### É necessário ter as 42.500 imagens?
 
@@ -157,6 +204,17 @@ Para executar backend, type-check, lint, testes e cobertura do frontend, gerar o
 ./mvnw verify
 ```
 
+A suíte atual possui 8 testes Java e 9 testes unitários do frontend. A CI também inicia o JAR e executa os testes ponta a ponta do Playwright no Chromium.
+
+Os principais resultados são gravados em:
+
+```text
+target/surefire-reports   # testes Java
+target/site/jacoco        # cobertura Java
+frontend/coverage         # cobertura do frontend
+frontend/playwright-report # relatório ponta a ponta
+```
+
 Depois de `./mvnw test`, o teste das estratégias também pode ser executado diretamente com:
 
 ```bash
@@ -201,4 +259,4 @@ Os experimentos continuarão separados do uso normal do catálogo. A API `MotorD
 
 ## Status
 
-O catálogo global e por período, API paginada, busca por ID/código, sessões isoladas, miniaturas, comparação, resumo, CLI em menu, frontend responsivo e CI sem deploy estão implementados. Os contratos e decisões ficam em `docs/specs` e `docs/adr`.
+O projeto está funcional como aplicação web e CLI. O catálogo global e por período, API paginada, busca por ID/código, sessões isoladas, miniaturas, comparação, resumo, frontend responsivo, empacotamento em JAR único e CI automatizada estão implementados. A CI valida o projeto, mas não realiza deploy. Os contratos e decisões ficam em `docs/specs` e `docs/adr`.
