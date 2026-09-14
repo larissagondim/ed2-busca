@@ -52,12 +52,30 @@ jobs:
           WIKIART_CATALOGO=src/test/resources/catalogo-fixture.csv \
             java -jar target/wikiart-catalogo-*.jar &
 
-          echo $! > /tmp/wikiart.pid
+          app_pid=$!
+          trap 'kill "$app_pid" 2>/dev/null || true' EXIT
+
+          for tentativa in {1..60}; do
+            if curl --fail --silent --output /dev/null http://127.0.0.1:8080/; then
+              break
+            fi
+
+            if ! kill -0 "$app_pid" 2>/dev/null; then
+              echo "A aplicação encerrou antes de ficar disponível."
+              wait "$app_pid"
+              exit 1
+            fi
+
+            if [ "$tentativa" -eq 60 ]; then
+              echo "A aplicação não ficou disponível em 60 segundos."
+              exit 1
+            fi
+
+            sleep 1
+          done
 
           cd frontend
           npx playwright test
-
-          kill $(cat /tmp/wikiart.pid)
 
       - name: Detectar geração não versionada
         run: |
