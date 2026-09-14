@@ -1,5 +1,7 @@
 package br.edu.ufpb.wikiart;
 
+import org.junit.jupiter.api.Test;
+
 import br.edu.ufpb.wikiart.model.Obra;
 import br.edu.ufpb.wikiart.metric.EstatisticasAcumuladas;
 import br.edu.ufpb.wikiart.metric.MedicaoBusca;
@@ -19,7 +21,12 @@ public final class BuscaTest {
     private static final Obra O40 = obra(40, "Mona Lisa", "Leonardo da Vinci");
     private static final Obra O20 = obra(20, "O Mamoeiro", "Tarsila do Amaral");
 
-    private BuscaTest() {
+    BuscaTest() {
+    }
+
+    @Test
+    void validaTodasAsEstrategias() {
+        main(new String[0]);
     }
 
     public static void main(String[] args) {
