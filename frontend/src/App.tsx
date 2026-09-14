@@ -62,9 +62,30 @@ export function App() {
   const [loading, setLoading] = useState(true), [comparing, setComparing] = useState(false), [error, setError] = useState(''), [details, setDetails] = useState<Obra | null>(null)
   const [type, setType] = useState<'ID' | 'CODIGO'>('ID'), [value, setValue] = useState(''), [comparison, setComparison] = useState<Comparacao | null>(null), [summary, setSummary] = useState<Resumo | null>(null)
   const detailTrigger = useRef<HTMLButtonElement>(null)
-  const catalogRequest = useRef(0)
   useEffect(() => { api.periodos().then(setPeriods).catch(reason => setError(reason.message)) }, [])
-  useEffect(() => { const request = ++catalogRequest.current; setLoading(true); setError(''); api.obras(period, pageNumber).then(result => { if (catalogRequest.current === request) setPage(result) }).catch(reason => { if (catalogRequest.current === request) setError(reason.message) }).finally(() => { if (catalogRequest.current === request) setLoading(false) }) }, [period, pageNumber])
+  useEffect(() => {
+    let active = true
+
+    async function loadCatalog() {
+      await Promise.resolve()
+      if (!active) return
+
+      setLoading(true)
+      setError('')
+
+      try {
+        const result = await api.obras(period, pageNumber)
+        if (active) setPage(result)
+      } catch (reason) {
+        if (active) setError((reason as Error).message)
+      } finally {
+        if (active) setLoading(false)
+      }
+    }
+
+    void loadCatalog()
+    return () => { active = false }
+  }, [period, pageNumber])
   const selectedPeriod = periods.find(item => item.slug === period)?.nome ?? ''
   async function changePeriod(next: string) { setError(''); try { await api.selecionar(next); setPeriod(next); setPageNumber(0); setDetails(null); setComparison(null); setSummary(null) } catch (reason) { setError((reason as Error).message) } }
   async function compare(event: FormEvent<HTMLFormElement>) { event.preventDefault(); detailTrigger.current = (event.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null; setError(''); setComparing(true); try { const result = await api.comparar(type, value.trim()); setComparison(result); setDetails(result.obra); setSummary(result.resumo); requestAnimationFrame(() => scrollToSection('comparacao')) } catch (reason) { setError((reason as Error).message) } finally { setComparing(false) } }
