@@ -69,7 +69,7 @@ Esses métodos permanecem disponíveis em `MotorDeBuscas`. Para expô-los na int
 ### Pré-requisitos
 
 - JDK 21 ou superior.
-- Node.js 22 ou superior e npm para compilar/testar o frontend.
+- Node.js 22.13 ou superior dentro da linha 22 LTS e npm para compilar/testar o frontend.
 - `curl` e `unzip` na primeira execução do Maven Wrapper.
 
 Maven não precisa estar instalado: o script `mvnw` baixa a versão prevista pelo projeto. Node.js não é necessário para executar um JAR que já tenha sido gerado, mas é necessário para executar `./mvnw verify`, pois essa etapa testa e empacota o frontend.
@@ -82,6 +82,8 @@ javac -version
 ```
 
 Os dois comandos devem indicar a versão 21 ou superior. Ter apenas o runtime (`java`) não é suficiente para compilar o projeto; é necessário instalar um JDK completo, que também fornece o `javac`.
+
+Se você usa NVM, execute `nvm use` na raiz do repositório para selecionar automaticamente a versão indicada em `.nvmrc`.
 
 Todos os comandos abaixo devem ser executados na raiz do projeto.
 
