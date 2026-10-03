@@ -36,5 +36,6 @@ public class ImagemService {
         try { if (!ImageIO.write(saida, "jpg", temporario.toFile())) throw new IOException("Não foi possível gerar JPEG."); Files.move(temporario, destino, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE); } finally { Files.deleteIfExists(temporario); }
         return destino;
     }
-    private Path validar(Obra obra) { Path caminho = Path.of(obra.caminhoImagem()).toAbsolutePath().normalize(); if (!catalogo.caminhoRegistrado(caminho) || !Files.isRegularFile(caminho)) throw new RecursoNaoEncontrado("IMAGEM_NAO_ENCONTRADA", "Imagem indisponível para a obra " + obra.id()); return caminho; }
+    /** O caminho vem do próprio registro da obra (nunca da requisição), então basta verificar se o arquivo existe. */
+    private Path validar(Obra obra) { Path caminho = Path.of(obra.caminhoImagem()).toAbsolutePath().normalize(); if (!Files.isRegularFile(caminho)) throw new RecursoNaoEncontrado("IMAGEM_NAO_ENCONTRADA", "Imagem indisponível para a obra " + obra.id()); return caminho; }
 }
