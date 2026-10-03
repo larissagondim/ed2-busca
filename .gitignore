@@ -22,3 +22,5 @@ frontend/*.d.ts
 # Documentos locais de apresentação
 /docs/apresentacao.md
 /docs/relatorio.md
+.vercel
+.env*
