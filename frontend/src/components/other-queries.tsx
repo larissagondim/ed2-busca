@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button-1'
 import { CONSULTAS } from '@/lib/strategies'
 import { plural } from '@/lib/utils'
 
-const ESTRUTURA = { lista: 'Lista encadeada', tabela: 'Tabela ordenada', saltos: 'Lista com saltos', arvore: 'Árvore afunilada' }
+const ESTRUTURA = { lista: 'Lista encadeada', tabela: 'Tabela ordenada', saltos: 'Lista com saltos' }
 
 /** As seis consultas do projeto que não procuram uma chave exata e por isso ficam fora da comparação. */
 export function OtherQueries({ onOpen }: { onOpen: AoAbrir }) {

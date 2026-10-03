@@ -2,13 +2,13 @@
 
 Projeto de Estrutura de Dados II em **Java 21**, com API Spring Boot, interface React e terminal (CLI), para navegar pelo catálogo local e comparar estratégias de busca.
 
-O catálogo tem **81.444 obras de 27 estilos**, com artista e título, e é armazenado inteiramente em estruturas implementadas pelo grupo: **Árvore Afunilada (Splay)**, **Lista com Saltos indexável** e **listas encadeadas**. Além de navegar e buscar, o usuário vê as obras **vistas recentemente** (topo da árvore afunilada) e as **mais vistas** (lista com transposição).
+O catálogo tem **81.444 obras de 27 estilos**, com artista e título, e é armazenado inteiramente em estruturas implementadas pelo grupo: **Lista com Saltos indexável** e **listas encadeadas**. Além de navegar e buscar, o usuário vê as obras **vistas recentemente** (lista com movimentação para o início) e as **mais vistas** (lista com transposição).
 
-Na CLI, o usuário informa um ID e o programa executa todas as nove estratégias compatíveis com busca exata por chave primária. A tela mostra a obra encontrada, o nome da busca, comparações, reorganizações, tempo decorrido, tempo de CPU, número acumulado de buscas e eficácia. A sessão continua até receber `-1` ou ser interrompida com `Ctrl+C`.
+Na CLI, o usuário informa um ID e o programa executa todas as oito estratégias compatíveis com busca exata por chave primária. A tela mostra a obra encontrada, o nome da busca, comparações, reorganizações, tempo decorrido, tempo de CPU, número acumulado de buscas e eficácia. A sessão continua até receber `-1` ou ser interrompida com `Ctrl+C`.
 
 As imagens continuam no disco: durante a busca guardamos apenas seus caminhos, evitando gastar memória e contaminar as medições com leitura de JPGs.
 
-## As 15 buscas
+## As 14 buscas
 
 | # | Busca | Estrutura usada | Custo esperado da busca |
 |---:|---|---|---|
@@ -26,15 +26,14 @@ As imagens continuam no disco: durante a busca guardamos apenas seus caminhos, e
 | 12 | Dedilhada | Lista encadeada com cursor persistente | O(n) pior caso |
 | 13 | Da menor chave | Lista encadeada própria | O(n) |
 | 14 | Da maior chave | Lista encadeada própria | O(n) |
-| 15 | Em árvore afunilada (Splay) | Árvore binária auto-ajustável | O(log n) amortizado |
 
 Busca binária, interpolação e Fibonacci não foram forçadas sobre a lista simplesmente encadeada. Elas precisam acessar posições diretamente para manter sua vantagem, por isso o motor cria uma visão indexada e ordenada dos mesmos dados. A Skip List continua encadeada, mas acrescenta níveis de atalhos probabilísticos.
 
 As heurísticas que alteram a ordem — transposição e movimentação para o início — recebem cópias independentes da lista. Dessa forma, uma estratégia não favorece nem prejudica outra durante os experimentos.
 
-### Por que a comparação mostra 9, e não 15?
+### Por que a comparação mostra 8, e não 14?
 
-Os 15 métodos estão implementados e são testados em `BuscaTest`. Entretanto, somente nove possuem o mesmo contrato: recebem uma chave primária e procuram exatamente a obra identificada por ela. Por isso, a comparação automática por ID ou código executa sequencial simples, transposição, movimentação para o início, binária, interpolação, Skip List, Fibonacci e dedilhada.
+Os 14 métodos estão implementados e são testados em `BuscaTest`. Entretanto, somente oito possuem o mesmo contrato: recebem uma chave primária e procuram exatamente a obra identificada por ela. Por isso, a comparação automática por ID ou código executa sequencial simples, transposição, movimentação para o início, binária, interpolação, Skip List, Fibonacci e dedilhada.
 
 Os seis restantes não estão ausentes; eles respondem a consultas diferentes e compará-los como se fossem buscas exatas produziria métricas enganosas:
 
@@ -50,14 +49,14 @@ Esses métodos permanecem disponíveis em `MotorDeBuscas`. Para expô-los na int
 ## O que já está implementado
 
 - Geração e importação do catálogo a partir das pastas de imagens do dataset.
-- As 15 estratégias de busca descritas acima.
-- Estruturas próprias: lista encadeada, lista "mais vistas", tabela ordenada, Skip List indexável e Árvore Afunilada.
+- As 14 estratégias de busca descritas acima.
+- Estruturas próprias: lista encadeada, listas "vistas recentemente" e "mais vistas", tabela ordenada e Skip List indexável.
 - Armazenamento do catálogo só nessas estruturas (sem `HashMap`/`TreeMap`).
 - "Vistas recentemente" e "Mais vistas" (`POST /api/obras/{id}/visualizacoes`, `GET /api/destaques`).
-- CLI contínua para comparar as nove buscas exatas por ID.
+- CLI contínua para comparar as oito buscas exatas por ID.
 - Contagem de comparações e reorganizações.
 - Medição de tempo decorrido, tempo de CPU e estatísticas acumuladas da sessão.
-- Testes das 15 buscas, incluindo chaves ausentes e catálogo vazio, e das modificações nas estruturas (`EstruturasTest`).
+- Testes das 14 buscas, incluindo chaves ausentes e catálogo vazio, e das modificações nas estruturas (`EstruturasTest`).
 - Interface React responsiva com catálogo por período, paginação, detalhes da obra e comparação das buscas exatas.
 - Build único de produção: o frontend é compilado e incorporado ao JAR Spring Boot.
 - CI com type-check, ESLint, testes unitários, cobertura e testes ponta a ponta com Playwright.
@@ -194,7 +193,7 @@ A CLI apresenta o seguinte menu:
 1 Períodos | 2 Filtro | 3 Listar | 4 ID | 5 Código | 6 Comparar | 7 Métricas | 8 Reiniciar | 9 Sair | 10 Destaques
 ```
 
-Para cada ID, a aplicação compara busca sequencial, transposição, movimentação para o início, binária, interpolação, Skip List, Fibonacci, dedilhada e árvore afunilada. Abrir uma obra pelas opções 4 e 5 conta como visualização; a opção 10 mostra os recentes e o ranking. As outras seis buscas estão disponíveis no `MotorDeBuscas`, mas não entram nessa comparação automática porque recebem artista, intervalo ou consultas de mínimo e máximo em vez de um ID exato.
+Para cada ID, a aplicação compara busca sequencial, transposição, movimentação para o início, binária, interpolação, Skip List, Fibonacci e dedilhada. Abrir uma obra pelas opções 4 e 5 conta como visualização; a opção 10 mostra os recentes e o ranking. As outras seis buscas estão disponíveis no `MotorDeBuscas`, mas não entram nessa comparação automática porque recebem artista, intervalo ou consultas de mínimo e máximo em vez de um ID exato.
 
 Também é possível informar qualquer CSV compatível:
 
@@ -232,7 +231,7 @@ java -ea -cp target/test-classes:target/classes br.edu.ufpb.wikiart.BuscaTest
 O resultado esperado é:
 
 ```text
-OK — 15 buscas validadas, incluindo ausências e catálogo vazio.
+OK — 14 buscas validadas, incluindo ausências e catálogo vazio.
 ```
 
 ## Comparação de desempenho
@@ -260,7 +259,7 @@ src/main/java/br/edu/ufpb/wikiart/
 ├── model/      # representação de uma obra
 ├── search/     # algoritmos e resultados
 ├── service/    # coordenação das estruturas
-└── structure/  # listas encadeadas, tabela ordenada, Skip List indexável e Árvore Afunilada
+└── structure/  # listas encadeadas, tabela ordenada e Skip List indexável
 ```
 
 Os experimentos continuarão separados do uso normal do catálogo. A API `MotorDeBuscas` já devolve métricas sem imprimir durante a operação, o que facilita adicionar aquecimento da JVM, tempo de CPU, tempo decorrido e exportação CSV sem alterar os algoritmos.

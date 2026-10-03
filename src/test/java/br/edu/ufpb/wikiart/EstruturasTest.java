@@ -1,16 +1,14 @@
 package br.edu.ufpb.wikiart;
 
 import br.edu.ufpb.wikiart.model.Obra;
-import br.edu.ufpb.wikiart.structure.ArvoreAfunilada;
 import br.edu.ufpb.wikiart.structure.ListaComSaltos;
 import br.edu.ufpb.wikiart.structure.ListaMaisVistas;
+import br.edu.ufpb.wikiart.structure.ListaRecentes;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Function;
-import java.util.stream.LongStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,64 +18,36 @@ class EstruturasTest {
     }
 
     @Test
-    void cargaEmLoteBalanceiaAArvore() {
-        List<Long> chaves = LongStream.range(0, 42_500).boxed().toList();
-        ArvoreAfunilada<Long, Long> arvore = ArvoreAfunilada.deOrdenados(chaves, Function.identity());
-        assertEquals(42_500, arvore.tamanho());
-        assertEquals(16, arvore.altura(), "ceil(log2(42.501)) = 16 níveis");
-        ArvoreAfunilada.Acesso<Long> acesso = arvore.acessar(0L);
-        assertTrue(acesso.comparacoes() <= 16, "Sem a carga balanceada seriam 42.500 comparações.");
-        assertEquals(chaves, arvore.emOrdem());
-        assertThrows(IllegalArgumentException.class, () -> ArvoreAfunilada.deOrdenados(List.of(2L, 1L), Function.identity()));
+    void recentesMovemParaOInicioEDescartamOMaisAntigo() {
+        ListaRecentes recentes = new ListaRecentes(3);
+        Obra a = obra(1), b = obra(2), c = obra(3), d = obra(4);
+        assertTrue(recentes.primeiros(5).isEmpty(), "Nada foi visto ainda.");
+        recentes.registrar(a);
+        recentes.registrar(b);
+        recentes.registrar(c);
+        assertEquals(List.of(c, b, a), recentes.primeiros(5));
+        recentes.registrar(a);
+        assertEquals(List.of(a, c, b), recentes.primeiros(5), "Rever uma obra a leva ao início sem duplicar.");
+        recentes.registrar(d);
+        assertEquals(List.of(d, a, c), recentes.primeiros(5), "Acima da capacidade, sai a vista há mais tempo.");
+        assertEquals(3, recentes.tamanho());
+        assertEquals(List.of(d), recentes.primeiros(1));
+        assertTrue(recentes.primeiros(0).isEmpty());
+
+        ListaRecentes unica = new ListaRecentes(1);
+        unica.registrar(a);
+        unica.registrar(b);
+        assertEquals(List.of(b), unica.primeiros(5));
+        assertThrows(IllegalArgumentException.class, () -> new ListaRecentes(0));
     }
 
     @Test
-    void acessarAfunilaEConsultarNao() {
-        ArvoreAfunilada<Long, Long> arvore = ArvoreAfunilada.deOrdenados(LongStream.range(0, 15).boxed().toList(), Function.identity());
-        assertEquals(7L, arvore.chaveDaRaiz());
-        assertEquals(3L, arvore.consultar(3L));
-        assertNull(arvore.consultar(99L));
-        assertEquals(7L, arvore.chaveDaRaiz(), "Consulta interna não muda a forma da árvore.");
-
-        ArvoreAfunilada.Acesso<Long> acesso = arvore.acessar(3L);
-        assertTrue(acesso.encontrou());
-        assertTrue(acesso.rotacoes() > 0);
-        assertEquals(3L, arvore.chaveDaRaiz());
-        assertEquals(1, arvore.acessar(3L).comparacoes(), "O último acesso fica na raiz.");
-
-        assertFalse(arvore.acessar(100L).encontrou());
-        assertEquals(14L, arvore.chaveDaRaiz(), "Na ausência, afunila o último nó visitado.");
-        assertEquals(LongStream.range(0, 15).boxed().toList(), arvore.emOrdem(), "Rotações preservam a ordem.");
-    }
-
-    @Test
-    void insercaoClassicaComZigZigEZigZag() {
-        ArvoreAfunilada<Integer, String> arvore = new ArvoreAfunilada<>();
-        assertTrue(arvore.recentes(5, 3).isEmpty());
-        assertEquals(0, arvore.altura());
-        assertNull(arvore.chaveDaRaiz());
-        int[] chaves = {50, 20, 80, 10, 30, 70, 90, 25, 35, 5};
-        for (int chave : chaves) {
-            arvore.inserir(chave, "v" + chave);
-            assertEquals(chave, arvore.chaveDaRaiz());
-        }
-        assertThrows(IllegalArgumentException.class, () -> arvore.inserir(30, "dup"));
-        List<String> ordem = arvore.emOrdem();
-        assertEquals(List.of("v5", "v10", "v20", "v25", "v30", "v35", "v50", "v70", "v80", "v90"), ordem);
-    }
-
-    @Test
-    void recentesSaoOsAcessadosMaisProximosDaRaiz() {
-        ArvoreAfunilada<Long, Long> arvore = ArvoreAfunilada.deOrdenados(LongStream.range(0, 1_000).boxed().toList(), Function.identity());
-        assertTrue(arvore.recentes(8, 8).isEmpty(), "Nada foi visto ainda.");
-        arvore.acessar(500L);
-        arvore.acessar(10L);
-        arvore.acessar(900L);
-        List<Long> recentes = arvore.recentes(8, 8);
-        assertEquals(900L, recentes.getFirst());
-        assertTrue(recentes.containsAll(List.of(10L, 500L)));
-        assertEquals(List.of(900L), arvore.recentes(1, 8));
-        assertTrue(arvore.recentes(0, 8).isEmpty());
+    void skipListOrdenaPorTextoParaOsPeriodos() {
+        ListaComSaltos<String, String> periodos = new ListaComSaltos<>(1);
+        for (String slug : List.of("romantismo", "barroco", "cubismo")) periodos.inserir(slug, slug);
+        assertEquals(List.of("barroco", "cubismo", "romantismo"), periodos.paraLista());
+        assertEquals("cubismo", periodos.buscar("cubismo").valor());
+        assertNull(periodos.buscar("x").valor());
     }
 
     @Test

@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 public final class SessaoBusca {
-    public static final List<TipoBusca> TIPOS = List.of(TipoBusca.SEQUENCIAL, TipoBusca.TRANSPOSICAO, TipoBusca.MOVER_PARA_INICIO, TipoBusca.BINARIA, TipoBusca.INTERPOLACAO, TipoBusca.LISTA_COM_SALTOS, TipoBusca.FIBONACCI, TipoBusca.DEDILHADA, TipoBusca.ARVORE_AFUNILADA);
+    public static final List<TipoBusca> TIPOS = List.of(TipoBusca.SEQUENCIAL, TipoBusca.TRANSPOSICAO, TipoBusca.MOVER_PARA_INICIO, TipoBusca.BINARIA, TipoBusca.INTERPOLACAO, TipoBusca.LISTA_COM_SALTOS, TipoBusca.FIBONACCI, TipoBusca.DEDILHADA);
     private final CatalogoService catalogo;
     private final MedidorBusca medidor = new MedidorBusca();
     private String periodo;
@@ -27,7 +27,7 @@ public final class SessaoBusca {
     public Comparacao comparar(long id) { return comparar(id, TIPOS); }
     /** Executa só as estratégias pedidas, sempre na ordem de {@link #TIPOS}, e acumula apenas essas. */
     public synchronized Comparacao comparar(long id, Collection<TipoBusca> tipos) {
-        if (tipos.isEmpty() || !TIPOS.containsAll(tipos)) throw new IllegalArgumentException("Escolha ao menos uma das nove buscas exatas.");
+        if (tipos.isEmpty() || !TIPOS.containsAll(tipos)) throw new IllegalArgumentException("Escolha ao menos uma das oito buscas exatas.");
         Obra obra = catalogo.porId(id);
         if (!catalogo.pertence(obra, periodo)) throw new RecursoNaoEncontrado("OBRA_FORA_DO_FILTRO", "A obra não pertence ao período selecionado.");
         List<MedicaoDto> medicoes = new ArrayList<>();
@@ -52,7 +52,6 @@ public final class SessaoBusca {
             case LISTA_COM_SALTOS -> () -> motor.listaComSaltos(id);
             case FIBONACCI -> () -> motor.fibonacci(id);
             case DEDILHADA -> () -> motor.dedilhada(id);
-            case ARVORE_AFUNILADA -> () -> motor.arvoreAfunilada(id);
             default -> throw new IllegalArgumentException("Busca sem chave exata: " + tipo);
         };
     }

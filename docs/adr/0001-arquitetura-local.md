@@ -2,7 +2,7 @@
 
 ## Decisão
 
-Spring Boot serve API JSON e o React estático no mesmo JAR. O CSV é carregado uma vez nas estruturas do próprio projeto: árvore afunilada por ID, Skip Lists indexáveis por ID, código e título (global e por estilo) e árvore afunilada de estilos. Recentes e ranking de mais vistas são globais à aplicação. Cada sessão mantém somente um `MotorDeBuscas`, recriado ao mudar filtro. Imagens permanecem em disco e o caminho servido é sempre o registrado na obra, nunca um caminho vindo da requisição.
+Spring Boot serve API JSON e o React estático no mesmo JAR. O CSV é carregado uma vez nas estruturas do próprio projeto: Skip Lists indexáveis por ID (índice principal), código e título (global e por estilo) e Skip List de estilos. Recentes (lista com movimentação para o início) e ranking de mais vistas (lista com transposição) são globais à aplicação. Cada sessão mantém somente um `MotorDeBuscas`, recriado ao mudar filtro. Imagens permanecem em disco e o caminho servido é sempre o registrado na obra, nunca um caminho vindo da requisição.
 
 ## Consequências
 

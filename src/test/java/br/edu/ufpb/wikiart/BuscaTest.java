@@ -48,10 +48,6 @@ public final class BuscaTest {
         verificarId(motor.interpolacao(30), 30, exercitadas);
         verificarId(motor.listaComSaltos(30), 30, exercitadas);
         verificarId(motor.fibonacci(30), 30, exercitadas);
-        ResultadoBusca splay = motor.arvoreAfunilada(40);
-        verificarId(splay, 40, exercitadas);
-        exigir(splay.reorganizacoes() > 0, "A árvore afunilada deve rotacionar o nó até a raiz.");
-        exigir(motor.arvoreAfunilada(40).comparacoes() == 1, "Logo após o acesso, a obra está na raiz.");
 
         ResultadoBusca secundarias = motor.porArtista("tarsila do amaral");
         exercitadas.add(secundarias.tipo());
@@ -73,8 +69,8 @@ public final class BuscaTest {
         testarAusencias();
         testarListaVazia();
         testarMetricas();
-        exigir(exercitadas.equals(EnumSet.allOf(TipoBusca.class)), "As 15 buscas devem ser exercitadas.");
-        System.out.println("OK — 15 buscas validadas, incluindo ausências e catálogo vazio.");
+        exigir(exercitadas.equals(EnumSet.allOf(TipoBusca.class)), "As 14 buscas devem ser exercitadas.");
+        System.out.println("OK — 14 buscas validadas, incluindo ausências e catálogo vazio.");
     }
 
     private static void testarAusencias() {
@@ -84,7 +80,6 @@ public final class BuscaTest {
         exigir(!motor.interpolacao(999).encontrou(), "Interpolação não deve inventar um ID.");
         exigir(!motor.listaComSaltos(999).encontrou(), "Skip List não deve inventar um ID.");
         exigir(!motor.fibonacci(999).encontrou(), "Fibonacci não deve inventar um ID.");
-        exigir(!motor.arvoreAfunilada(999).encontrou(), "A árvore afunilada não deve inventar um ID.");
         exigir(!motor.teto(999).encontrou(), "Não existe teto acima do maior ID.");
         exigir(!motor.piso(1).encontrou(), "Não existe piso abaixo do menor ID.");
     }
@@ -95,7 +90,6 @@ public final class BuscaTest {
         exigir(!vazio.interpolacao(1).encontrou(), "Interpolação deve aceitar tabela vazia.");
         exigir(!vazio.fibonacci(1).encontrou(), "Fibonacci deve aceitar tabela vazia.");
         exigir(!vazio.listaComSaltos(1).encontrou(), "Skip List deve aceitar tabela vazia.");
-        exigir(!vazio.arvoreAfunilada(1).encontrou(), "Árvore afunilada deve aceitar catálogo vazio.");
         exigir(!vazio.menorChave().encontrou(), "Lista vazia não tem menor chave.");
         exigir(!vazio.maiorChave().encontrou(), "Lista vazia não tem maior chave.");
     }

@@ -3,12 +3,12 @@ import { Pause, Play, RotateCcw, SkipForward } from 'lucide-react'
 import { Link } from '@/components/link'
 import { Button } from '@/components/ui/button-1'
 import { ESTRATEGIAS } from '@/lib/strategies'
-import { HEIGHTS, KEYS, type ListState, MISSING_KEY, type Run, type Step, type Tree, arvoreBalanceada, profundidades, simulate } from '@/lib/search-steps'
+import { HEIGHTS, KEYS, type ListState, MISSING_KEY, type Run, type Step, simulate } from '@/lib/search-steps'
 
 const STEP_MS = 1100
 /** Abas agrupadas por estrutura, na mesma ordem do mapa de estruturas. */
-const GRUPOS = ['lista', 'tabela', 'saltos', 'arvore'] as const
-const ESTRUTURA = { lista: 'Lista encadeada', tabela: 'Tabela ordenada', saltos: 'Lista com saltos', arvore: 'Árvore afunilada' }
+const GRUPOS = ['lista', 'tabela', 'saltos'] as const
+const ESTRUTURA = { lista: 'Lista encadeada', tabela: 'Tabela ordenada', saltos: 'Lista com saltos' }
 const initialLists = (): Record<string, ListState> => Object.fromEntries(ESTRATEGIAS.map(item => [item.tipo, { order: [...KEYS], finger: null }]))
 const vars = (values: Record<string, string | number>) => values as CSSProperties
 
@@ -57,23 +57,6 @@ function SkipStage({ step, target, onPick }: { step?: Step; target: number; onPi
   </div>
 }
 
-/** A rotação preserva a ordem das chaves: cada nó fica na sua coluna e só muda de profundidade. */
-function TreeStage({ tree, step, target, onPick }: { tree: Tree; step?: Step; target: number; onPick: (key: number) => void }) {
-  const depth = profundidades(tree)
-  const rows = Math.max(...depth) + 1
-  const edges = tree.left.flatMap((left, node) => [left, tree.right[node]].filter(child => child >= 0).map(child => [node, child]))
-  return <div className="viz-tree" style={vars({ '--rows': rows })}>
-    <svg className="viz-edges" viewBox={`0 0 ${KEYS.length} ${rows}`} preserveAspectRatio="none" aria-hidden>
-      {edges.map(([from, to]) => <line key={`${from}-${to}`} x1={from + .5} y1={depth[from] + .5} x2={to + .5} y2={depth[to] + .5} />)}
-    </svg>
-    <ol>{KEYS.map((key, index) => <li key={key} className={`viz-node ${mark(step, index)}`} style={vars({ '--x': index, '--y': depth[index] })}>
-      <button type="button" onClick={() => onPick(key)} aria-label={`Procurar ${key}, profundidade ${depth[index]}`} aria-pressed={key === target}>{key}</button>
-    </li>)}</ol>
-  </div>
-}
-
-const mesmaArvore = (a: Tree, b: Tree) => a.root === b.root && a.left.every((item, index) => item === b.left[index]) && a.right.every((item, index) => item === b.right[index])
-
 export function SearchExplainer({ onUse, inicial }: { onUse: (tipo: string) => void; inicial?: string }) {
   const [tipo, setTipo] = useState(() => ESTRATEGIAS.some(item => item.tipo === inicial) ? inicial! : 'BINARIA')
   const [target, setTarget] = useState(KEYS[8])
@@ -87,7 +70,7 @@ export function SearchExplainer({ onUse, inicial }: { onUse: (tipo: string) => v
 
   function finish(current: Run) {
     setPlaying(false)
-    if (current.order || current.finger !== undefined || current.tree) setLists(previous => ({ ...previous, [tipo]: { order: current.order ?? previous[tipo].order, finger: current.finger !== undefined ? current.finger : previous[tipo].finger, tree: current.tree ?? previous[tipo].tree } }))
+    if (current.order || current.finger !== undefined) setLists(previous => ({ ...previous, [tipo]: { order: current.order ?? previous[tipo].order, finger: current.finger !== undefined ? current.finger : previous[tipo].finger } }))
   }
   function advance() {
     if (!run) return
@@ -104,7 +87,6 @@ export function SearchExplainer({ onUse, inicial }: { onUse: (tipo: string) => v
   function choose(next: string) { setTipo(next); stop() }
   function pick(key: number) { setTarget(key); stop() }
   function restoreList() { setLists(previous => ({ ...previous, [tipo]: { order: [...KEYS], finger: null } })); stop() }
-  const tree = step?.tree ?? lists[tipo].tree ?? arvoreBalanceada()
 
   useEffect(() => {
     if (!playing || !run) return
@@ -114,7 +96,7 @@ export function SearchExplainer({ onUse, inicial }: { onUse: (tipo: string) => v
 
   const order = step?.order ?? lists[tipo].order
   const finger = tipo !== 'DEDILHADA' ? null : step ? step.finger ?? null : lists[tipo].finger
-  const changed = lists[tipo].order.some((key, index) => key !== KEYS[index]) || lists[tipo].finger !== null || (!!lists[tipo].tree && !mesmaArvore(lists[tipo].tree!, arvoreBalanceada()))
+  const changed = lists[tipo].order.some((key, index) => key !== KEYS[index]) || lists[tipo].finger !== null
   return <section id="como-funciona" className="content-section" aria-labelledby="explainer-title">
     <div className="section-heading"><h2 id="explainer-title">Como cada busca funciona</h2><p className="section-description">Escolha uma estratégia e uma chave, depois aperte reproduzir. A simulação segue o mesmo código Java da API e conta as comparações do mesmo jeito.</p></div>
     <div className="explainer">
@@ -128,7 +110,7 @@ export function SearchExplainer({ onUse, inicial }: { onUse: (tipo: string) => v
         <div key={tipo} className="explainer-copy">
           <h3>{estrategia.nome}</h3>
           <p>{estrategia.descricao}</p>
-          <ul className="facts"><li>{ESTRUTURA[estrategia.estrutura]}</li><li>Custo {estrategia.custo}</li><li>{estrategia.reorganiza ? estrategia.estrutura === 'arvore' ? 'Reorganiza a árvore' : 'Reorganiza a lista' : 'Não reorganiza'}</li></ul>
+          <ul className="facts"><li>{ESTRUTURA[estrategia.estrutura]}</li><li>Custo {estrategia.custo}</li><li>{estrategia.reorganiza ? 'Reorganiza a lista' : 'Não reorganiza'}</li></ul>
         </div>
         <div className="viz" data-structure={estrategia.estrutura}>
           <div className="viz-top">
@@ -138,7 +120,6 @@ export function SearchExplainer({ onUse, inicial }: { onUse: (tipo: string) => v
           <div className="viz-stage">
             {estrategia.estrutura === 'lista' ? <ListStage order={order} finger={finger} step={step} target={target} onPick={pick} />
               : estrategia.estrutura === 'tabela' ? <TableStage step={step} target={target} onPick={pick} />
-              : estrategia.estrutura === 'arvore' ? <TreeStage tree={tree} step={step} target={target} onPick={pick} />
               : <SkipStage step={step} target={target} onPick={pick} />}
           </div>
           <p className={step?.result ? `viz-note is-${step.result}` : 'viz-note'} aria-live="polite">{step?.note ?? 'Aperte reproduzir para ver cada comparação.'}</p>
@@ -148,7 +129,6 @@ export function SearchExplainer({ onUse, inicial }: { onUse: (tipo: string) => v
             <Button variant="outline" onClick={() => run && !finished ? advance() : start(false)} disabled={playing}><SkipForward />Um passo</Button>
             <Button variant="ghost" onClick={() => pick(MISSING_KEY)}>Procurar chave ausente</Button>
             {estrategia.estrutura === 'lista' && changed && <Button variant="ghost" onClick={restoreList}><RotateCcw />Restaurar lista</Button>}
-            {estrategia.estrutura === 'arvore' && changed && <Button variant="ghost" onClick={restoreList}><RotateCcw />Restaurar árvore</Button>}
             <Button className="viz-use" variant="outline" onClick={() => onUse(tipo)}>Buscar uma obra com esta busca</Button>
           </div>
           {estrategia.reorganiza && <p className="viz-hint">A reorganização fica salva entre execuções: procure a mesma chave de novo e compare o número de comparações.</p>}
