@@ -268,3 +268,11 @@ Os experimentos continuarão separados do uso normal do catálogo. A API `MotorD
 ## Status
 
 O projeto está funcional como aplicação web e CLI. O catálogo global e por período, API paginada, busca por ID/código, sessões isoladas, miniaturas, comparação, resumo, frontend responsivo, empacotamento em JAR único e CI automatizada estão implementados. A CI valida o projeto, mas não realiza deploy. Os contratos e decisões ficam em `docs/specs` e `docs/adr`.
+
+## Imagens no site publicado
+
+O Docker do Render usa uma amostra com 540 obras dos 27 estilos e imagens JPEG
+reduzidas de até 480 pixels, incluídas em `deploy/catalogo`. A execução local
+continua usando o catálogo completo e `data/archive`. Consulte
+[`docs/deploy-vercel.md`](docs/deploy-vercel.md) para gerar a amostra, configurar
+os ambientes e atualizar os deploys.

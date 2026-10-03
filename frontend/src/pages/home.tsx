@@ -1,3 +1,4 @@
+import { imageFallback } from '@/lib/image-fallback'
 import { type FormEvent, useState } from 'react'
 import { Search } from 'lucide-react'
 import type { Destaques, Obra } from '@/api'
@@ -11,7 +12,7 @@ function SalonWall({ obras }: { obras: Obra[] }) {
   const frames = Array.from({ length: 6 }, (_, index) => obras[index])
   return <div className="salon" aria-hidden>
     {frames.map((obra, index) => <figure key={obra?.id ?? `vazio-${index}`} className={`salon-frame f${index}`} style={vars({ '--i': index })}>
-      {obra && <img src={`/api/imagens/${obra.id}/miniatura`} alt="" onError={event => { event.currentTarget.hidden = true }} />}
+      {obra && <img src={`/api/imagens/${obra.id}/miniatura`} alt="" onError={imageFallback} />}
     </figure>)}
   </div>
 }

@@ -1,3 +1,4 @@
+import { imageFallback } from '@/lib/image-fallback'
 import { useState } from 'react'
 import { BarChart3, Maximize2, PlayCircle, Search } from 'lucide-react'
 import type { Comparacao, Medicao, Resumo } from '@/api'
@@ -47,7 +48,7 @@ export function SearchResults({ comparison, onZoom }: { comparison: Comparacao |
   return <section id="resultado" className="content-section" aria-labelledby="comparison-title"><div className="section-heading"><h2 id="comparison-title">Resultado das buscas</h2><p className="section-description">Comparações, reorganizações e tempo de cada busca escolhida, da que precisou de menos comparações para a que precisou de mais.</p></div>
     {!comparison ? <div className="empty-state"><Search /><p>Informe um ID ou código acima e escolha as buscas. O resultado aparece aqui.</p></div> : <div key={comparison.obra.id + ':' + comparison.resumo.estrategias.reduce((total, item) => total + item.buscas, 0)} className="data-panel">
       <div className="result-head">
-        <span className="result-thumb" aria-hidden><img src={`/api/imagens/${comparison.obra.id}/miniatura`} alt="" onError={event => { event.currentTarget.hidden = true }} /></span>
+        <span className="result-thumb" aria-hidden><img src={`/api/imagens/${comparison.obra.id}/miniatura`} alt="" onError={imageFallback} /></span>
         <div><h3>{comparison.obra.titulo}</h3><p>{comparison.obra.artista}, {comparison.obra.estilo}. ID {comparison.obra.id}, código {comparison.obra.codigoAcervo}.</p><p>{plural(rows.length, 'busca executada', 'buscas executadas')} sobre {plural(comparison.resumo.quantidadeObras, 'obra', 'obras')}.</p></div>
         <Button variant="outline" onClick={event => onZoom(comparison.obra, event.currentTarget)}><Maximize2 />Ampliar imagem</Button>
       </div>

@@ -1,3 +1,4 @@
+import { imageFallback } from '@/lib/image-fallback'
 import { useState } from 'react'
 import { Flame, History } from 'lucide-react'
 import type { Destaques, Obra } from '@/api'
@@ -6,7 +7,7 @@ import { plural } from '@/lib/utils'
 
 export function HighlightItem({ obra, badge, onOpen }: { obra: Obra; badge: string; onOpen: AoAbrir }) {
   return <li><button className="highlight-item" onClick={event => onOpen(obra, event.currentTarget)} aria-label={`Abrir ${obra.titulo}, ${badge}`}>
-    <span className="highlight-thumb" aria-hidden><img src={`/api/imagens/${obra.id}/miniatura`} alt="" loading="lazy" onError={event => { event.currentTarget.hidden = true }} /></span>
+    <span className="highlight-thumb" aria-hidden><img src={`/api/imagens/${obra.id}/miniatura`} alt="" loading="lazy" onError={imageFallback} /></span>
     <span className="highlight-text"><strong>{obra.titulo}</strong><small>{obra.artista}, {obra.estilo}</small></span>
     <span className="highlight-badge">{badge}</span>
   </button></li>
