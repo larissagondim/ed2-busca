@@ -18,3 +18,7 @@ frontend/*.d.ts
 .mvn/apache-maven-*/
 .mvn/apache-maven.zip
 .claude/
+
+# Documentos locais de apresentação
+/docs/apresentacao.md
+/docs/relatorio.md

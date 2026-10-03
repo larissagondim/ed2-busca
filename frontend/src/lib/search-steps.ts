@@ -21,15 +21,9 @@ export type Step = {
   /** Posições da lista já comparadas sem sucesso. */
   visited?: number[]
   result?: 'found' | 'missing'
-  /** Forma da árvore afunilada neste passo e rotações feitas até aqui. */
-  tree?: Tree
-  rotations?: number
 }
 
-/** Árvore sobre as posições de KEYS: filhos por índice, -1 indica vazio. */
-export type Tree = { root: number; left: number[]; right: number[] }
-
-export type Run = { steps: Step[]; order?: number[]; finger?: number | null; tree?: Tree }
+export type Run = { steps: Step[]; order?: number[]; finger?: number | null }
 
 export const KEYS = [3, 8, 11, 19, 24, 31, 38, 46, 57, 63, 78, 92]
 /** Altura de cada nó da lista com saltos (fixa para a animação ser reproduzível). */
@@ -172,68 +166,7 @@ export function listaComSaltos(keys: number[], heights: number[], target: number
   return { steps }
 }
 
-/** Igual a ArvoreAfunilada.deOrdenados: o meio de cada intervalo vira a raiz da subárvore. */
-export function arvoreBalanceada(n = KEYS.length): Tree {
-  const left = Array<number>(n).fill(-1), right = Array<number>(n).fill(-1)
-  const build = (low: number, high: number): number => {
-    if (low > high) return -1
-    const mid = (low + high) >>> 1
-    left[mid] = build(low, mid - 1); right[mid] = build(mid + 1, high)
-    return mid
-  }
-  return { root: build(0, n - 1), left, right }
-}
-
-/** Profundidade de cada posição; a raiz tem profundidade 0. */
-export function profundidades(tree: Tree): number[] {
-  const depth = Array<number>(tree.left.length).fill(0)
-  const queue = tree.root >= 0 ? [tree.root] : []
-  for (let head = 0; head < queue.length; head++) {
-    const node = queue[head]
-    for (const child of [tree.left[node], tree.right[node]]) if (child >= 0) { depth[child] = depth[node] + 1; queue.push(child) }
-  }
-  return depth
-}
-
-/** Espelha ArvoreAfunilada.acessar: desce comparando e afunila o nó achado (ou o último visitado). */
-export function arvoreAfunilada(initial: Tree, keys: number[], target: number): Run {
-  const tree: Tree = { root: initial.root, left: [...initial.left], right: [...initial.right] }
-  const parent = Array<number>(keys.length).fill(-1)
-  tree.left.forEach((child, node) => { if (child >= 0) parent[child] = node })
-  tree.right.forEach((child, node) => { if (child >= 0) parent[child] = node })
-  const snapshot = (): Tree => ({ root: tree.root, left: [...tree.left], right: [...tree.right] })
-  const steps: Step[] = []
-  let node = tree.root, last = -1, found = -1, comparisons = 0, rotations = 0
-  while (node >= 0) {
-    comparisons++; last = node
-    const value = keys[node]
-    if (value === target) { found = node; steps.push({ probe: node, comparisons, rotations, tree: snapshot(), note: `${value} = ${target}: encontrada${node === tree.root ? ' já na raiz, sem rotações.' : '. Agora ela sobe até a raiz.'}`, result: 'found' }); break }
-    steps.push({ probe: node, comparisons, rotations, tree: snapshot(), note: `${value} ${relation(value, target)} ${target}: desce para a ${value > target ? 'esquerda' : 'direita'}.` })
-    node = value > target ? tree.left[node] : tree.right[node]
-  }
-  const result = found >= 0 ? 'found' : 'missing'
-  if (found < 0) steps.push({ probe: last, comparisons, rotations, tree: snapshot(), note: `Filho vazio: ${target} não está no catálogo. Como no algoritmo clássico, o último nó visitado (${keys[last]}) sobe até a raiz.`, result })
-  const rotate = (x: number) => {
-    const p = parent[x], g = parent[p]
-    if (tree.left[p] === x) { tree.left[p] = tree.right[x]; if (tree.right[x] >= 0) parent[tree.right[x]] = p; tree.right[x] = p }
-    else { tree.right[p] = tree.left[x]; if (tree.left[x] >= 0) parent[tree.left[x]] = p; tree.left[x] = p }
-    parent[p] = x; parent[x] = g
-    if (g < 0) tree.root = x; else if (tree.left[g] === p) tree.left[g] = x; else tree.right[g] = x
-    rotations++
-  }
-  const x = found >= 0 ? found : last
-  while (parent[x] >= 0) {
-    const p = parent[x], g = parent[p]
-    let move: string
-    if (g < 0) { rotate(x); move = `Zig: ${keys[x]} troca de lugar com o pai ${keys[p]} e vira a raiz` }
-    else if ((tree.left[p] === x) === (tree.left[g] === p)) { rotate(p); rotate(x); move = `Zig-zig: ${keys[x]}, o pai ${keys[p]} e o avô ${keys[g]} estão alinhados; rotaciona primeiro o pai, depois o nó` }
-    else { rotate(x); rotate(x); move = `Zig-zag: ${keys[x]} faz um cotovelo com o pai ${keys[p]} e o avô ${keys[g]}; sobe duas vezes seguidas` }
-    steps.push({ probe: x, comparisons, rotations, tree: snapshot(), note: `${move}. ${rotations} ${rotations === 1 ? 'rotação' : 'rotações'} até agora.`, result })
-  }
-  return { steps, tree: snapshot() }
-}
-
-export type ListState = { order: number[]; finger: number | null; tree?: Tree }
+export type ListState = { order: number[]; finger: number | null }
 
 export function simulate(tipo: string, target: number, state: ListState): Run {
   switch (tipo) {
@@ -244,7 +177,6 @@ export function simulate(tipo: string, target: number, state: ListState): Run {
     case 'BINARIA': return binaria(KEYS, target)
     case 'INTERPOLACAO': return interpolacao(KEYS, target)
     case 'FIBONACCI': return fibonacci(KEYS, target)
-    case 'ARVORE_AFUNILADA': return arvoreAfunilada(state.tree ?? arvoreBalanceada(), KEYS, target)
     default: return listaComSaltos(KEYS, HEIGHTS, target)
   }
 }
@@ -264,7 +196,6 @@ export function simularEm(tipo: string, keys: number[], target: number, state: L
     case 'BINARIA': return binaria(keys, target)
     case 'INTERPOLACAO': return interpolacao(keys, target)
     case 'FIBONACCI': return fibonacci(keys, target)
-    case 'ARVORE_AFUNILADA': return arvoreAfunilada(state.tree ?? arvoreBalanceada(keys.length), keys, target)
     default: return listaComSaltos(keys, alturas(keys.length), target)
   }
 }

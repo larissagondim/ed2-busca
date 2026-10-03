@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, DoorOpen, Gauge, Map as MapIcon, Pause, Play
 import { api, type Comparacao, type Obra, type Periodo } from '@/api'
 import { Button } from '@/components/ui/button-1'
 import { OBRAS_POR_PAREDE, type Sala, agruparPorAla, montarSalas } from '@/lib/museum'
-import { type ListState, type Run, alturas, arvoreBalanceada, profundidades, simularEm } from '@/lib/search-steps'
+import { type ListState, type Run, alturas, simularEm } from '@/lib/search-steps'
 import { ESTRATEGIAS } from '@/lib/strategies'
 
 type Direcao = 'entrada' | 'frente' | 'tras' | 'parede'
@@ -51,7 +51,6 @@ function ParedeDeBusca({ ordem, obras, colunas, run, passo, estado, tipo, alvo, 
   const chaves = useMemo(() => [...ordem].sort((a, b) => a - b), [ordem])
   const exibida = estrutura === 'lista' ? step?.order ?? ordem : chaves
   const torres = estrutura === 'saltos' ? alturas(chaves.length) : null
-  const profundidade = estrutura === 'arvore' ? profundidades(step?.tree ?? estado.tree ?? arvoreBalanceada(chaves.length)) : null
   const dedo = tipo === 'DEDILHADA' ? (step ? step.finger ?? null : estado.finger) : null
   const apagada = (pos: number) => {
     if (!step) return false
@@ -70,7 +69,6 @@ function ParedeDeBusca({ ordem, obras, colunas, run, passo, estado, tipo, alvo, 
           <span className="museum-cell-frame"><img src={`/api/imagens/${id}/miniatura`} alt="" loading="lazy" onError={imageFallback} /></span>
           <span className="museum-cell-id">{id}</span>
           {torres && <span className="museum-tower" aria-hidden>{Array.from({ length: torres[index] }, (_, nivel) => <i key={nivel} className={step?.probe === pos && step.level === nivel ? 'is-active' : undefined} />)}</span>}
-          {profundidade && <span className="museum-depth" aria-hidden>{profundidade[index] === 0 ? 'raiz' : `prof. ${profundidade[index]}`}</span>}
           {dedo === pos && <span className="museum-finger" aria-hidden>dedo</span>}
         </button>
       </li>
@@ -147,7 +145,7 @@ export function Museum({ periodos, onOpen, onMeasured, onBuscar, cabecalho = tru
   // Reprodução automática: um passo por intervalo, como no explicador.
   function finalizar(atual: Run) {
     setTocando(false)
-    if (sala) setEstados(anteriores => { const base = anteriores[sala.slug] ?? { order: chaves, finger: null }; return { ...anteriores, [sala.slug]: { order: atual.order ?? base.order, finger: atual.finger !== undefined ? atual.finger : base.finger, tree: atual.tree ?? base.tree } } })
+    if (sala) setEstados(anteriores => { const base = anteriores[sala.slug] ?? { order: chaves, finger: null }; return { ...anteriores, [sala.slug]: { order: atual.order ?? base.order, finger: atual.finger !== undefined ? atual.finger : base.finger } } })
   }
   function avancar() {
     if (!run) return
@@ -182,7 +180,7 @@ export function Museum({ periodos, onOpen, onMeasured, onBuscar, cabecalho = tru
     } finally { setMedindo(false) }
   }
 
-  const reorganizada = estadoSala.order.some((id, pos) => id !== chaves[pos]) || estadoSala.finger !== null || !!estadoSala.tree
+  const reorganizada = estadoSala.order.some((id, pos) => id !== chaves[pos]) || estadoSala.finger !== null
   const conteudo = erro ? <p className="museum-message" role="alert">{erro}</p>
     : !obras ? <p className="museum-message" role="status">Acendendo as luzes da sala…</p>
     : obras.length === 0 ? <p className="museum-message">Esta sala ainda está vazia.</p>
@@ -234,7 +232,7 @@ export function Museum({ periodos, onOpen, onMeasured, onBuscar, cabecalho = tru
           <Button variant="outline" onClick={() => run && !terminou ? avancar() : iniciar(false)} disabled={alvo === null || tocando}><SkipForward />Um passo</Button>
           {reorganizada && <Button variant="ghost" onClick={restaurar}><RotateCcw />Restaurar sala</Button>}
           {terminou && step?.result === 'found' && <Button className="viz-use" variant="outline" onClick={medir} disabled={medindo}><Gauge />{medindo ? 'Medindo…' : 'Medir no acervo completo'}</Button>}
-          {terminou && step?.result === 'found' && onBuscar && alvo !== null && <Button variant="outline" onClick={() => onBuscar(alvo)}><ScanSearch />Comparar as nove buscas</Button>}
+          {terminou && step?.result === 'found' && onBuscar && alvo !== null && <Button variant="outline" onClick={() => onBuscar(alvo)}><ScanSearch />Comparar as oito buscas</Button>}
         </div>
         {medicao && <p className={medicao.erro ? 'museum-measure is-error' : 'museum-measure'} role={medicao.erro ? 'alert' : 'status'}>{medicao.texto}</p>}
       </div>}

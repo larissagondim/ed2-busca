@@ -1,6 +1,6 @@
 package br.edu.ufpb.wikiart.search;
 
-/** Os 14 tipos levantados no material da disciplina, mais a busca na árvore afunilada. */
+/** Os 14 tipos levantados no material da disciplina. */
 public enum TipoBusca {
     SEQUENCIAL("Busca sequencial simples"),
     TRANSPOSICAO("Busca sequencial com transposição"),
@@ -15,8 +15,7 @@ public enum TipoBusca {
     INTERVALO("Busca de intervalo"),
     DEDILHADA("Busca dedilhada"),
     MENOR_CHAVE("Busca da menor chave"),
-    MAIOR_CHAVE("Busca da maior chave"),
-    ARVORE_AFUNILADA("Busca em árvore afunilada (Splay)");
+    MAIOR_CHAVE("Busca da maior chave");
 
     private final String nome;
 

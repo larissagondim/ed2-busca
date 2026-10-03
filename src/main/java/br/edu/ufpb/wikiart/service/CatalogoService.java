@@ -2,9 +2,9 @@ package br.edu.ufpb.wikiart.service;
 
 import br.edu.ufpb.wikiart.data.LeitorCatalogoCsv;
 import br.edu.ufpb.wikiart.model.Obra;
-import br.edu.ufpb.wikiart.structure.ArvoreAfunilada;
 import br.edu.ufpb.wikiart.structure.ListaComSaltos;
 import br.edu.ufpb.wikiart.structure.ListaMaisVistas;
+import br.edu.ufpb.wikiart.structure.ListaRecentes;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,16 +18,17 @@ import java.util.Locale;
 /**
  * Armazenamento do catálogo inteiramente nas estruturas do projeto:
  * <ul>
- *   <li>{@link ArvoreAfunilada} por ID — índice principal e histórico de "vistas recentemente";</li>
- *   <li>{@link ListaComSaltos} indexável por ID, código e título, global e por período — paginação e busca por código;</li>
- *   <li>{@link ArvoreAfunilada} por slug — os períodos, listados em ordem alfabética pelo percurso em ordem;</li>
+ *   <li>{@link ListaComSaltos} indexável por ID, código e título, global e por período — índice principal, paginação e busca por código;</li>
+ *   <li>{@link ListaComSaltos} por slug — os períodos, listados em ordem alfabética pelo nível 0;</li>
+ *   <li>{@link ListaRecentes} — histórico "vistas recentemente" por movimentação para o início;</li>
  *   <li>{@link ListaMaisVistas} — ranking por transposição.</li>
  * </ul>
  */
 @Service
 public class CatalogoService {
     private static final long SEMENTE = 20260911L;
-    private static final int PROFUNDIDADE_RECENTES = 8;
+    /** Igual ao maior limite aceito pela API. */
+    private static final int CAPACIDADE_RECENTES = 50;
 
     public enum Ordem { ID, CODIGO, TITULO }
 
@@ -69,8 +70,8 @@ public class CatalogoService {
     }
 
     private final Grupo global = new Grupo(null, "Todos os períodos");
-    private final ArvoreAfunilada<String, Grupo> periodos = new ArvoreAfunilada<>();
-    private final ArvoreAfunilada<Long, Obra> porId;
+    private final ListaComSaltos<String, Grupo> periodos = new ListaComSaltos<>(SEMENTE);
+    private final ListaRecentes recentes = new ListaRecentes(CAPACIDADE_RECENTES);
     private final ListaMaisVistas maisVistas = new ListaMaisVistas();
 
     @Autowired
@@ -86,15 +87,13 @@ public class CatalogoService {
                 throw new IllegalArgumentException("Chave duplicada no catálogo: " + duplicada.getMessage(), duplicada);
             }
             String slug = slug(obra.estilo());
-            Grupo grupo = periodos.consultar(slug);
+            Grupo grupo = periodos.buscar(slug).valor();
             if (grupo == null) {
                 grupo = new Grupo(slug, obra.estilo());
                 periodos.inserir(slug, grupo);
             }
             grupo.adicionar(obra);
         }
-        // A Skip List por ID já entrega as obras ordenadas para a carga balanceada.
-        porId = ArvoreAfunilada.deOrdenados(global.porId.paraLista(), Obra::id);
     }
 
     /** Todas as obras do subconjunto, em ordem de ID. */
@@ -111,9 +110,9 @@ public class CatalogoService {
         return grupo(periodo).fatia(ordem, inicio, quantidade);
     }
 
-    /** Leitura interna: não afunila, para não contar como visualização. */
-    public synchronized Obra porId(long id) {
-        Obra obra = porId.consultar(id);
+    /** Leitura interna: não conta como visualização. */
+    public Obra porId(long id) {
+        Obra obra = global.porId.buscar(id).valor();
         if (obra == null) throw new RecursoNaoEncontrado("OBRA_NAO_ENCONTRADA", "Obra inexistente: " + id);
         return obra;
     }
@@ -124,31 +123,31 @@ public class CatalogoService {
         return obra;
     }
 
-    /** O usuário abriu a obra: afunila na árvore (recentes) e transpõe no ranking (mais vistas). */
+    /** O usuário abriu a obra: vai para o início dos recentes e transpõe no ranking (mais vistas). */
     public synchronized Destaques visualizar(long id, int limite) {
-        ArvoreAfunilada.Acesso<Obra> acesso = porId.acessar(id);
-        if (!acesso.encontrou()) throw new RecursoNaoEncontrado("OBRA_NAO_ENCONTRADA", "Obra inexistente: " + id);
-        maisVistas.registrar(acesso.valor());
+        Obra obra = porId(id);
+        recentes.registrar(obra);
+        maisVistas.registrar(obra);
         return destaques(limite);
     }
 
     public synchronized Destaques destaques(int limite) {
         List<Destaque> ranking = maisVistas.primeiros(limite).stream()
                 .map(entrada -> new Destaque(entrada.obra(), entrada.visualizacoes())).toList();
-        return new Destaques(porId.recentes(limite, PROFUNDIDADE_RECENTES), ranking);
+        return new Destaques(recentes.primeiros(limite), ranking);
     }
 
     public boolean pertence(Obra obra, String periodo) { return periodo == null || periodo.isBlank() || slug(obra.estilo()).equals(periodo); }
 
     public List<Periodo> periodos() {
-        return periodos.emOrdem().stream().map(grupo -> new Periodo(grupo.slug, grupo.nome, grupo.porId.tamanho())).toList();
+        return periodos.paraLista().stream().map(grupo -> new Periodo(grupo.slug, grupo.nome, grupo.porId.tamanho())).toList();
     }
 
     public static String slug(String valor) { return Normalizer.normalize(valor, Normalizer.Form.NFD).replaceAll("\\p{M}", "").toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-").replaceAll("(^-|-$)", ""); }
 
     private Grupo grupo(String periodo) {
         if (periodo == null || periodo.isBlank()) return global;
-        Grupo grupo = periodos.consultar(periodo);
+        Grupo grupo = periodos.buscar(periodo).valor();
         if (grupo == null) throw new RecursoNaoEncontrado("PERIODO_NAO_ENCONTRADO", "Período inexistente: " + periodo);
         return grupo;
     }

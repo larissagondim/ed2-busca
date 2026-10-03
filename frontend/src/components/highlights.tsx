@@ -23,12 +23,12 @@ function Lista<T>({ itens, rotulo, render }: { itens: T[]; rotulo: string; rende
   </>
 }
 
-/** As duas funcionalidades que vêm direto das estruturas: o topo da árvore afunilada e a lista com transposição. */
+/** As duas funcionalidades que vêm direto das estruturas: as listas com movimentação para o início e com transposição. */
 export function Highlights({ destaques, onOpen }: { destaques: Destaques | null; onOpen: AoAbrir }) {
   const recentes = destaques?.recentes ?? [], ranking = destaques?.maisVistas ?? []
-  return <section id="destaques" className="content-section" aria-labelledby="highlights-title"><div className="section-heading"><h2 id="highlights-title">Estruturas em uso agora</h2><p className="section-description">Estas duas listas são mantidas pelas estruturas do backend. Toda obra aberta sobe para a raiz da árvore afunilada e ganha uma visualização no ranking por transposição.</p></div>
+  return <section id="destaques" className="content-section" aria-labelledby="highlights-title"><div className="section-heading"><h2 id="highlights-title">Estruturas em uso agora</h2><p className="section-description">Estas duas listas são mantidas pelas estruturas do backend. Toda obra aberta vai para o início da lista de recentes e ganha uma visualização no ranking por transposição.</p></div>
     <div className="highlights">
-      <div className="data-panel"><div className="panel-head"><h3><History aria-hidden />Vistas recentemente</h3><p><span className="structure-tag">Árvore afunilada</span> Quanto mais perto da raiz, mais recente.</p></div>
+      <div className="data-panel"><div className="panel-head"><h3><History aria-hidden />Vistas recentemente</h3><p><span className="structure-tag">Lista encadeada</span> A obra aberta vai para o início; a vista há mais tempo fica no fim.</p></div>
         {recentes.length === 0 ? <p className="panel-note">Nenhuma obra aberta ainda.</p> : <Lista itens={recentes} rotulo="Vistas recentemente" render={(obra, index) => <HighlightItem key={obra.id} obra={obra} badge={index === 0 ? 'mais recente' : `${index + 1}ª`} onOpen={onOpen} />} />}
       </div>
       <div className="data-panel"><div className="panel-head"><h3><Flame aria-hidden />Mais vistas</h3><p><span className="structure-tag">Lista encadeada</span> A obra sobe uma posição quando passa a ter mais visualizações que a anterior.</p></div>

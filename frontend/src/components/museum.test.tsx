@@ -84,7 +84,7 @@ describe('Museum', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Medir no acervo completo' }))
     expect(await screen.findByText(/No acervo completo \(81.444 obras\), a mesma busca fez 17 comparações/)).toBeInTheDocument()
     expect(JSON.parse(fetch.mock.calls[1][1].body)).toEqual({ tipo: 'ID', valor: '15', estrategias: ['BINARIA'] }); expect(onMeasured).toHaveBeenCalledWith(comparacao)
-    await userEvent.click(screen.getByRole('button', { name: 'Comparar as nove buscas' })); expect(onBuscar).toHaveBeenCalledWith(15)
+    await userEvent.click(screen.getByRole('button', { name: 'Comparar as oito buscas' })); expect(onBuscar).toHaveBeenCalledWith(15)
   })
   it('reorganiza a parede com mover para o início e restaura a sala', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValueOnce(pagina([10, 11, 12, 13].map(id => obra(id, 'x')))))

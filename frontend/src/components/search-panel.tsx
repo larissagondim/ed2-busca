@@ -16,7 +16,7 @@ type Props = {
 }
 
 /** Mesma ordem e nomes do mapa de estruturas: os chips mostram onde cada busca roda. */
-const GRUPOS: Array<[Estrutura, string]> = [['lista', 'Lista encadeada'], ['tabela', 'Tabela ordenada'], ['saltos', 'Lista com saltos'], ['arvore', 'Árvore afunilada']]
+const GRUPOS: Array<[Estrutura, string]> = [['lista', 'Lista encadeada'], ['tabela', 'Tabela ordenada'], ['saltos', 'Lista com saltos']]
 
 export function SearchPanel({ periods, period, onPeriod, onReset, type, onType, value, onValue, strategies, onStrategies, comparing, flash, onSubmit, inputRef, submitRef }: Props) {
   const alternar = (tipo: string) => onStrategies(TODAS.filter(item => item === tipo ? !strategies.includes(item) : strategies.includes(item)))

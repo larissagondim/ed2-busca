@@ -29,7 +29,7 @@ export function SearchPage({ panel, error, comparison, summary, periodoResumo, o
 export function StructuresPage({ inicial, onUse }: { inicial?: string; onUse: (tipo: string) => void }) {
   return <>
     <div className="content-section page-intro">
-      <PageHeader titulo="Estruturas de dados">Quatro estruturas sustentam as nove buscas exatas do catálogo. Veja o papel de cada uma e acompanhe as buscas comparação por comparação.</PageHeader>
+      <PageHeader titulo="Estruturas de dados">Três estruturas sustentam as oito buscas exatas do catálogo. Veja o papel de cada uma e acompanhe as buscas comparação por comparação.</PageHeader>
     </div>
     <StructureMap titulo="Onde cada estrutura trabalha" descricao="As fichas abaixo seguem o código do backend: quais buscas cada estrutura atende e o que ela mantém no site." />
     <SearchExplainer key={inicial ?? ''} inicial={inicial} onUse={onUse} />
@@ -40,7 +40,7 @@ type Acervo = { periods: Periodo[]; period: string; onPeriod: (slug: string) => 
 
 export function CollectionPage({ periods, period, onPeriod, loading, error, page, pageNumber, onPage, flipped, onFlip, onZoom, onSearch }: Acervo) {
   return <div id="acervo" className="content-section page-intro catalog-section">
-    <PageHeader titulo="Acervo">Navegue pelas obras por período. Vire uma obra para ver seus dados e use “Buscar esta obra” para compará-la nas nove buscas.</PageHeader>
+    <PageHeader titulo="Acervo">Navegue pelas obras por período. Vire uma obra para ver seus dados e use “Buscar esta obra” para compará-la nas oito buscas.</PageHeader>
     <div className="filters"><label>Período<select value={period} onChange={event => onPeriod(event.target.value)}><option value="">Todos os períodos</option>{periods.map(item => <option key={item.slug} value={item.slug}>{item.nome} ({item.quantidade})</option>)}</select></label>
       {page && <p className="filters-note">{page.totalElementos.toLocaleString('pt-BR')} {page.totalElementos === 1 ? 'obra' : 'obras'}, paginadas pela lista com saltos.</p>}</div>
     <Erro error={error} />

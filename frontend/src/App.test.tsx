@@ -37,7 +37,7 @@ describe('App', () => {
     const fetch = servidor(); abrir('/')
     expect(screen.getByRole('heading', { level: 1, name: 'Encontre uma obra. Compare as buscas.' })).toBeInTheDocument()
     const mapa = screen.getByRole('region', { name: 'O que está por trás de cada busca' })
-    expect(within(mapa).getAllByRole('heading', { level: 3 }).map(item => item.textContent)).toEqual(['Lista encadeada', 'Tabela ordenada', 'Lista com saltos', 'Árvore afunilada'])
+    expect(within(mapa).getAllByRole('heading', { level: 3 }).map(item => item.textContent)).toEqual(['Lista encadeada', 'Tabela ordenada', 'Lista com saltos'])
     await userEvent.type(screen.getByLabelText('ID ou código da obra'), '0'); await userEvent.click(screen.getByRole('button', { name: 'Buscar' }))
     expect(await screen.findByRole('heading', { level: 1, name: 'Buscar uma obra' })).toBeInTheDocument(); expect(window.location.pathname).toBe('/buscar')
     expect(await screen.findByRole('heading', { level: 3, name: 'Obra 232331' })).toBeInTheDocument()
@@ -118,7 +118,7 @@ describe('App', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'Estruturas de dados' })).toBeInTheDocument()
     expect(screen.getByRole('tab', { name: /Fibonacci/ })).toHaveAttribute('aria-selected', 'true')
     await userEvent.click(screen.getByRole('button', { name: 'Buscar uma obra com esta busca' }))
-    expect(window.location.pathname).toBe('/buscar'); expect(screen.getByRole('button', { name: 'Fibonacci' })).toHaveAttribute('aria-pressed', 'true'); expect(screen.getByText('1 de 9')).toBeInTheDocument()
+    expect(window.location.pathname).toBe('/buscar'); expect(screen.getByRole('button', { name: 'Fibonacci' })).toHaveAttribute('aria-pressed', 'true'); expect(screen.getByText('1 de 8')).toBeInTheDocument()
   })
   it('navega pelo menu, marca a página atual e aceita o atalho "/"', async () => {
     servidor(); abrir('/')
@@ -129,7 +129,7 @@ describe('App', () => {
     expect(window.location.pathname).toBe('/buscar'); await waitFor(() => expect(screen.getByLabelText('Busca')).toHaveFocus())
     window.history.back(); await waitFor(() => expect(screen.getByRole('heading', { level: 1, name: 'Museu do acervo' })).toBeInTheDocument())
   })
-  it('o painel de detalhes leva a obra para as nove buscas', async () => {
+  it('o painel de detalhes leva a obra para as oito buscas', async () => {
     const fetch = servidor({ '/api/destaques': () => json({ recentes: [obra], maisVistas: [] }) }); abrir('/')
     await userEvent.click(await screen.findByRole('button', { name: 'Abrir Obra 232331, mais recente' }))
     await userEvent.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Buscar esta obra' }))

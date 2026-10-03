@@ -66,7 +66,7 @@ export function App() {
   // oi
   const nomePeriodo = (slug: string | null) => slug ? periods.find(item => item.slug === slug)?.nome ?? slug : ''
   async function changePeriod(next: string) { setError(''); try { await api.selecionar(next); setPeriod(next); setPageNumber(0); setDetails(null); setComparison(null); setSummary(null) } catch (reason) { setError((reason as Error).message) } }
-  /** Abrir uma obra afunila a árvore e transpõe o ranking no backend. */
+  /** Abrir uma obra a move para o início dos recentes e transpõe o ranking no backend. */
   function registerView(obra: Obra) { api.visualizar(obra.id).then(setDestaques).catch(() => undefined) }
   async function runSearch(pedido: Pedido) {
     setError(''); setComparing(true)

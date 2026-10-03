@@ -8,14 +8,14 @@ import { Button } from '@/components/ui/button-1'
 import { ESTRATEGIAS, type Estrutura } from '@/lib/strategies'
 import { plural, vars } from '@/lib/utils'
 
-const ESTRUTURA = { lista: 'Lista encadeada', tabela: 'Tabela ordenada', saltos: 'Lista com saltos', arvore: 'Árvore afunilada' }
+const ESTRUTURA = { lista: 'Lista encadeada', tabela: 'Tabela ordenada', saltos: 'Lista com saltos' }
 const estruturaDe = (tipo: string) => { const item = ESTRATEGIAS.find(estrategia => estrategia.tipo === tipo); return item ? ESTRUTURA[item.estrutura] : '' }
 
 function Meter({ value, max, best = false }: { value: number; max: number; best?: boolean }) {
   return <span className={best ? 'meter is-best' : 'meter'} aria-hidden><span style={vars({ '--w': max > 0 ? value / max : 0 })} /></span>
 }
 
-const ORDEM: Estrutura[] = ['lista', 'tabela', 'saltos', 'arvore']
+const ORDEM: Estrutura[] = ['lista', 'tabela', 'saltos']
 
 /** Melhor busca de cada estrutura nesta comparação. Barras em escala logarítmica: 1 e 25.000 comparações cabem no mesmo eixo. */
 function PorEstrutura({ medicoes }: { medicoes: Medicao[] }) {
