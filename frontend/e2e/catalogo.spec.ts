@@ -12,7 +12,7 @@ test('busca, estruturas, acervo e museu em páginas próprias, sem overflow', as
   // Início: busca rápida e o mapa das estruturas.
   await page.goto('/')
   await expect(page.getByRole('heading', { name: 'Encontre uma obra. Compare as buscas.' })).toBeVisible()
-  await expect(page.getByRole('region', { name: 'O que está por trás de cada busca' }).getByRole('heading', { level: 3 })).toHaveCount(4)
+  await expect(page.getByRole('region', { name: 'O que está por trás de cada busca' }).getByRole('heading', { level: 3 })).toHaveCount(3)
   await page.getByLabel('ID ou código da obra').fill('B1')
   await page.getByRole('button', { name: 'Buscar', exact: true }).click()
   await expect(page).toHaveURL(/\/buscar$/)

@@ -34,7 +34,7 @@ test('amostra: rotas, imagens, busca, detalhes e placeholder', async ({ page, re
   await expect.poll(async () => page.evaluate(async () => {
     const resumo = await (await fetch('/api/sessao/resumo')).json()
     return resumo.estrategias.map((item: { buscas: number }) => item.buscas)
-  })).toEqual(Array(9).fill(2))
+  })).toEqual(Array(8).fill(2))
   await page.goto('/museu')
   await page.getByRole('button', { name: 'Entrar no museu' }).click()
   await expect.poll(() => page.locator('.museum-frame img').first().evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true)
