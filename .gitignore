@@ -17,3 +17,4 @@ frontend/*.js
 frontend/*.d.ts
 .mvn/apache-maven-*/
 .mvn/apache-maven.zip
+.claude/
