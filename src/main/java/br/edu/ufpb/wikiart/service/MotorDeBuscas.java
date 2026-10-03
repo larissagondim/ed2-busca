@@ -5,6 +5,8 @@ import br.edu.ufpb.wikiart.search.BuscaDedilhada;
 import br.edu.ufpb.wikiart.search.BuscasEncadeadas;
 import br.edu.ufpb.wikiart.search.BuscasOrdenadas;
 import br.edu.ufpb.wikiart.search.ResultadoBusca;
+import br.edu.ufpb.wikiart.search.TipoBusca;
+import br.edu.ufpb.wikiart.structure.ArvoreAfunilada;
 import br.edu.ufpb.wikiart.structure.ListaComSaltos;
 import br.edu.ufpb.wikiart.structure.ListaEncadeadaObras;
 import br.edu.ufpb.wikiart.structure.TabelaOrdenadaObras;
@@ -13,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Fachada usada pela futura CLI e pelos experimentos. Cada heurística mutável
+ * Fachada usada pela CLI, pela API e pelos experimentos. Cada heurística mutável
  * recebe sua própria lista para que uma não contamine o resultado da outra.
  */
 public final class MotorDeBuscas {
@@ -24,7 +26,8 @@ public final class MotorDeBuscas {
     private final ListaEncadeadaObras transposicao;
     private final ListaEncadeadaObras dedilhada;
     private final TabelaOrdenadaObras ordenada;
-    private final ListaComSaltos listaComSaltos;
+    private final ListaComSaltos<Long, Obra> listaComSaltos;
+    private final ArvoreAfunilada<Long, Obra> arvoreAfunilada;
     private final BuscaDedilhada buscaDedilhada = new BuscaDedilhada();
 
     public MotorDeBuscas(Collection<Obra> obras) {
@@ -36,7 +39,11 @@ public final class MotorDeBuscas {
         dedilhada = base.copiar();
         List<Obra> copiaEstavel = base.comoLista();
         ordenada = new TabelaOrdenadaObras(copiaEstavel);
-        listaComSaltos = new ListaComSaltos(copiaEstavel, SEMENTE_SKIP_LIST);
+        listaComSaltos = new ListaComSaltos<>(SEMENTE_SKIP_LIST);
+        for (Obra obra : copiaEstavel) {
+            listaComSaltos.inserir(obra.id(), obra);
+        }
+        arvoreAfunilada = ArvoreAfunilada.deOrdenados(listaComSaltos.paraLista(), Obra::id);
     }
 
     public ResultadoBusca sequencial(long id) {
@@ -60,7 +67,16 @@ public final class MotorDeBuscas {
     }
 
     public ResultadoBusca listaComSaltos(long id) {
-        return listaComSaltos.buscar(id);
+        ListaComSaltos.Busca<Obra> busca = listaComSaltos.buscar(id);
+        return new ResultadoBusca(TipoBusca.LISTA_COM_SALTOS,
+                busca.encontrou() ? List.of(busca.valor()) : List.of(), busca.comparacoes(), 0);
+    }
+
+    /** Cada rotação do afunilamento conta como uma reorganização. */
+    public ResultadoBusca arvoreAfunilada(long id) {
+        ArvoreAfunilada.Acesso<Obra> acesso = arvoreAfunilada.acessar(id);
+        return new ResultadoBusca(TipoBusca.ARVORE_AFUNILADA,
+                acesso.encontrou() ? List.of(acesso.valor()) : List.of(), acesso.comparacoes(), acesso.rotacoes());
     }
 
     public ResultadoBusca fibonacci(long id) {
