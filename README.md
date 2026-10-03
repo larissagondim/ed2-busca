@@ -2,7 +2,7 @@
 
 Projeto de Estrutura de Dados II em **Java 21**, com API Spring Boot, interface React e terminal (CLI), para navegar pelo catálogo local e comparar estratégias de busca.
 
-O catálogo tem **81.444 obras de 27 estilos**, com artista e título, e é armazenado inteiramente em estruturas implementadas pelo grupo: **Árvore Afunilada (Splay)**, **Lista com Saltos indexável** e **listas encadeadas**. Além de navegar e buscar, o usuário vê as obras **vistas recentemente** (topo da árvore afunilada) e as **mais vistas** (lista com transposição). O texto da avaliação, com as estruturas e as modificações nos algoritmos clássicos, está em [`docs/relatorio.md`](docs/relatorio.md), e o roteiro da apresentação e do vídeo em [`docs/apresentacao.md`](docs/apresentacao.md).
+O catálogo tem **81.444 obras de 27 estilos**, com artista e título, e é armazenado inteiramente em estruturas implementadas pelo grupo: **Árvore Afunilada (Splay)**, **Lista com Saltos indexável** e **listas encadeadas**. Além de navegar e buscar, o usuário vê as obras **vistas recentemente** (topo da árvore afunilada) e as **mais vistas** (lista com transposição).
 
 Na CLI, o usuário informa um ID e o programa executa todas as nove estratégias compatíveis com busca exata por chave primária. A tela mostra a obra encontrada, o nome da busca, comparações, reorganizações, tempo decorrido, tempo de CPU, número acumulado de buscas e eficácia. A sessão continua até receber `-1` ou ser interrompida com `Ctrl+C`.
 
