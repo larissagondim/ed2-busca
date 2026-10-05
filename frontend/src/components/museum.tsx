@@ -1,3 +1,4 @@
+import { imageFallback } from '@/lib/image-fallback'
 import { type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, DoorOpen, Gauge, Map as MapIcon, Pause, Play, RefreshCw, RotateCcw, ScanSearch, SkipForward } from 'lucide-react'
 import { api, type Comparacao, type Obra, type Periodo } from '@/api'
@@ -33,7 +34,7 @@ function Peca({ obra, ordem, onOpen }: { obra: Obra; ordem: number; onOpen: AoAb
   return <li className={`museum-piece is-${TAMANHO[ordem]}`} style={vars({ '--i': ordem })}>
     <span className="museum-spot" aria-hidden><i /></span>
     <button className="museum-artwork" onClick={event => onOpen(obra, event.currentTarget)} aria-label={`Ver ${obra.titulo}, de ${obra.artista}`}>
-      <span className="museum-frame"><img className={carregada ? 'is-loaded' : undefined} src={`/api/imagens/${obra.id}/miniatura`} alt="" onLoad={() => setCarregada(true)} onError={event => { event.currentTarget.hidden = true }} /></span>
+      <span className="museum-frame"><img className={carregada ? 'is-loaded' : undefined} src={`/api/imagens/${obra.id}/miniatura`} alt="" onLoad={() => setCarregada(true)} onError={imageFallback} /></span>
       <span className="museum-label" aria-hidden><strong>{obra.titulo}</strong>{obra.artista}</span>
     </button>
   </li>
@@ -65,7 +66,7 @@ function ParedeDeBusca({ ordem, obras, colunas, run, passo, estado, tipo, alvo, 
       const classes = ['museum-cell', apagada(pos) && 'is-off', step?.probe === pos && (step.result === 'found' ? 'is-found' : 'is-probe'), step?.cursor === pos && 'is-cursor', alvo === id && 'is-target'].filter(Boolean).join(' ')
       return <li key={id} className={classes} style={vars({ '--x': pos % colunas, '--y': Math.floor(pos / colunas), '--i': index })}>
         <button onClick={() => onPick(id)} aria-pressed={alvo === id} aria-label={`Procurar ${obra.titulo} (ID ${id}), posição ${pos + 1}`}>
-          <span className="museum-cell-frame"><img src={`/api/imagens/${id}/miniatura`} alt="" loading="lazy" onError={event => { event.currentTarget.hidden = true }} /></span>
+          <span className="museum-cell-frame"><img src={`/api/imagens/${id}/miniatura`} alt="" loading="lazy" onError={imageFallback} /></span>
           <span className="museum-cell-id">{id}</span>
           {torres && <span className="museum-tower" aria-hidden>{Array.from({ length: torres[index] }, (_, nivel) => <i key={nivel} className={step?.probe === pos && step.level === nivel ? 'is-active' : undefined} />)}</span>}
           {dedo === pos && <span className="museum-finger" aria-hidden>dedo</span>}

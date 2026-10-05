@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BookOpen, Landmark, Menu, Moon, Network, Search, Sun, X } from 'lucide-react'
+import { BookOpen, Landmark, Palette, Menu, Moon, Network, Search, Sun, X } from 'lucide-react'
 import { Button } from '@/components/ui/button-1'
 import { Link } from '@/components/link'
 import { useTema } from '@/lib/theme'
@@ -14,6 +14,7 @@ export function SiteHeader() {
       <Link className="nav-search" href="/buscar" onClick={fechar}><Search />Buscar<kbd aria-hidden>/</kbd></Link>
       <Link href="/estruturas" onClick={fechar}><Network />Estruturas</Link>
       <Link href="/acervo" onClick={fechar}><BookOpen />Acervo</Link>
+      <Link href="/artistas" onClick={fechar}><Palette />Artistas</Link>
       <Link href="/museu" onClick={fechar}><Landmark />Museu</Link>
     </nav>
     <div className="header-tools">

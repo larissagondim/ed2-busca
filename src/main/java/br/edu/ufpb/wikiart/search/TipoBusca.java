@@ -1,6 +1,6 @@
 package br.edu.ufpb.wikiart.search;
 
-/** Os 14 tipos levantados no material da disciplina. */
+/** Os 14 tipos levantados no material da disciplina, mais a variante da chave secundária em Árvore AVL. */
 public enum TipoBusca {
     SEQUENCIAL("Busca sequencial simples"),
     TRANSPOSICAO("Busca sequencial com transposição"),
@@ -8,8 +8,9 @@ public enum TipoBusca {
     BINARIA("Busca binária"),
     INTERPOLACAO("Busca por interpolação"),
     LISTA_COM_SALTOS("Busca em lista com saltos (Skip List)"),
-    FIBONACCI("Busca de Fibonacci"),
+    ARVORE_AVL("Busca em árvore AVL"),
     CHAVE_SECUNDARIA("Busca com chave secundária"),
+    CHAVE_SECUNDARIA_AVL("Busca com chave secundária (Árvore AVL)"),
     PISO("Busca de piso"),
     TETO("Busca de teto"),
     INTERVALO("Busca de intervalo"),

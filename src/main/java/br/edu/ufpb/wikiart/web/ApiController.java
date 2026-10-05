@@ -3,6 +3,7 @@ package br.edu.ufpb.wikiart.web;
 import br.edu.ufpb.wikiart.model.Obra;
 import br.edu.ufpb.wikiart.search.TipoBusca;
 import br.edu.ufpb.wikiart.service.*;
+import br.edu.ufpb.wikiart.structure.ArvoreAvlArtistas;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -22,14 +23,24 @@ public class ApiController {
     @GetMapping("/periodos") public List<CatalogoService.Periodo> periodos() { return catalogo.periodos(); }
 
     @GetMapping("/obras") public Pagina<Obra> obras(@RequestParam(required=false) String periodo, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="24") int size, @RequestParam(defaultValue="id") String ordem) {
-        if (page < 0) throw new EntradaInvalida("PAGINA_INVALIDA", "A página não pode ser negativa.", "page");
-        if (size < 1 || size > 100) throw new EntradaInvalida("TAMANHO_INVALIDO", "O tamanho deve estar entre 1 e 100.", "size");
+        validarPagina(page, size);
         CatalogoService.Ordem criterio = switch (ordem) { case "id" -> CatalogoService.Ordem.ID; case "codigo" -> CatalogoService.Ordem.CODIGO; case "titulo" -> CatalogoService.Ordem.TITULO; default -> throw new EntradaInvalida("ORDEM_INVALIDA", "Ordenação desconhecida.", "ordem"); };
         int total = catalogo.quantidade(periodo);
         long inicio = (long) page * size;
         List<Obra> conteudo = inicio >= total ? List.of() : catalogo.fatia(periodo, criterio, (int) inicio, size);
         return new Pagina<>(conteudo, page, size, total, (total + size - 1) / size);
     }
+
+    @GetMapping("/artistas") public Pagina<ArvoreAvlArtistas.Artista> artistas(@RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="24") int size) {
+        validarPagina(page, size);
+        CatalogoService.PaginaArtistas p = catalogo.artistas(page, size);
+        return new Pagina<>(p.conteudo(), p.pagina(), p.tamanho(), p.totalElementos(), p.totalPaginas());
+    }
+    @GetMapping("/artistas/{nome}/obras") public CatalogoService.ObrasDoArtista obrasDoArtista(@PathVariable String nome, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="24") int size) {
+        validarPagina(page, size);
+        return catalogo.obrasDoArtista(nome, page, size);
+    }
+    @GetMapping("/estruturas") public CatalogoService.Estruturas estruturas() { return catalogo.estruturas(); }
 
     @GetMapping("/obras/{id}") public Obra obra(@PathVariable long id, HttpSession http) { return validarFiltro(catalogo.porId(id), sessao(http)); }
     @GetMapping("/obras/codigo/{codigo}") public Obra codigo(@PathVariable String codigo, HttpSession http) { return validarFiltro(catalogo.porCodigo(codigo), sessao(http)); }
@@ -45,7 +56,7 @@ public class ApiController {
     @GetMapping("/destaques") public CatalogoService.Destaques destaques(@RequestParam(defaultValue="8") int limite) { return catalogo.destaques(validarLimite(limite)); }
     @PostMapping("/buscas/consulta") public SessaoBusca.Consulta consultar(@Valid @RequestBody ConsultaRequest req, HttpSession http) {
         if (!SessaoBusca.CONSULTAS.contains(req.tipo())) throw new EntradaInvalida("CONSULTA_INVALIDA", "Consulta desconhecida.", "tipo");
-        if (req.tipo() == TipoBusca.CHAVE_SECUNDARIA && (req.artista() == null || req.artista().isBlank())) throw new EntradaInvalida("ARTISTA_INVALIDO", "Informe o nome do artista.", "artista");
+        if ((req.tipo() == TipoBusca.CHAVE_SECUNDARIA || req.tipo() == TipoBusca.CHAVE_SECUNDARIA_AVL) && (req.artista() == null || req.artista().isBlank())) throw new EntradaInvalida("ARTISTA_INVALIDO", "Informe o nome do artista.", "artista");
         boolean usaInicio = req.tipo() == TipoBusca.PISO || req.tipo() == TipoBusca.TETO || req.tipo() == TipoBusca.INTERVALO;
         if (usaInicio && (req.inicio() == null || req.inicio() < 0)) throw new EntradaInvalida("ID_INVALIDO", "O ID deve ser um inteiro não negativo.", "inicio");
         if (req.tipo() == TipoBusca.INTERVALO && (req.fim() == null || req.fim() < req.inicio())) throw new EntradaInvalida("INTERVALO_INVALIDO", "O fim do intervalo deve ser maior ou igual ao início.", "fim");
@@ -54,6 +65,10 @@ public class ApiController {
     @GetMapping("/sessao/resumo") public SessaoBusca.Resumo resumo(HttpSession http) { return sessao(http).resumo(); }
     @DeleteMapping("/sessao") @ResponseStatus(HttpStatus.NO_CONTENT) public void apagar(HttpSession http) { http.invalidate(); }
 
+    private static void validarPagina(int page, int size) {
+        if (page < 0) throw new EntradaInvalida("PAGINA_INVALIDA", "A página não pode ser negativa.", "page");
+        if (size < 1 || size > 100) throw new EntradaInvalida("TAMANHO_INVALIDO", "O tamanho deve estar entre 1 e 100.", "size");
+    }
     private static int validarLimite(int limite) { if (limite < 1 || limite > 50) throw new EntradaInvalida("LIMITE_INVALIDO", "O limite deve estar entre 1 e 50.", "limite"); return limite; }
     private Obra validarFiltro(Obra obra, SessaoBusca sessao) { if (!catalogo.pertence(obra, sessao.periodo())) throw new RecursoNaoEncontrado("OBRA_FORA_DO_FILTRO", "A obra não pertence ao período selecionado."); return obra; }
     private SessaoBusca sessao(HttpSession http) { synchronized (http) { Object atual = http.getAttribute(CHAVE_SESSAO); if (atual instanceof SessaoBusca s) return s; SessaoBusca criada = new SessaoBusca(catalogo); http.setAttribute(CHAVE_SESSAO, criada); return criada; } }

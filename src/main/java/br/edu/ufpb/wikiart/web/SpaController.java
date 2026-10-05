@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class SpaController {
-    @GetMapping(value = {"/", "/buscar", "/estruturas", "/acervo", "/museu", "/sobre", "/catalogo", "/resumo"}) public String pagina() { return "forward:/index.html"; }
+    @GetMapping(value = {"/", "/buscar", "/estruturas", "/acervo", "/artistas", "/museu", "/sobre", "/catalogo", "/resumo"}) public String pagina() { return "forward:/index.html"; }
 }

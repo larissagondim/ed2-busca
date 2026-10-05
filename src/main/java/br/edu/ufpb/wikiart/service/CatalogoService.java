@@ -2,6 +2,8 @@ package br.edu.ufpb.wikiart.service;
 
 import br.edu.ufpb.wikiart.data.LeitorCatalogoCsv;
 import br.edu.ufpb.wikiart.model.Obra;
+import br.edu.ufpb.wikiart.structure.ArvoreAvlArtistas;
+import br.edu.ufpb.wikiart.structure.ArvoreBuscaBinariaArtistas;
 import br.edu.ufpb.wikiart.structure.ListaComSaltos;
 import br.edu.ufpb.wikiart.structure.ListaMaisVistas;
 import br.edu.ufpb.wikiart.structure.ListaRecentes;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,7 +24,9 @@ import java.util.Locale;
  *   <li>{@link ListaComSaltos} indexável por ID, código e título, global e por período — índice principal, paginação e busca por código;</li>
  *   <li>{@link ListaComSaltos} por slug — os períodos, listados em ordem alfabética pelo nível 0;</li>
  *   <li>{@link ListaRecentes} — histórico "vistas recentemente" por movimentação para o início;</li>
- *   <li>{@link ListaMaisVistas} — ranking por transposição.</li>
+ *   <li>{@link ListaMaisVistas} — ranking por transposição;</li>
+ *   <li>{@link ArvoreAvlArtistas} — estrutura hierárquica: índice dos artistas em ordem alfabética, com estatística de ordem e visualizações agregadas;</li>
+ *   <li>{@link ArvoreBuscaBinariaArtistas} — ABB sem balanceamento, construída só para comparar alturas e comparações com a AVL.</li>
  * </ul>
  */
 @Service
@@ -73,6 +78,9 @@ public class CatalogoService {
     private final ListaComSaltos<String, Grupo> periodos = new ListaComSaltos<>(SEMENTE);
     private final ListaRecentes recentes = new ListaRecentes(CAPACIDADE_RECENTES);
     private final ListaMaisVistas maisVistas = new ListaMaisVistas();
+    private final ArvoreAvlArtistas artistas = new ArvoreAvlArtistas();
+    /** Não é usada pela aplicação: existe só para as métricas AVL x ABB. */
+    private final ArvoreBuscaBinariaArtistas arvoreSemBalanceamento = new ArvoreBuscaBinariaArtistas();
 
     @Autowired
     public CatalogoService(@Value("${wikiart.catalogo:data/classes.csv}") String csv) throws IOException {
@@ -93,6 +101,9 @@ public class CatalogoService {
                 periodos.inserir(slug, grupo);
             }
             grupo.adicionar(obra);
+            // Mesma ordem de inserção nas duas árvores, para a comparação ser justa.
+            artistas.inserir(obra);
+            arvoreSemBalanceamento.inserir(obra);
         }
     }
 
@@ -128,13 +139,65 @@ public class CatalogoService {
         Obra obra = porId(id);
         recentes.registrar(obra);
         maisVistas.registrar(obra);
+        artistas.registrarVisualizacao(obra); // busca O(log n) na AVL + incremento do artista
         return destaques(limite);
     }
 
     public synchronized Destaques destaques(int limite) {
         List<Destaque> ranking = maisVistas.primeiros(limite).stream()
                 .map(entrada -> new Destaque(entrada.obra(), entrada.visualizacoes())).toList();
-        return new Destaques(recentes.primeiros(limite), ranking);
+        return new Destaques(recentes.primeiros(limite), ranking, artistasVistos());
+    }
+
+    /** Artistas com ao menos uma visualização, em ordem alfabética (percurso da AVL); quem ranqueia é o chamador. */
+    private List<ArvoreAvlArtistas.Artista> artistasVistos() {
+        List<ArvoreAvlArtistas.Artista> vistos = new ArrayList<>();
+        for (ArvoreAvlArtistas.Artista artista : artistas.emOrdem()) {
+            if (artista.visualizacoes() > 0) vistos.add(artista);
+        }
+        return vistos;
+    }
+
+    /** Página de artistas em ordem alfabética: desce pelos tamanhos das subárvores da AVL até o início da página. */
+    public synchronized PaginaArtistas artistas(int pagina, int tamanho) {
+        int total = artistas.tamanho();
+        long inicio = (long) pagina * tamanho;
+        List<ArvoreAvlArtistas.Artista> conteudo = inicio >= total ? List.of() : artistas.fatia((int) inicio, tamanho);
+        return new PaginaArtistas(conteudo, pagina, tamanho, total, (total + tamanho - 1) / tamanho);
+    }
+
+    /** Obras do artista (busca insensível a acentos e maiúsculas), com as comparações e a profundidade do nó na AVL. */
+    public synchronized ObrasDoArtista obrasDoArtista(String nome, int pagina, int tamanho) {
+        ArvoreAvlArtistas.Busca busca = artistas.buscar(nome);
+        if (!busca.encontrou()) throw new RecursoNaoEncontrado("ARTISTA_NAO_ENCONTRADO", "Artista inexistente: " + nome);
+        List<Obra> todas = busca.obras();
+        long inicio = (long) pagina * tamanho;
+        List<Obra> conteudo = inicio >= todas.size() ? List.of() : todas.subList((int) inicio, (int) Math.min(todas.size(), inicio + tamanho));
+        return new ObrasDoArtista(busca.artista(), conteudo, pagina, tamanho, todas.size(), (todas.size() + tamanho - 1) / tamanho, busca.comparacoes(), busca.profundidade());
+    }
+
+    /** AVL x ABB com os dados reais: alturas, rotações e comparações médias de busca sobre todos os artistas. */
+    public synchronized MetricasArvores metricasArvores() {
+        int n = artistas.tamanho();
+        long soma = 0;
+        for (ArvoreAvlArtistas.Artista artista : artistas.emOrdem()) {
+            soma += artistas.buscar(artista.nome()).comparacoes();
+        }
+        double mediaAvl = n == 0 ? 0 : (double) soma / n;
+        // Menor altura possível para n nós, em níveis: piso(log2 n) + 1.
+        int alturaMinima = n == 0 ? 0 : (31 - Integer.numberOfLeadingZeros(n)) + 1;
+        return new MetricasArvores(n, artistas.altura(), arvoreSemBalanceamento.altura(), alturaMinima,
+                artistas.rotacoes(), mediaAvl, arvoreSemBalanceamento.mediaDeBusca().comparacoesMedias(), global.porId.tamanho());
+    }
+
+    /** Métricas de todas as estruturas para a tela "Estruturas por dentro". */
+    public synchronized Estruturas estruturas() {
+        List<SkipListInfo> skipLists = List.of(
+                new SkipListInfo("Por ID (global)", global.porId.tamanho(), global.porId.niveis()),
+                new SkipListInfo("Por código (global)", global.porCodigo.tamanho(), global.porCodigo.niveis()),
+                new SkipListInfo("Por título (global)", global.porTitulo.tamanho(), global.porTitulo.niveis()),
+                new SkipListInfo("Períodos", periodos.tamanho(), periodos.niveis()));
+        return new Estruturas(skipLists, recentes.tamanho(), CAPACIDADE_RECENTES, maisVistas.tamanho(), metricasArvores());
     }
 
     public boolean pertence(Obra obra, String periodo) { return periodo == null || periodo.isBlank() || slug(obra.estilo()).equals(periodo); }
@@ -154,5 +217,11 @@ public class CatalogoService {
 
     public record Periodo(String slug, String nome, int quantidade) {}
     public record Destaque(Obra obra, long visualizacoes) {}
-    public record Destaques(List<Obra> recentes, List<Destaque> maisVistas) {}
+    public record Destaques(List<Obra> recentes, List<Destaque> maisVistas, List<ArvoreAvlArtistas.Artista> artistasVistos) {}
+    public record PaginaArtistas(List<ArvoreAvlArtistas.Artista> conteudo, int pagina, int tamanho, long totalElementos, int totalPaginas) {}
+    public record ObrasDoArtista(ArvoreAvlArtistas.Artista artista, List<Obra> conteudo, int pagina, int tamanho, long totalElementos, int totalPaginas, long comparacoes, int profundidade) {}
+    public record MetricasArvores(int artistas, int alturaAvl, int alturaAbb, int alturaMinimaTeorica, ArvoreAvlArtistas.Rotacoes rotacoes,
+                                  double comparacoesMediasAvl, double comparacoesMediasAbb, int obras) {}
+    public record SkipListInfo(String nome, int tamanho, int niveis) {}
+    public record Estruturas(List<SkipListInfo> skipLists, int recentes, int capacidadeRecentes, int maisVistas, MetricasArvores arvores) {}
 }

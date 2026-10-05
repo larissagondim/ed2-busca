@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button-1'
 import { CONSULTAS } from '@/lib/strategies'
 import { plural } from '@/lib/utils'
 
-const ESTRUTURA = { lista: 'Lista encadeada', tabela: 'Tabela ordenada', saltos: 'Lista com saltos' }
+const ESTRUTURA = { lista: 'Lista encadeada', tabela: 'Tabela ordenada', saltos: 'Lista com saltos', arvore: 'Árvore AVL' }
 
 /** As seis consultas do projeto que não procuram uma chave exata e por isso ficam fora da comparação. */
 export function OtherQueries({ onOpen }: { onOpen: AoAbrir }) {
@@ -25,7 +25,7 @@ export function OtherQueries({ onOpen }: { onOpen: AoAbrir }) {
     <div className="section-heading"><h2 id="queries-title">Outras consultas</h2><p className="section-description">Seis consultas do projeto que não procuram uma chave exata: devolvem um vizinho, um extremo ou várias obras. Ficam fora da comparação porque respondem a perguntas diferentes.</p></div>
     <form className="data-panel queries-panel" onSubmit={enviar}>
       <div className="queries-types" role="radiogroup" aria-label="Consulta">{CONSULTAS.map(item => <button key={item.tipo} type="button" role="radio" aria-checked={item.tipo === tipo} className="chip" onClick={() => escolher(item.tipo)}>{item.curto}</button>)}</div>
-      <p className="queries-desc"><span className="structure-tag">{ESTRUTURA[consulta.estrutura]}</span>{consulta.descricao}</p>
+      <p className="queries-desc"><span className="structure-tag">{ESTRUTURA[consulta.estrutura]}</span>{consulta.entrada === 'artista' && <span className="structure-tag">Árvore AVL</span>}{consulta.descricao}</p>
       <div className="queries-fields">
         {consulta.entrada === 'artista' && <label className="search-field">Artista<input value={artista} onChange={event => setArtista(event.target.value)} required placeholder="Ex.: Claude Monet" /></label>}
         {consulta.entrada === 'id' && <label>ID<input value={inicio} onChange={event => setInicio(event.target.value)} required inputMode="numeric" pattern="[0-9]+" placeholder="Ex.: 67" /></label>}
@@ -37,6 +37,11 @@ export function OtherQueries({ onOpen }: { onOpen: AoAbrir }) {
     {erro && <div className="error-message" role="alert">{erro}</div>}
     {resultado && <div className="data-panel queries-result" aria-live="polite">
       <div className="panel-head"><h3>{resultado.nome}</h3><p>{plural(resultado.total, 'obra encontrada', 'obras encontradas')} com {plural(resultado.comparacoes, 'comparação', 'comparações')}{resultado.total > resultado.obras.length ? `. Mostrando as ${resultado.obras.length} primeiras` : ''}.</p></div>
+      {resultado.comparativo && <div className="compare-sides" role="group" aria-label="Busca sequencial contra Árvore AVL">
+        <div className="compare-side"><span className="structure-tag">Lista encadeada</span><strong className="compare-number">{resultado.comparativo.comparacoesSequencial.toLocaleString('pt-BR')}</strong><span>comparações na busca sequencial</span></div>
+        <div className="compare-side is-best"><span className="structure-tag">Árvore AVL</span><strong className="compare-number">{resultado.comparativo.comparacoesAvl.toLocaleString('pt-BR')}</strong><span>comparações na busca pela AVL</span></div>
+        <p className="compare-note">{resultado.comparativo.mesmoResultado ? 'As duas devolvem exatamente as mesmas obras.' : 'Atenção: as duas abordagens devolveram obras diferentes.'}</p>
+      </div>}
       {resultado.obras.length === 0 ? <p className="panel-note">Nenhuma obra atende a esta consulta no período da sessão.</p>
         : <ol className="highlight-list queries-list" aria-label={`Resultado: ${resultado.nome}`}>{resultado.obras.map(obra => <HighlightItem key={obra.id} obra={obra} badge={`ID ${obra.id}`} onOpen={onOpen} />)}</ol>}
     </div>}

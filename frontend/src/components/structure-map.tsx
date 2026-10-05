@@ -9,6 +9,7 @@ const ESTRUTURAS: Ficha[] = [
   { id: 'lista', nome: 'Lista encadeada', resumo: 'Nós ligados em sequência: para chegar a um, é preciso passar por todos os anteriores.', noSite: 'Mantém as obras “Vistas recentemente”, por movimentação para o início, e o ranking “Mais vistas”, por transposição.', onde: { href: '/#destaques', rotulo: 'Ver as listas' } },
   { id: 'tabela', nome: 'Tabela ordenada', resumo: 'Vetor ordenado por ID, com acesso direto a qualquer posição.', noSite: 'Sustenta as buscas que dividem o intervalo a cada comparação.', onde: { href: '/buscar', rotulo: 'Comparar na busca' } },
   { id: 'saltos', nome: 'Lista com saltos', resumo: 'Lista ordenada com níveis expressos por cima, para pular trechos inteiros.', noSite: 'É o índice por ID e indexa o catálogo também por código e título: pagina o acervo, converte código em ID e lista os períodos em ordem.', onde: { href: '/acervo', rotulo: 'Abrir o acervo' } },
+  { id: 'arvore', nome: 'Árvore AVL', resumo: 'Árvore binária de busca que se rebalanceia por rotações: a altura fica perto de log₂ n mesmo com chaves inseridas em ordem.', noSite: 'É a estrutura hierárquica do projeto: indexa as obras por ID (uma das oito buscas) e os artistas em ordem alfabética, com visualizações somadas por artista.', onde: { href: '/artistas', rotulo: 'Ver os artistas' } },
 ]
 
 function Diagrama({ id }: { id: Estrutura }) {
@@ -20,13 +21,18 @@ function Diagrama({ id }: { id: Estrutura }) {
     {Array.from({ length: 8 }, (_, n) => <rect key={n} x={4 + n * 24} y={22} width={24} height={22} />)}
     <rect className="probe probe-tabela" x={4} y={22} width={24} height={22} />
   </svg>
+  if (id === 'arvore') return <svg viewBox="0 0 200 64" className="mini-diagram" aria-hidden>
+    <path className="lane" d="M100 14L60 34M100 14L140 34M60 34L40 54M60 34L80 54M140 34L120 54M140 34L160 54" />
+    {[[100, 14], [60, 34], [140, 34], [40, 54], [80, 54], [120, 54], [160, 54]].map(([x, y]) => <rect key={`${x}-${y}`} x={x - 9} y={y - 7} width={18} height={14} rx={4} />)}
+    <circle className="probe probe-saltos" cx={100} cy={14} r={4} />
+  </svg>
   return <svg viewBox="0 0 200 64" className="mini-diagram" aria-hidden>
     {[0, 1, 2].map(nivel => <g key={nivel}><path d={`M8 ${12 + nivel * 20}H192`} className="lane" />{Array.from({ length: 8 }, (_, n) => n % (4 >> nivel) === 0 && <rect key={n} x={8 + n * 23} y={6 + nivel * 20} width={14} height={12} rx={3} />)}</g>)}
     <circle className="probe probe-saltos" cx={15} cy={12} r={4} />
   </svg>
 }
 
-export function StructureMap({ titulo = 'As três estruturas', descricao, nivel = 2 }: { titulo?: string; descricao: string; nivel?: 2 | 3 }) {
+export function StructureMap({ titulo = 'As quatro estruturas', descricao, nivel = 2 }: { titulo?: string; descricao: string; nivel?: 2 | 3 }) {
   const Titulo = nivel === 2 ? 'h2' : 'h3'
   return <section id="estruturas-mapa" className="content-section" aria-labelledby="structures-title">
     <div className="section-heading"><Titulo id="structures-title">{titulo}</Titulo><p className="section-description">{descricao}</p></div>

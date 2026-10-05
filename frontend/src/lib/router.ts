@@ -1,12 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-export type Rota = '/' | '/buscar' | '/estruturas' | '/acervo' | '/museu' | '/sobre'
+export type Rota = '/' | '/buscar' | '/estruturas' | '/acervo' | '/artistas' | '/museu' | '/sobre'
 
-const ROTAS: Rota[] = ['/', '/buscar', '/estruturas', '/acervo', '/museu', '/sobre']
+const ROTAS: Rota[] = ['/', '/buscar', '/estruturas', '/acervo', '/artistas', '/museu', '/sobre']
 /** Endereços antigos (página única) continuam funcionando. */
 const ANTIGAS: Record<string, Rota> = { '/catalogo': '/acervo', '/resumo': '/buscar' }
 
-export const TITULOS: Record<Rota, string> = { '/': 'Catálogo WikiArt', '/buscar': 'Buscar uma obra', '/estruturas': 'Estruturas de dados', '/acervo': 'Acervo', '/museu': 'Museu do acervo', '/sobre': 'Sobre o projeto' }
+export const TITULOS: Record<Rota, string> = { '/': 'Catálogo WikiArt', '/buscar': 'Buscar uma obra', '/estruturas': 'Estruturas de dados', '/acervo': 'Acervo', '/artistas': 'Artistas', '/museu': 'Museu do acervo', '/sobre': 'Sobre o projeto' }
 
 export function resolver(caminho: string): Rota {
   const limpo = caminho.replace(/\/+$/, '') || '/'

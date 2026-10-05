@@ -47,11 +47,14 @@ public final class BuscaTest {
         verificarId(motor.binaria(30), 30, exercitadas);
         verificarId(motor.interpolacao(30), 30, exercitadas);
         verificarId(motor.listaComSaltos(30), 30, exercitadas);
-        verificarId(motor.fibonacci(30), 30, exercitadas);
+        verificarId(motor.arvoreAvl(30), 30, exercitadas);
 
         ResultadoBusca secundarias = motor.porArtista("tarsila do amaral");
         exercitadas.add(secundarias.tipo());
         exigir(secundarias.obras().size() == 2, "A chave secundária deve retornar todos os casamentos.");
+        ResultadoBusca porArvore = motor.porArtistaAvl("Tarsila do Amaral");
+        exercitadas.add(porArvore.tipo());
+        exigir(porArvore.obras().equals(secundarias.obras()), "A AVL deve devolver as mesmas obras da busca sequencial.");
 
         verificarId(motor.piso(25), 20, exercitadas);
         verificarId(motor.teto(25), 30, exercitadas);
@@ -69,8 +72,8 @@ public final class BuscaTest {
         testarAusencias();
         testarListaVazia();
         testarMetricas();
-        exigir(exercitadas.equals(EnumSet.allOf(TipoBusca.class)), "As 14 buscas devem ser exercitadas.");
-        System.out.println("OK — 14 buscas validadas, incluindo ausências e catálogo vazio.");
+        exigir(exercitadas.equals(EnumSet.allOf(TipoBusca.class)), "As 14 buscas (e a variante em AVL) devem ser exercitadas.");
+        System.out.println("OK — 14 buscas (e a chave secundária em AVL) validadas, incluindo ausências e catálogo vazio.");
     }
 
     private static void testarAusencias() {
@@ -79,7 +82,7 @@ public final class BuscaTest {
         exigir(!motor.binaria(999).encontrou(), "Binária não deve inventar um ID.");
         exigir(!motor.interpolacao(999).encontrou(), "Interpolação não deve inventar um ID.");
         exigir(!motor.listaComSaltos(999).encontrou(), "Skip List não deve inventar um ID.");
-        exigir(!motor.fibonacci(999).encontrou(), "Fibonacci não deve inventar um ID.");
+        exigir(!motor.arvoreAvl(999).encontrou(), "A AVL não deve inventar um ID.");
         exigir(!motor.teto(999).encontrou(), "Não existe teto acima do maior ID.");
         exigir(!motor.piso(1).encontrou(), "Não existe piso abaixo do menor ID.");
     }
@@ -88,7 +91,7 @@ public final class BuscaTest {
         MotorDeBuscas vazio = new MotorDeBuscas(List.of());
         exigir(!vazio.sequencial(1).encontrou(), "Lista vazia deve produzir resultado vazio.");
         exigir(!vazio.interpolacao(1).encontrou(), "Interpolação deve aceitar tabela vazia.");
-        exigir(!vazio.fibonacci(1).encontrou(), "Fibonacci deve aceitar tabela vazia.");
+        exigir(!vazio.arvoreAvl(1).encontrou(), "A AVL deve aceitar catálogo vazio.");
         exigir(!vazio.listaComSaltos(1).encontrou(), "Skip List deve aceitar tabela vazia.");
         exigir(!vazio.menorChave().encontrou(), "Lista vazia não tem menor chave.");
         exigir(!vazio.maiorChave().encontrou(), "Lista vazia não tem maior chave.");

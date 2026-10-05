@@ -18,7 +18,8 @@ export function AboutPage() {
         <ul className="about-list">
           <li><strong>Lista com saltos</strong> é o índice por ID, indexa o catálogo também por código e título, pagina o acervo e organiza os períodos.</li>
           <li><strong>Lista encadeada</strong> sustenta as buscas sequenciais, as obras vistas recentemente e o ranking de mais vistas.</li>
-          <li><strong>Tabela ordenada</strong> dá acesso direto por posição às buscas binária, por interpolação e de Fibonacci.</li>
+          <li><strong>Árvore AVL</strong> é a estrutura hierárquica: uma indexa as obras por ID (a nona busca da comparação) e outra indexa os artistas em ordem alfabética, paginando a lista de artistas e somando as visualizações de cada um.</li>
+          <li><strong>Tabela ordenada</strong> dá acesso direto por posição às buscas binária e por interpolação.</li>
         </ul>
         <p><Link href="/estruturas">Ver as estruturas e as buscas passo a passo</Link></p>
       </div>

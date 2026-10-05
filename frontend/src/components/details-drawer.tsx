@@ -1,3 +1,4 @@
+import { imageFallback } from '@/lib/image-fallback'
 import { useEffect, useRef } from 'react'
 import { Search, X } from 'lucide-react'
 import type { Obra } from '@/api'
@@ -9,7 +10,7 @@ export function DetailsDrawer({ obra, onClose, returnFocus, onSearch }: { obra: 
   if (!obra) return null
   return <div className="drawer-layer" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onClose() }}><aside key={obra.id} className="details-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
     <Button ref={closeRef} className="drawer-close" variant="ghost" mode="icon" size="icon" aria-label="Fechar detalhes" onClick={onClose}><X /></Button>
-    <div className="drawer-image"><img src={`/api/imagens/${obra.id}/original`} alt={`Obra ${obra.titulo}`} onError={event => { event.currentTarget.hidden = true }} /><span className="image-fallback">Imagem indisponível</span></div>
+    <div className="drawer-image"><img src={`/api/imagens/${obra.id}/original`} alt={`Obra ${obra.titulo}`} onError={imageFallback} /><span className="image-fallback">Imagem indisponível</span></div>
     <p className="drawer-style">{obra.estilo}</p><h2 id="drawer-title">{obra.titulo}</h2>
     <dl><div><dt>ID interno</dt><dd>{obra.id}</dd></div><div><dt>Código original</dt><dd>{obra.codigoAcervo}</dd></div><div><dt>Artista</dt><dd>{obra.artista}</dd></div></dl>
     <div className="drawer-actions">

@@ -1,3 +1,4 @@
+import { imageFallback } from '@/lib/image-fallback'
 import { useEffect, useRef, useState } from 'react'
 import { Maximize2, RotateCcw, Search } from 'lucide-react'
 import type { Obra } from '@/api'
@@ -15,7 +16,7 @@ export function ArtworkCard({ obra, index, flipped, onFlip, onZoom, onSearch }: 
   return <article className={flipped ? 'art-card is-flipped' : 'art-card'} style={vars({ '--i': index })}>
     <div className="art-flip">
       <div className="art-face art-front" aria-hidden={flipped} inert={flipped}>
-        <div className="art-frame"><img className={loaded ? 'art-image is-loaded' : 'art-image'} src={`/api/imagens/${obra.id}/miniatura`} alt={`Miniatura de ${obra.titulo}`} loading="lazy" onLoad={() => setLoaded(true)} onError={event => { event.currentTarget.hidden = true }} /><span className="image-fallback">Imagem indisponível</span></div>
+        <div className="art-frame"><img className={loaded ? 'art-image is-loaded' : 'art-image'} src={`/api/imagens/${obra.id}/miniatura`} alt={`Miniatura de ${obra.titulo}`} loading="lazy" onLoad={() => setLoaded(true)} onError={imageFallback} /><span className="image-fallback">Imagem indisponível</span></div>
         <div className="art-label">
           <h3>{obra.titulo}</h3>
           <p className="art-style">{obra.estilo}</p>

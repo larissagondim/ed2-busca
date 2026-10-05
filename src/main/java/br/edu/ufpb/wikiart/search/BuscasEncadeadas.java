@@ -1,6 +1,7 @@
 package br.edu.ufpb.wikiart.search;
 
 import br.edu.ufpb.wikiart.model.Obra;
+import br.edu.ufpb.wikiart.structure.ArvoreAvlArtistas;
 import br.edu.ufpb.wikiart.structure.ListaEncadeadaObras;
 import br.edu.ufpb.wikiart.structure.ListaEncadeadaObras.No;
 
@@ -59,13 +60,17 @@ public final class BuscasEncadeadas {
         return ResultadoBusca.vazio(TipoBusca.TRANSPOSICAO, comparacoes);
     }
 
+    /**
+     * Linha de base O(n) da chave secundária. Usa a mesma normalização da AVL
+     * (sem acentos, minúsculas) para que as duas devolvam exatamente as mesmas obras.
+     */
     public static ResultadoBusca porArtista(ListaEncadeadaObras lista, String artista) {
-        String procurado = artista.strip();
+        String procurado = ArvoreAvlArtistas.normalizar(artista);
         List<Obra> encontradas = new ArrayList<>();
         long comparacoes = 0;
         for (No atual = lista.inicio(); atual != null; atual = atual.proximo()) {
             comparacoes++;
-            if (atual.obra().artista().equalsIgnoreCase(procurado)) {
+            if (ArvoreAvlArtistas.normalizar(atual.obra().artista()).equals(procurado)) {
                 encontradas.add(atual.obra());
             }
         }

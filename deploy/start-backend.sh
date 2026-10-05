@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-export WIKIART_CATALOGO="${WIKIART_CATALOGO:-/tmp/wikiart/classes.csv}"
+export WIKIART_CATALOGO="${WIKIART_CATALOGO:-/app/deploy/catalogo/classes.csv}"
 export WIKIART_THUMBNAILS="${WIKIART_THUMBNAILS:-/tmp/wikiart/thumbnails}"
 export SERVER_PORT="${PORT:-${SERVER_PORT:-8080}}"
 

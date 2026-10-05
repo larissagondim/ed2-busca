@@ -19,6 +19,8 @@ function servidor(extra: Record<string, (init?: RequestInit) => Response> = {}) 
     '/api/periodos': () => json(periodos), '/api/destaques': () => json({ recentes: [], maisVistas: [] }), '/api/obras?': () => json(pagina),
     '/api/obras/0/visualizacoes': () => { vistas++; return json({ recentes: [obra], maisVistas: [{ obra, visualizacoes: vistas }] }) },
     '/api/buscas/comparar': () => json({ obra, medicoes: [medicao('SEQUENCIAL', 1)], resumo }), '/api/sessao/resumo': () => json(resumo),
+    '/api/artistas?': () => json({ conteudo: [{ nome: 'Artista desconhecido', quantidadeObras: 1, visualizacoes: 0, posicao: 0 }], pagina: 0, tamanho: 24, totalElementos: 1, totalPaginas: 1 }),
+    '/api/estruturas': () => json({ skipLists: [], recentes: 0, capacidadeRecentes: 50, maisVistas: 0, arvores: { artistas: 1, alturaAvl: 1, alturaAbb: 1, alturaMinimaTeorica: 1, rotacoes: { simplesEsquerda: 0, simplesDireita: 0, duplaEsquerdaDireita: 0, duplaDireitaEsquerda: 0 }, comparacoesMediasAvl: 1, comparacoesMediasAbb: 1, obras: 1 } }),
     '/api/sessao/periodo': () => json(resumo), '/api/sessao': () => json(null, 204), ...extra,
   }
   const fetch = vi.fn((url: string, init?: RequestInit) => {
@@ -37,7 +39,7 @@ describe('App', () => {
     const fetch = servidor(); abrir('/')
     expect(screen.getByRole('heading', { level: 1, name: 'Encontre uma obra. Compare as buscas.' })).toBeInTheDocument()
     const mapa = screen.getByRole('region', { name: 'O que está por trás de cada busca' })
-    expect(within(mapa).getAllByRole('heading', { level: 3 }).map(item => item.textContent)).toEqual(['Lista encadeada', 'Tabela ordenada', 'Lista com saltos'])
+    expect(within(mapa).getAllByRole('heading', { level: 3 }).map(item => item.textContent)).toEqual(['Lista encadeada', 'Tabela ordenada', 'Lista com saltos', 'Árvore AVL'])
     await userEvent.type(screen.getByLabelText('ID ou código da obra'), '0'); await userEvent.click(screen.getByRole('button', { name: 'Buscar' }))
     expect(await screen.findByRole('heading', { level: 1, name: 'Buscar uma obra' })).toBeInTheDocument(); expect(window.location.pathname).toBe('/buscar')
     expect(await screen.findByRole('heading', { level: 3, name: 'Obra 232331' })).toBeInTheDocument()
@@ -114,11 +116,11 @@ describe('App', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent('Catálogo indisponível'); await waitFor(() => expect(screen.queryByText('Carregando obras…')).not.toBeInTheDocument())
   })
   it('abre a página de estruturas na busca pedida e a aplica na busca', async () => {
-    servidor(); abrir('/estruturas?busca=FIBONACCI')
+    servidor(); abrir('/estruturas?busca=ARVORE_AVL')
     expect(screen.getByRole('heading', { level: 1, name: 'Estruturas de dados' })).toBeInTheDocument()
-    expect(screen.getByRole('tab', { name: /Fibonacci/ })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('tab', { name: /Árvore AVL/ })).toHaveAttribute('aria-selected', 'true')
     await userEvent.click(screen.getByRole('button', { name: 'Buscar uma obra com esta busca' }))
-    expect(window.location.pathname).toBe('/buscar'); expect(screen.getByRole('button', { name: 'Fibonacci' })).toHaveAttribute('aria-pressed', 'true'); expect(screen.getByText('1 de 8')).toBeInTheDocument()
+    expect(window.location.pathname).toBe('/buscar'); expect(screen.getByRole('button', { name: 'Árvore AVL' })).toHaveAttribute('aria-pressed', 'true'); expect(screen.getByText('1 de 8')).toBeInTheDocument()
   })
   it('navega pelo menu, marca a página atual e aceita o atalho "/"', async () => {
     servidor(); abrir('/')
@@ -175,6 +177,15 @@ describe('App', () => {
     await userEvent.click(screen.getByRole('link', { name: 'Sobre o projeto' }))
     expect(screen.getByRole('heading', { level: 1, name: 'Sobre o projeto' })).toBeInTheDocument(); expect(window.location.pathname).toBe('/sobre')
     expect(screen.getByText('Comparações').tagName).toBe('DT'); expect(screen.getByRole('link', { name: 'Outras consultas' })).toHaveAttribute('href', '/buscar#outras-consultas')
+  })
+  it('a página Artistas é alcançada pelo menu e a de estruturas mostra as métricas das árvores', async () => {
+    servidor(); abrir('/')
+    await userEvent.click(within(screen.getByRole('navigation', { name: 'Navegação principal' })).getByRole('link', { name: 'Artistas' }))
+    expect(screen.getByRole('heading', { level: 1, name: 'Artistas' })).toHaveFocus(); expect(window.location.pathname).toBe('/artistas')
+    expect(await screen.findByRole('button', { name: 'Abrir obras de Artista desconhecido' })).toBeInTheDocument()
+    await userEvent.click(within(screen.getByRole('navigation', { name: 'Navegação principal' })).getByRole('link', { name: 'Estruturas' }))
+    expect(await screen.findByRole('heading', { level: 2, name: 'Estruturas por dentro' })).toBeInTheDocument()
+    expect(await screen.findByRole('group', { name: 'Altura da AVL contra a ABB' })).toBeInTheDocument()
   })
   it('mantém os endereços antigos', () => {
     servidor(); abrir('/catalogo')

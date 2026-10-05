@@ -2,6 +2,7 @@ import type { ComponentProps, ReactNode } from 'react'
 import { BookOpen } from 'lucide-react'
 import type { Comparacao, Obra, Pagina, Periodo, Resumo } from '@/api'
 import { ArtworkCard, CatalogSkeleton, type AoAbrir } from '@/components/artwork-card'
+import { ArtistsBrowser } from '@/components/artists-browser'
 import { CatalogPagination } from '@/components/catalog-pagination'
 import { Museum } from '@/components/museum'
 import { SearchExplainer } from '@/components/search-explainer'
@@ -9,6 +10,7 @@ import { SearchPanel } from '@/components/search-panel'
 import { OtherQueries } from '@/components/other-queries'
 import { SearchResults, SummaryPanel } from '@/components/search-results'
 import { StructureMap } from '@/components/structure-map'
+import { StructuresInside } from '@/components/structures-inside'
 import { PageHeader } from './page-header'
 
 const Erro = ({ error }: { error: string }) => error ? <div className="error-message" role="alert">{error}</div> : null
@@ -29,8 +31,9 @@ export function SearchPage({ panel, error, comparison, summary, periodoResumo, o
 export function StructuresPage({ inicial, onUse }: { inicial?: string; onUse: (tipo: string) => void }) {
   return <>
     <div className="content-section page-intro">
-      <PageHeader titulo="Estruturas de dados">Três estruturas sustentam as oito buscas exatas do catálogo. Veja o papel de cada uma e acompanhe as buscas comparação por comparação.</PageHeader>
+      <PageHeader titulo="Estruturas de dados">Quatro estruturas sustentam as oito buscas exatas do catálogo. Veja o papel de cada uma e acompanhe as buscas comparação por comparação.</PageHeader>
     </div>
+    <StructuresInside />
     <StructureMap titulo="Onde cada estrutura trabalha" descricao="As fichas abaixo seguem o código do backend: quais buscas cada estrutura atende e o que ela mantém no site." />
     <SearchExplainer key={inicial ?? ''} inicial={inicial} onUse={onUse} />
   </>
@@ -46,6 +49,13 @@ export function CollectionPage({ periods, period, onPeriod, loading, error, page
     <Erro error={error} />
     {loading ? <CatalogSkeleton /> : page?.conteudo.length === 0 ? <div className="empty-state"><BookOpen /><p>Nenhuma obra neste período. Escolha outro período acima.</p></div> : <div className="art-grid" key={`${period}-${pageNumber}`}>{page?.conteudo.map((obra, index) => <ArtworkCard key={obra.id} obra={obra} index={index} flipped={flipped === obra.id} onFlip={onFlip} onZoom={onZoom} onSearch={onSearch} />)}</div>}
     {page && <CatalogPagination current={pageNumber} total={page.totalPaginas} onChange={onPage} />}
+  </div>
+}
+
+export function ArtistsPage(props: ComponentProps<typeof ArtistsBrowser>) {
+  return <div className="content-section page-intro catalog-section">
+    <PageHeader titulo="Artistas">Os artistas do acervo em ordem alfabética, guardados numa Árvore AVL. Abra um artista para ver as obras dele e quantas comparações a árvore precisou.</PageHeader>
+    <ArtistsBrowser {...props} />
   </div>
 }
 

@@ -1,0 +1,541 @@
+codigo_acervo,titulo,artista,estilo,caminho_imagem
+andy-warhol_rorschach-1984,Rorschach 1984,Andy Warhol,Abstract Expressionism,deploy/catalogo/imagens/00089.jpg
+brett-whiteley_untitled-red-painting-1960,Untitled red painting 1960,Brett Whiteley,Abstract Expressionism,deploy/catalogo/imagens/00237.jpg
+brice-marden_etchings-to-rexroth-1-1986,Etchings to rexroth 1 1986,Brice Marden,Abstract Expressionism,deploy/catalogo/imagens/00255.jpg
+dan-christensen_kings-point-2002,Kings point 2002,Dan Christensen,Abstract Expressionism,deploy/catalogo/imagens/00445.jpg
+frank-stella_the-musket-1990,The musket 1990,Frank Stella,Abstract Expressionism,deploy/catalogo/imagens/00660.jpg
+jackson-pollock_male-and-female(1),Male and female(1),Jackson Pollock,Abstract Expressionism,deploy/catalogo/imagens/01050.jpg
+jean-paul-riopelle_lithographie-1974,Lithographie 1974,Jean Paul Riopelle,Abstract Expressionism,deploy/catalogo/imagens/01120.jpg
+john-mccracken_untitled-1983,Untitled 1983,John Mccracken,Abstract Expressionism,deploy/catalogo/imagens/01391.jpg
+mark-tobey_meditative-series-viii-1954,Meditative series viii 1954,Mark Tobey,Abstract Expressionism,deploy/catalogo/imagens/01578.jpg
+morris-graves_surf-and-bird-1940,Surf and bird 1940,Morris Graves,Abstract Expressionism,deploy/catalogo/imagens/01657.jpg
+pat-lipsky_sun-ray-1980,Sun ray 1980,Pat Lipsky,Abstract Expressionism,deploy/catalogo/imagens/01703.jpg
+paul-jenkins_untitled-1,Untitled 1,Paul Jenkins,Abstract Expressionism,deploy/catalogo/imagens/01775.jpg
+raoul-ubac_eglise-de-varengeville-sur-mer(1),Eglise de varengeville sur mer(1),Raoul Ubac,Abstract Expressionism,deploy/catalogo/imagens/01897.jpg
+raoul-ubac_eglise-de-varengeville-sur-mer,Eglise de varengeville sur mer,Raoul Ubac,Abstract Expressionism,deploy/catalogo/imagens/01898.jpg
+richard-diebenkorn_berkeley-no-22,Berkeley no 22,Richard Diebenkorn,Abstract Expressionism,deploy/catalogo/imagens/01922.jpg
+richard-pousette-dart_cascella-ii-1952,Cascella ii 1952,Richard Pousette Dart,Abstract Expressionism,deploy/catalogo/imagens/01956.jpg
+ronnie-landfield_jubilant-blue-1972,Jubilant blue 1972,Ronnie Landfield,Abstract Expressionism,deploy/catalogo/imagens/02092.jpg
+sam-francis_untitled-sfp89-105-1989,Untitled sfp89 105 1989,Sam Francis,Abstract Expressionism,deploy/catalogo/imagens/02450.jpg
+terry-frost_rider-s-song-1989,Rider s song 1989,Terry Frost,Abstract Expressionism,deploy/catalogo/imagens/02509.jpg
+willem-de-kooning_composition,Composition,Willem De Kooning,Abstract Expressionism,deploy/catalogo/imagens/02615.jpg
+antonio-palolo_untitled-1992,Untitled 1992,Antonio Palolo,Action painting,deploy/catalogo/imagens/02782.jpg
+franz-kline_cardinal-1950,Cardinal 1950,Franz Kline,Action painting,deploy/catalogo/imagens/02788.jpg
+franz-kline_horizontal-rust-1960,Horizontal rust 1960,Franz Kline,Action painting,deploy/catalogo/imagens/02794.jpg
+franz-kline_painting-no-7,Painting no 7,Franz Kline,Action painting,deploy/catalogo/imagens/02804.jpg
+franz-kline_scudera-1961,Scudera 1961,Franz Kline,Action painting,deploy/catalogo/imagens/02807.jpg
+franz-kline_untitled-1957-1,Untitled 1957 1,Franz Kline,Action painting,deploy/catalogo/imagens/02813.jpg
+franz-kline_untitled-1957,Untitled 1957,Franz Kline,Action painting,deploy/catalogo/imagens/02814.jpg
+franz-kline_zinc-yellow-1959,Zinc yellow 1959,Franz Kline,Action painting,deploy/catalogo/imagens/02817.jpg
+hans-hofmann_the-prey-1956,The prey 1956,Hans Hofmann,Action painting,deploy/catalogo/imagens/02822.jpg
+henri-michaux_untitled-1,Untitled 1,Henri Michaux,Action painting,deploy/catalogo/imagens/02824.jpg
+jackson-pollock_black-white-number-20-1951,Black white number 20 1951,Jackson Pollock,Action painting,deploy/catalogo/imagens/02828.jpg
+jackson-pollock_number-1-lavender-mist(1),Number 1 lavender mist(1),Jackson Pollock,Action painting,deploy/catalogo/imagens/02843.jpg
+jackson-pollock_number-12-1949-action-painting,Number 12 1949,Jackson Pollock,Action painting,deploy/catalogo/imagens/02845.jpg
+jackson-pollock_number-25(1),Number 25(1),Jackson Pollock,Action painting,deploy/catalogo/imagens/02849.jpg
+jackson-pollock_number-26-1949-action-painting,Number 26 1949,Jackson Pollock,Action painting,deploy/catalogo/imagens/02850.jpg
+jackson-pollock_number-4-gray-and-red-1948,Number 4 gray and red 1948,Jackson Pollock,Action painting,deploy/catalogo/imagens/02856.jpg
+jackson-pollock_number-7-out-of-the-web-1949,Number 7 out of the web 1949,Jackson Pollock,Action painting,deploy/catalogo/imagens/02858.jpg
+jackson-pollock_summertime-number-9a-1948,Summertime number 9a 1948,Jackson Pollock,Action painting,deploy/catalogo/imagens/02864.jpg
+walasse-ting_it-is-very-hot-here-1986,It is very hot here 1986,Walasse Ting,Action painting,deploy/catalogo/imagens/02877.jpg
+walasse-ting_two-angels,Two angels,Walasse Ting,Action painting,deploy/catalogo/imagens/02878.jpg
+georges-braque_houses-at-estaque-1908,Houses at estaque 1908,Georges Braque,Analytical Cubism,deploy/catalogo/imagens/02893.jpg
+georges-braque_le-sacre-coeur-1910,Le sacre coeur 1910,Georges Braque,Analytical Cubism,deploy/catalogo/imagens/02894.jpg
+georges-braque_pedestal-table-stal-1912,Pedestal table stal 1912,Georges Braque,Analytical Cubism,deploy/catalogo/imagens/02898.jpg
+georges-braque_still-life-with-a-bunch-of-grapes-1912,Still life with a bunch of grapes 1912,Georges Braque,Analytical Cubism,deploy/catalogo/imagens/02902.jpg
+georges-braque_still-life-with-harp-and-violin-1911,Still life with harp and violin 1911,Georges Braque,Analytical Cubism,deploy/catalogo/imagens/02905.jpg
+georges-braque_the-pitcher-1909,The pitcher 1909,Georges Braque,Analytical Cubism,deploy/catalogo/imagens/02911.jpg
+georges-braque_violin-and-pitcher-1910,Violin and pitcher 1910,Georges Braque,Analytical Cubism,deploy/catalogo/imagens/02916.jpg
+jean-metzinger_la-femme-au-cheval-1912,La femme au cheval 1912,Jean Metzinger,Analytical Cubism,deploy/catalogo/imagens/02922.jpg
+juan-gris_guitar-and-glass-1912,Guitar and glass 1912,Juan Gris,Analytical Cubism,deploy/catalogo/imagens/02927.jpg
+juan-gris_guitar-and-glasses-banjo-and-glasses-1912,Guitar and glasses banjo and glasses 1912,Juan Gris,Analytical Cubism,deploy/catalogo/imagens/02928.jpg
+juan-gris_portrait-of-pablo-picasso-1912,Portrait of pablo picasso 1912,Juan Gris,Analytical Cubism,deploy/catalogo/imagens/02933.jpg
+pablo-picasso_bread-and-dish-with-fruits-on-the-table,Bread and dish with fruits on the table,Pablo Picasso,Analytical Cubism,deploy/catalogo/imagens/02944.jpg
+pablo-picasso_girl-with-mandolin-fanny-tellier-1910,Girl with mandolin fanny tellier 1910,Pablo Picasso,Analytical Cubism,deploy/catalogo/imagens/02950.jpg
+pablo-picasso_landscape-with-posters-1912,Landscape with posters 1912,Pablo Picasso,Analytical Cubism,deploy/catalogo/imagens/02958.jpg
+pablo-picasso_poet-1911,Poet 1911,Pablo Picasso,Analytical Cubism,deploy/catalogo/imagens/02964.jpg
+pablo-picasso_study-to-girls-from-avignon-1906,Study to girls from avignon 1906,Pablo Picasso,Analytical Cubism,deploy/catalogo/imagens/02974.jpg
+pablo-picasso_table-in-a-cafe-bottle-of-pernod-1912,Table in a cafe bottle of pernod 1912,Pablo Picasso,Analytical Cubism,deploy/catalogo/imagens/02975.jpg
+pablo-picasso_the-piano-accordionist-1911,The piano accordionist 1911,Pablo Picasso,Analytical Cubism,deploy/catalogo/imagens/02979.jpg
+pablo-picasso_the-shell-saint-jacques-our-future-is-in-the-air-1912,The shell saint jacques our future is in the air 1912,Pablo Picasso,Analytical Cubism,deploy/catalogo/imagens/02981.jpg
+pablo-picasso_woman-and-pears-fernande-1909,Woman and pears fernande 1909,Pablo Picasso,Analytical Cubism,deploy/catalogo/imagens/02984.jpg
+aubrey-beardsley_title-page-and-key-monogram-of-the-mountain-lover,Title page and key monogram of the mountain lover,Aubrey Beardsley,Art Nouveau Modern,deploy/catalogo/imagens/03544.jpg
+boris-kustodiev_meeting-on-the-corner-1920,Meeting on the corner 1920,Boris Kustodiev,Art Nouveau Modern,deploy/catalogo/imagens/03633.jpg
+boris-kustodiev_stepan-razin-1918,Stepan razin 1918,Boris Kustodiev,Art Nouveau Modern,deploy/catalogo/imagens/03708.jpg
+edmund-dulac_stealers-of-light-by-the-queen-of-romania-1,Stealers of light by the queen of romania 1,Edmund Dulac,Art Nouveau Modern,deploy/catalogo/imagens/03945.jpg
+egon-schiele_portrait-of-marga-boerner-1917,Portrait of marga boerner 1917,Egon Schiele,Art Nouveau Modern,deploy/catalogo/imagens/04016.jpg
+henri-de-toulouse-lautrec_dinner-menu-at-may-belfort-s-18-rue-clapeyron,Dinner menu at may belfort s 18 rue clapeyron,Henri De Toulouse Lautrec,Art Nouveau Modern,deploy/catalogo/imagens/04551.jpg
+heorhiy-narbut_sheet-z-from-the-album-ukrainian-alphabet-1917,Sheet z from the album ukrainian alphabet 1917,Heorhiy Narbut,Art Nouveau Modern,deploy/catalogo/imagens/04755.jpg
+jacek-malczewski_tobiah-and-the-fates,Tobiah and the fates,Jacek Malczewski,Art Nouveau Modern,deploy/catalogo/imagens/05127.jpg
+koloman-moser_november-1902,November 1902,Koloman Moser,Art Nouveau Modern,deploy/catalogo/imagens/05342.jpg
+koloman-moser_stage-design-for-jeep-from-the-mountain-of-louis-holzberg-stage-2-morning,Stage design for jeep from the mountain of louis holzberg stage 2 morning,Koloman Moser,Art Nouveau Modern,deploy/catalogo/imagens/05381.jpg
+lawren-harris_baffin-island-1931,Baffin island 1931,Lawren Harris,Art Nouveau Modern,deploy/catalogo/imagens/05497.jpg
+leon-bakst_portrait-of-leon-bakst,Portrait of leon bakst,Leon Bakst,Art Nouveau Modern,deploy/catalogo/imagens/05577.jpg
+leon-bakst_the-firebird-costume-for-tamara-karsavina-1910,The firebird costume for tamara karsavina 1910,Leon Bakst,Art Nouveau Modern,deploy/catalogo/imagens/05601.jpg
+mikhail-nesterov_st-george-and-dragon-1900,St george and dragon 1900,Mikhail Nesterov,Art Nouveau Modern,deploy/catalogo/imagens/05656.jpg
+nicholas-roerich_sketches-of-costumes-for-tale-of-tsar-saltan-1919,Sketches of costumes for tale of tsar saltan 1919,Nicholas Roerich,Art Nouveau Modern,deploy/catalogo/imagens/06096.jpg
+nicholas-roerich_study-of-scene-design-for-snow-maiden-1921-1,Study of scene design for snow maiden 1921 1,Nicholas Roerich,Art Nouveau Modern,deploy/catalogo/imagens/06136.jpg
+raphael-kirchner_fables-1903-5,Fables 1903 5,Raphael Kirchner,Art Nouveau Modern,deploy/catalogo/imagens/06442.jpg
+raphael-kirchner_stained-glass-art-4,Stained glass art 4,Raphael Kirchner,Art Nouveau Modern,deploy/catalogo/imagens/06798.jpg
+sergey-solomko_visiting,Visiting,Sergey Solomko,Art Nouveau Modern,deploy/catalogo/imagens/07031.jpg
+tom-thomson_maple-saplings-1917,Maple saplings 1917,Tom Thomson,Art Nouveau Modern,deploy/catalogo/imagens/07093.jpg
+adriaen-brouwer_twilight-landscape,Twilight landscape,Adriaen Brouwer,Baroque,deploy/catalogo/imagens/07362.jpg
+alonzo-cano_vision-of-st-anthony-of-padua-1662,Vision of st anthony of padua 1662,Alonzo Cano,Baroque,deploy/catalogo/imagens/07662.jpg
+annibale-carracci_the-temptation-of-st-anthony-abbot-1597,The temptation of st anthony abbot 1597,Annibale Carracci,Baroque,deploy/catalogo/imagens/07726.jpg
+bartolome-esteban-murillo_the-marriage-feast-at-cana,The marriage feast at cana,Bartolome Esteban Murillo,Baroque,deploy/catalogo/imagens/08089.jpg
+bartolome-esteban-murillo_the-marriage-of-the-virgin-1670,The marriage of the virgin 1670,Bartolome Esteban Murillo,Baroque,deploy/catalogo/imagens/08090.jpg
+bartolome-esteban-murillo_virgin-glorious,Virgin glorious,Bartolome Esteban Murillo,Baroque,deploy/catalogo/imagens/08117.jpg
+caravaggio_madonna-of-loreto(1),Madonna of loreto(1),Caravaggio,Baroque,deploy/catalogo/imagens/08301.jpg
+cornelis-de-vos_portrait-of-the-artist-with-his-family,Portrait of the artist with his family,Cornelis De Vos,Baroque,deploy/catalogo/imagens/08369.jpg
+francisco-de-zurbaran_death-of-a-religious,Death of a religious,Francisco De Zurbaran,Baroque,deploy/catalogo/imagens/08779.jpg
+frans-hals_family-group-in-a-landscape,Family group in a landscape,Frans Hals,Baroque,deploy/catalogo/imagens/08879.jpg
+frans-hals_portrait-of-a-woman-1633,Portrait of a woman 1633,Frans Hals,Baroque,deploy/catalogo/imagens/08959.jpg
+frans-hals_portrait-of-a-woman-4,Portrait of a woman 4,Frans Hals,Baroque,deploy/catalogo/imagens/08965.jpg
+frans-snyders_still-life-with-a-dog-and-her-puppies,Still life with a dog and her puppies,Frans Snyders,Baroque,deploy/catalogo/imagens/09073.jpg
+guido-reni_cleopatra-1,Cleopatra 1,Guido Reni,Baroque,deploy/catalogo/imagens/09357.jpg
+isaac-van-ostade_woman-selling-fruit-by-a-cottage,Woman selling fruit by a cottage,Isaac Van Ostade,Baroque,deploy/catalogo/imagens/09546.jpg
+jan-steen_meal,Meal,Jan Steen,Baroque,deploy/catalogo/imagens/09852.jpg
+peter-paul-rubens_charles-v-in-armour,Charles v in armour,Peter Paul Rubens,Baroque,deploy/catalogo/imagens/10269.jpg
+peter-paul-rubens_the-meeting-of-david-and-abigail,The meeting of david and abigail,Peter Paul Rubens,Baroque,deploy/catalogo/imagens/10546.jpg
+rembrandt_studio-scenne-with-sitters-1650,Studio scenne with sitters 1650,Rembrandt,Baroque,deploy/catalogo/imagens/11262.jpg
+rembrandt_the-apostle-paul-1659,The apostle paul 1659,Rembrandt,Baroque,deploy/catalogo/imagens/11282.jpg
+anne-truitt_one-may-1976,One may 1976,Anne Truitt,Color Field Painting,deploy/catalogo/imagens/11678.jpg
+anne-truitt_untitled-no-11-1983,Untitled no 11 1983,Anne Truitt,Color Field Painting,deploy/catalogo/imagens/11694.jpg
+claude-tousignant_double-c-ph-ide-1997,Double c ph ide 1997,Claude Tousignant,Color Field Painting,deploy/catalogo/imagens/11822.jpg
+ellsworth-kelly_yellow-from-the-series-line-form-color-1951,Yellow from the series line form color 1951,Ellsworth Kelly,Color Field Painting,deploy/catalogo/imagens/11946.jpg
+frank-stella_fez-2-1964,Fez 2 1964,Frank Stella,Color Field Painting,deploy/catalogo/imagens/11963.jpg
+frank-stella_river-of-ponds-iv-1971,River of ponds iv 1971,Frank Stella,Color Field Painting,deploy/catalogo/imagens/11987.jpg
+gene-davis_king-kong-1969,King kong 1969,Gene Davis,Color Field Painting,deploy/catalogo/imagens/12085.jpg
+gene-davis_red-baron-1978,Red baron 1978,Gene Davis,Color Field Painting,deploy/catalogo/imagens/12116.jpg
+gene-davis_sweet-score-skylark-1960,Sweet score skylark 1960,Gene Davis,Color Field Painting,deploy/catalogo/imagens/12139.jpg
+gotthard-graubner_untitled-1992,Untitled 1992,Gotthard Graubner,Color Field Painting,deploy/catalogo/imagens/12186.jpg
+helen-frankenthaler_boulevard-1973,Boulevard 1973,Helen Frankenthaler,Color Field Painting,deploy/catalogo/imagens/12199.jpg
+john-hoyland_blues-greens-1969,Blues greens 1969,John Hoyland,Color Field Painting,deploy/catalogo/imagens/12354.jpg
+jose-guerrero_untitled-1985,Untitled 1985,Jose Guerrero,Color Field Painting,deploy/catalogo/imagens/12399.jpg
+mario-schifano_segnaletico-n-2-1961,Segnaletico n 2 1961,Mario Schifano,Color Field Painting,deploy/catalogo/imagens/12490.jpg
+mark-rothko_no-7-dark-over-light-1954,No 7 dark over light 1954,Mark Rothko,Color Field Painting,deploy/catalogo/imagens/12531.jpg
+mark-rothko_untitled-1967,Untitled 1967,Mark Rothko,Color Field Painting,deploy/catalogo/imagens/12564.jpg
+mark-rothko_untitled-blue-divided-by-blue-1966,Untitled blue divided by blue 1966,Mark Rothko,Color Field Painting,deploy/catalogo/imagens/12574.jpg
+olivier-debre_petite-langue-1985,Petite langue 1985,Olivier Debre,Color Field Painting,deploy/catalogo/imagens/12733.jpg
+ronald-davis_double-see-thru-1969,Double see thru 1969,Ronald Davis,Color Field Painting,deploy/catalogo/imagens/12935.jpg
+theodoros-stamos_olivet-sun-box-ii-1967,Olivet sun box ii 1967,Theodoros Stamos,Color Field Painting,deploy/catalogo/imagens/13140.jpg
+eric-fischl_a-visit-to-a-visit-from-the-island,A visit to a visit from the island,Eric Fischl,Contemporary Realism,deploy/catalogo/imagens/13192.jpg
+eric-fischl_scenes-from-late-paradise-the-parade,Scenes from late paradise the parade,Eric Fischl,Contemporary Realism,deploy/catalogo/imagens/13232.jpg
+eric-fischl_the-raft,The raft,Eric Fischl,Contemporary Realism,deploy/catalogo/imagens/13250.jpg
+fairfield-porter_july-interior-1964,July interior 1964,Fairfield Porter,Contemporary Realism,deploy/catalogo/imagens/13276.jpg
+gilles-aillaud_serpent-et-trou-1966,Serpent et trou 1966,Gilles Aillaud,Contemporary Realism,deploy/catalogo/imagens/13302.jpg
+jamie-wyeth_jump-1979,Jump 1979,Jamie Wyeth,Contemporary Realism,deploy/catalogo/imagens/13340.jpg
+jamie-wyeth_night-pigs-1979,Night pigs 1979,Jamie Wyeth,Contemporary Realism,deploy/catalogo/imagens/13363.jpg
+jamie-wyeth_pot-1969,Pot 1969,Jamie Wyeth,Contemporary Realism,deploy/catalogo/imagens/13381.jpg
+jamie-wyeth_the-runaway-pig-1979,The runaway pig 1979,Jamie Wyeth,Contemporary Realism,deploy/catalogo/imagens/13401.jpg
+janet-fish_4-glasses-1974,4 glasses 1974,Janet Fish,Contemporary Realism,deploy/catalogo/imagens/13412.jpg
+john-miller_beach(6),Beach(6),John Miller,Contemporary Realism,deploy/catalogo/imagens/13447.jpg
+john-miller_lelant-sea-movement,Lelant sea movement,John Miller,Contemporary Realism,deploy/catalogo/imagens/13476.jpg
+john-miller_the-camponile-doges-palace-venice,The camponile doges palace venice,John Miller,Contemporary Realism,deploy/catalogo/imagens/13500.jpg
+konstantin-vasilyev_village-of-mari,Village of mari,Konstantin Vasilyev,Contemporary Realism,deploy/catalogo/imagens/13517.jpg
+lucian-freud_garden-in-winter,Garden in winter,Lucian Freud,Contemporary Realism,deploy/catalogo/imagens/13525.jpg
+neil-welliver_canadian-geese,Canadian geese,Neil Welliver,Contemporary Realism,deploy/catalogo/imagens/13550.jpg
+neil-welliver_olivia-seated-1968,Olivia seated 1968,Neil Welliver,Contemporary Realism,deploy/catalogo/imagens/13574.jpg
+neil-welliver_pileated-woodpecker,Pileated woodpecker,Neil Welliver,Contemporary Realism,deploy/catalogo/imagens/13576.jpg
+neil-welliver_the-blue-pool,The blue pool,Neil Welliver,Contemporary Realism,deploy/catalogo/imagens/13600.jpg
+richard-whitney_autumn-storm,Autumn storm,Richard Whitney,Contemporary Realism,deploy/catalogo/imagens/13628.jpg
+adolf-fleischmann_hommage-delaunay-et-gleizes-1938,Hommage delaunay et gleizes 1938,Adolf Fleischmann,Cubism,deploy/catalogo/imagens/13660.jpg
+amadeo-de-souza-cardoso_girl-of-carnations-1913,Girl of carnations 1913,Amadeo De Souza Cardoso,Cubism,deploy/catalogo/imagens/13723.jpg
+carlos-merida_la-endecha,La endecha,Carlos Merida,Cubism,deploy/catalogo/imagens/13931.jpg
+fernand-leger_the-woman-with-black-hair-1952,The woman with black hair 1952,Fernand Leger,Cubism,deploy/catalogo/imagens/14131.jpg
+georges-braque_cafe-bar-1919,Cafe bar 1919,Georges Braque,Cubism,deploy/catalogo/imagens/14220.jpg
+henri-matisse_the-gourds-1916,The gourds 1916,Henri Matisse,Cubism,deploy/catalogo/imagens/14399.jpg
+jacques-villon_the-dining-table-1912,The dining table 1912,Jacques Villon,Cubism,deploy/catalogo/imagens/14438.jpg
+julio-gonzalez_architectural-figure-no-2-1940,Architectural figure no 2 1940,Julio Gonzalez,Cubism,deploy/catalogo/imagens/14617.jpg
+kazimir-malevich_sportsman-1913,Sportsman 1913,Kazimir Malevich,Cubism,deploy/catalogo/imagens/14665.jpg
+m.-h.-maxy_human-construction-1926,Human construction 1926,M. H. Maxy,Cubism,deploy/catalogo/imagens/14840.jpg
+man-ray_the-black-tray,The black tray,Man Ray,Cubism,deploy/catalogo/imagens/14877.jpg
+olexandr-archipenko_arabian-1940,Arabian 1940,Olexandr Archipenko,Cubism,deploy/catalogo/imagens/15113.jpg
+olexandr-archipenko_carrousel-pierrot,Carrousel pierrot,Olexandr Archipenko,Cubism,deploy/catalogo/imagens/15117.jpg
+pablo-picasso_nude-1909,Nude 1909,Pablo Picasso,Cubism,deploy/catalogo/imagens/15323.jpg
+pablo-picasso_still-life-with-bust-and-palette,Still life with bust and palette,Pablo Picasso,Cubism,deploy/catalogo/imagens/15377.jpg
+pablo-picasso_woman-with-a-shirt-sitting-in-a-chair-1913,Woman with a shirt sitting in a chair 1913,Pablo Picasso,Cubism,deploy/catalogo/imagens/15415.jpg
+roger-bissi├г┬иre_composition-avec-mandoline-1925,Composition avec mandoline 1925,Roger Bissi├г┬иre,Cubism,deploy/catalogo/imagens/15649.jpg
+roy-lichtenstein_still-life-after-picasso-1964,Still life after picasso 1964,Roy Lichtenstein,Cubism,deploy/catalogo/imagens/15687.jpg
+salvador-dali_still-life-3,Still life 3,Salvador Dali,Cubism,deploy/catalogo/imagens/15722.jpg
+stuart-davis_g-w-1944,G w 1944,Stuart Davis,Cubism,deploy/catalogo/imagens/15760.jpg
+andrea-del-castagno_david-with-the-head-of-goliath,David with the head of goliath,Andrea Del Castagno,Early Renaissance,deploy/catalogo/imagens/15899.jpg
+andrea-mantegna_christ-of-pity-supported-by-a-cherub-and-a-seraph-1490,Christ of pity supported by a cherub and a seraph 1490,Andrea Mantegna,Early Renaissance,deploy/catalogo/imagens/15963.jpg
+andrea-mantegna_st-sebastian-1475,St sebastian 1475,Andrea Mantegna,Early Renaissance,deploy/catalogo/imagens/15996.jpg
+andrea-mantegna_the-house-of-ludovico-gonzaga-bridegroom-decorated-wall-and-his-son-1475,The house of ludovico gonzaga bridegroom decorated wall and his son 1475,Andrea Mantegna,Early Renaissance,deploy/catalogo/imagens/16014.jpg
+bartolome-bermejo_saint-augustine-1485,Saint augustine 1485,Bartolome Bermejo,Early Renaissance,deploy/catalogo/imagens/16079.jpg
+benozzo-gozzoli_birth-of-st-francis-prophecy-of-the-birth-by-a-pilgrim-homage-of-the-simple-man-detail,Birth of st francis prophecy of the birth by a pilgrim homage of the simple man detail,Benozzo Gozzoli,Early Renaissance,deploy/catalogo/imagens/16094.jpg
+benozzo-gozzoli_procession-of-the-magus-balthazar-detail-1461-5,Procession of the magus balthazar detail 1461 5,Benozzo Gozzoli,Early Renaissance,deploy/catalogo/imagens/16129.jpg
+benozzo-gozzoli_view-of-the-left-hand-wall-of-the-chapel-1465,View of the left hand wall of the chapel 1465,Benozzo Gozzoli,Early Renaissance,deploy/catalogo/imagens/16222.jpg
+domenico-ghirlandaio_decoration-of-the-sala-del-gigli,Decoration of the sala del gigli,Domenico Ghirlandaio,Early Renaissance,deploy/catalogo/imagens/16342.jpg
+filippo-lippi_esther-at-the-palace-gate,Esther at the palace gate,Filippo Lippi,Early Renaissance,deploy/catalogo/imagens/16494.jpg
+filippo-lippi_madonna-della-cintola,Madonna della cintola,Filippo Lippi,Early Renaissance,deploy/catalogo/imagens/16511.jpg
+fra-angelico_st-mark-1424,St mark 1424,Fra Angelico,Early Renaissance,deploy/catalogo/imagens/16674.jpg
+masaccio_crucifixion,Crucifixion,Masaccio,Early Renaissance,deploy/catalogo/imagens/16907.jpg
+masaccio_madonna-casini,Madonna casini,Masaccio,Early Renaissance,deploy/catalogo/imagens/16909.jpg
+piero-della-francesca_nativity-1475(2),Nativity 1475(2),Piero Della Francesca,Early Renaissance,deploy/catalogo/imagens/17036.jpg
+piero-della-francesca_procession-of-the-queen-of-sheba-detail-2(1),Procession of the queen of sheba detail 2(1),Piero Della Francesca,Early Renaissance,deploy/catalogo/imagens/17047.jpg
+piero-della-francesca_st-anthony-resurrects-a-child,St anthony resurrects a child,Piero Della Francesca,Early Renaissance,deploy/catalogo/imagens/17057.jpg
+piero-della-francesca_the-stigmatisation-of-st-francis,The stigmatisation of st francis,Piero Della Francesca,Early Renaissance,deploy/catalogo/imagens/17080.jpg
+pietro-perugino_adoration-of-the-kings-epiphany,Adoration of the kings epiphany,Pietro Perugino,Early Renaissance,deploy/catalogo/imagens/17088.jpg
+sandro-botticelli_portrait-of-dante(1),Portrait of dante(1),Sandro Botticelli,Early Renaissance,deploy/catalogo/imagens/17215.jpg
+amedeo-modigliani_lolotte-1916,Lolotte 1916,Amedeo Modigliani,Expressionism,deploy/catalogo/imagens/17529.jpg
+amedeo-modigliani_nude-seating-on-a-sofa-1917,Nude seating on a sofa 1917,Amedeo Modigliani,Expressionism,deploy/catalogo/imagens/17562.jpg
+amedeo-modigliani_nude-with-necklace-1917,Nude with necklace 1917,Amedeo Modigliani,Expressionism,deploy/catalogo/imagens/17565.jpg
+candido-portinari_corn-harvest-1959,Corn harvest 1959,Candido Portinari,Expressionism,deploy/catalogo/imagens/18141.jpg
+egon-schiele_dead-mother-1910,Dead mother 1910,Egon Schiele,Expressionism,deploy/catalogo/imagens/18690.jpg
+ernst-ludwig-kirchner_japanese-parasol,Japanese parasol,Ernst Ludwig Kirchner,Expressionism,deploy/catalogo/imagens/19069.jpg
+henri-matisse_my-room-at-the-beau-rivage-1918,My room at the beau rivage 1918,Henri Matisse,Expressionism,deploy/catalogo/imagens/19841.jpg
+lucian-freud_sleeping-by-the-lion-carpet-also-known-as-sue-tilley,Sleeping by the lion carpet also known as sue tilley,Lucian Freud,Expressionism,deploy/catalogo/imagens/20953.jpg
+max-pechstein_badende-in-moritzburg-1910,Badende in moritzburg 1910,Max Pechstein,Expressionism,deploy/catalogo/imagens/21799.jpg
+pablo-picasso_bust-of-woman-1906,Bust of woman 1906,Pablo Picasso,Expressionism,deploy/catalogo/imagens/22308.jpg
+paul-delvaux_reclining-nude-1934,Reclining nude 1934,Paul Delvaux,Expressionism,deploy/catalogo/imagens/22516.jpg
+paul-klee_strong-dream-1929(1),Strong dream 1929(1),Paul Klee,Expressionism,deploy/catalogo/imagens/22595.jpg
+pyotr-konchalovsky_portrait-of-an-italian-pianist-and-conductor-carlo-tsekki-1930,Portrait of an italian pianist and conductor carlo tsekki 1930,Pyotr Konchalovsky,Expressionism,deploy/catalogo/imagens/22815.jpg
+pyotr-konchalovsky_still-life-melon-1912,Still life melon 1912,Pyotr Konchalovsky,Expressionism,deploy/catalogo/imagens/22855.jpg
+salvador-dali_untitled-surrealist-angel,Untitled surrealist angel,Salvador Dali,Expressionism,deploy/catalogo/imagens/23212.jpg
+salvador-dali_woman-nursing-her-son,Woman nursing her son,Salvador Dali,Expressionism,deploy/catalogo/imagens/23227.jpg
+spyros-papaloukas_skete-of-agios-andreas-1932,Skete of agios andreas 1932,Spyros Papaloukas,Expressionism,deploy/catalogo/imagens/23320.jpg
+vasile-dobrian_leningrad-evening,Leningrad evening,Vasile Dobrian,Expressionism,deploy/catalogo/imagens/23531.jpg
+viorel-marginean_unknown-title-11,Unknown title 11,Viorel Marginean,Expressionism,deploy/catalogo/imagens/23618.jpg
+zinaida-serebriakova_three-figures-in-the-doorway-marrakesh-1932,Three figures in the doorway marrakesh 1932,Zinaida Serebriakova,Expressionism,deploy/catalogo/imagens/24007.jpg
+aldemir-martins_vase-with-flowers-1990,Vase with flowers 1990,Aldemir Martins,Fauvism,deploy/catalogo/imagens/24051.jpg
+charles-lapicque_untitled-1959,Untitled 1959,Charles Lapicque,Fauvism,deploy/catalogo/imagens/24182.jpg
+fikret-mualla-saygi_unknown-title-2,Unknown title 2,Fikret Mualla Saygi,Fauvism,deploy/catalogo/imagens/24240.jpg
+georges-braque_port-of-antwerp-1906,Port of antwerp 1906,Georges Braque,Fauvism,deploy/catalogo/imagens/24270.jpg
+hans-hofmann_yellow-table-on-green-1936,Yellow table on green 1936,Hans Hofmann,Fauvism,deploy/catalogo/imagens/24288.jpg
+henri-matisse_notre-dame-sunrise-1902,Notre dame sunrise 1902,Henri Matisse,Fauvism,deploy/catalogo/imagens/24306.jpg
+ilya-mashkov_seated-nude-1918,Seated nude 1918,Ilya Mashkov,Fauvism,deploy/catalogo/imagens/24352.jpg
+jan-sluyters_landscape,Landscape,Jan Sluyters,Fauvism,deploy/catalogo/imagens/24411.jpg
+joan-miro_north-south-fauvism,North south,Joan Miro,Fauvism,deploy/catalogo/imagens/24467.jpg
+john-duncan-fergusson_caf-concert-des-ambassadeurs-1907,Caf concert des ambassadeurs 1907,John Duncan Fergusson,Fauvism,deploy/catalogo/imagens/24487.jpg
+john-duncan-fergusson_le-manteau-chinois-1909,Le manteau chinois 1909,John Duncan Fergusson,Fauvism,deploy/catalogo/imagens/24492.jpg
+konstantinos-parthenis_pine-trees-on-kerkyra-1917,Pine trees on kerkyra 1917,Konstantinos Parthenis,Fauvism,deploy/catalogo/imagens/24526.jpg
+louis-valtat_italian-landscape-cypresses-1902,Italian landscape cypresses 1902,Louis Valtat,Fauvism,deploy/catalogo/imagens/24541.jpg
+mary-fedden_flowers-in-a-vase-with-lemon-1987,Flowers in a vase with lemon 1987,Mary Fedden,Fauvism,deploy/catalogo/imagens/24590.jpg
+mary-fedden_the-moon-2008,The moon 2008,Mary Fedden,Fauvism,deploy/catalogo/imagens/24617.jpg
+max-pechstein_horse-fair-1910-fauvism,Horse fair 1910,Max Pechstein,Fauvism,deploy/catalogo/imagens/24666.jpg
+othon-friesz_the-pont-de-grenelle-paris-1901,The pont de grenelle paris 1901,Othon Friesz,Fauvism,deploy/catalogo/imagens/24723.jpg
+piet-mondrian_dune-in-zeeland-1910,Dune in zeeland 1910,Piet Mondrian,Fauvism,deploy/catalogo/imagens/24729.jpg
+pyotr-konchalovsky_balaklava-ship-to-the-shore-1929,Balaklava ship to the shore 1929,Pyotr Konchalovsky,Fauvism,deploy/catalogo/imagens/24742.jpg
+pyotr-konchalovsky_portrait-of-a-son-fauvism,Portrait of a son,Pyotr Konchalovsky,Fauvism,deploy/catalogo/imagens/24764.jpg
+andrea-mantegna_christ,Christ,Andrea Mantegna,High Renaissance,deploy/catalogo/imagens/25009.jpg
+correggio_saint-marc-1520,Saint marc 1520,Correggio,High Renaissance,deploy/catalogo/imagens/25139.jpg
+dosso-dossi_a-personification-of-geometry,A personification of geometry,Dosso Dossi,High Renaissance,deploy/catalogo/imagens/25152.jpg
+dosso-dossi_st-sebastian,St sebastian,Dosso Dossi,High Renaissance,deploy/catalogo/imagens/25182.jpg
+giorgione_warrior-with-groom-1510(2),Warrior with groom 1510(2),Giorgione,High Renaissance,deploy/catalogo/imagens/25235.jpg
+giovanni-bellini_portrait-of-a-young-man-1,Portrait of a young man 1,Giovanni Bellini,High Renaissance,deploy/catalogo/imagens/25270.jpg
+leonardo-da-vinci_head-of-st-james-the-less,Head of st james the less,Leonardo Da Vinci,High Renaissance,deploy/catalogo/imagens/25345.jpg
+lorenzo-lotto_architect,Architect,Lorenzo Lotto,High Renaissance,deploy/catalogo/imagens/25457.jpg
+lorenzo-lotto_portrait-of-a-young-man-with-a-book-1527,Portrait of a young man with a book 1527,Lorenzo Lotto,High Renaissance,deploy/catalogo/imagens/25503.jpg
+michelangelo_the-prophet-jonah-1511,The prophet jonah 1511,Michelangelo,High Renaissance,deploy/catalogo/imagens/25768.jpg
+michelangelo_two-figures,Two figures,Michelangelo,High Renaissance,deploy/catalogo/imagens/25781.jpg
+pietro-perugino_baptism-of-jesus,Baptism of jesus,Pietro Perugino,High Renaissance,deploy/catalogo/imagens/25793.jpg
+pietro-perugino_john-the-baptist-and-four-saints,John the baptist and four saints,Pietro Perugino,High Renaissance,deploy/catalogo/imagens/25803.jpg
+pietro-perugino_polyptych-of-st-peter-eternal-blessing-with-cherubs-and-angels-1500,Polyptych of st peter eternal blessing with cherubs and angels 1500,Pietro Perugino,High Renaissance,deploy/catalogo/imagens/25856.jpg
+pietro-perugino_sepulcrum-christi,Sepulcrum christi,Pietro Perugino,High Renaissance,deploy/catalogo/imagens/25875.jpg
+pietro-perugino_the-vision-of-st-bernard,The vision of st bernard,Pietro Perugino,High Renaissance,deploy/catalogo/imagens/25899.jpg
+pinturicchio_the-crucifixion-with-sts-jerome-and-christopher-1471,The crucifixion with sts jerome and christopher 1471,Pinturicchio,High Renaissance,deploy/catalogo/imagens/25926.jpg
+raphael_the-judgment-of-solomon-1519,The judgment of solomon 1519,Raphael,High Renaissance,deploy/catalogo/imagens/26066.jpg
+titian_portrait-of-don-fernando-alvarez-of-toledo-grand-duke-of-alba,Portrait of don fernando alvarez of toledo grand duke of alba,Titian,High Renaissance,deploy/catalogo/imagens/26185.jpg
+vittore-carpaccio_the-glory-of-st-vidal-1514,The glory of st vidal 1514,Vittore Carpaccio,High Renaissance,deploy/catalogo/imagens/26282.jpg
+alfred-sisley_the-bourgogne-lock-at-moret-spring-1882,The bourgogne lock at moret spring 1882,Alfred Sisley,Impressionism,deploy/catalogo/imagens/26719.jpg
+camille-pissarro_the-carrier-at-hermitage-pontoise-1878,The carrier at hermitage pontoise 1878,Camille Pissarro,Impressionism,deploy/catalogo/imagens/28280.jpg
+claude-monet_the-grand-dock-at-le-havre-1872,The grand dock at le havre 1872,Claude Monet,Impressionism,deploy/catalogo/imagens/29914.jpg
+claude-monet_vetheuil-barge-on-the-seine-1902,Vetheuil barge on the seine 1902,Claude Monet,Impressionism,deploy/catalogo/imagens/30209.jpg
+claude-monet_winter-at-giverny-1,Winter at giverny 1,Claude Monet,Impressionism,deploy/catalogo/imagens/30413.jpg
+edgar-degas_self-portrait-1855,Self portrait 1855,Edgar Degas,Impressionism,deploy/catalogo/imagens/30950.jpg
+edgar-degas_woman-seated-on-a-canape-1872,Woman seated on a canape 1872,Edgar Degas,Impressionism,deploy/catalogo/imagens/31145.jpg
+edouard-manet_races-at-longchamp,Races at longchamp,Edouard Manet,Impressionism,deploy/catalogo/imagens/31252.jpg
+eugene-boudin_beach-scene-1880,Beach scene 1880,Eugene Boudin,Impressionism,deploy/catalogo/imagens/31409.jpg
+frederic-remington_the-apaches,The apaches,Frederic Remington,Impressionism,deploy/catalogo/imagens/32076.jpg
+ipolit-strambu_maternity,Maternity,Ipolit Strambu,Impressionism,deploy/catalogo/imagens/33123.jpg
+john-henry-twachtman_the-ledges,The ledges,John Henry Twachtman,Impressionism,deploy/catalogo/imagens/33922.jpg
+kimon-loghi_the-white-knot,The white knot,Kimon Loghi,Impressionism,deploy/catalogo/imagens/34473.jpg
+konstantin-makovsky_portrait-of-cyril-vladimirovich-grand-duke-of-russia,Portrait of cyril vladimirovich grand duke of russia,Konstantin Makovsky,Impressionism,deploy/catalogo/imagens/34755.jpg
+nikolay-bogdanov-belsky_balinovo-landscape,Balinovo landscape,Nikolay Bogdanov Belsky,Impressionism,deploy/catalogo/imagens/35706.jpg
+pierre-auguste-renoir_madame-claude-monet-1872,Madame claude monet 1872,Pierre Auguste Renoir,Impressionism,deploy/catalogo/imagens/36882.jpg
+pierre-auguste-renoir_margot-1876,Margot 1876,Pierre Auguste Renoir,Impressionism,deploy/catalogo/imagens/36917.jpg
+pierre-auguste-renoir_two-girls-1892,Two girls 1892,Pierre Auguste Renoir,Impressionism,deploy/catalogo/imagens/37480.jpg
+valentin-serov_portrait-of-e-a-krasilschikova-1906,Portrait of e a krasilschikova 1906,Valentin Serov,Impressionism,deploy/catalogo/imagens/38510.jpg
+winston-churchill_mimizan(1),Mimizan(1),Winston Churchill,Impressionism,deploy/catalogo/imagens/39264.jpg
+agnolo-bronzino_portrait-of-a-gentleman,Portrait of a gentleman,Agnolo Bronzino,Mannerism Late Renaissance,deploy/catalogo/imagens/39391.jpg
+el-greco_portrait-of-an-old-man-presumed-self-portrait-of-el-greco,Portrait of an old man presumed self portrait of el greco,El Greco,Mannerism Late Renaissance,deploy/catalogo/imagens/39570.jpg
+giorgio-vasari_the-mutiliation-of-uranus-by-saturn,The mutiliation of uranus by saturn,Giorgio Vasari,Mannerism Late Renaissance,deploy/catalogo/imagens/39720.jpg
+hans-von-aachen_portrait-of-a-girl-maria-maxmiliana-1612,Portrait of a girl maria maxmiliana 1612,Hans Von Aachen,Mannerism Late Renaissance,deploy/catalogo/imagens/39794.jpg
+jacopo-pontormo_episode-from-the-life-in-the-hospital-1514,Episode from the life in the hospital 1514,Jacopo Pontormo,Mannerism Late Renaissance,deploy/catalogo/imagens/39822.jpg
+jacopo-pontormo_group-of-the-dead,Group of the dead,Jacopo Pontormo,Mannerism Late Renaissance,deploy/catalogo/imagens/39826.jpg
+jacopo-pontormo_noli-me-tangere-1532,Noli me tangere 1532,Jacopo Pontormo,Mannerism Late Renaissance,deploy/catalogo/imagens/39849.jpg
+maerten-van-heemskerck_triptych-of-the-entombment,Triptych of the entombment,Maerten Van Heemskerck,Mannerism Late Renaissance,deploy/catalogo/imagens/39992.jpg
+maerten-van-heemskerck_triptych,Triptych,Maerten Van Heemskerck,Mannerism Late Renaissance,deploy/catalogo/imagens/39993.jpg
+paolo-veronese_adoration-of-the-magi-1582,Adoration of the magi 1582,Paolo Veronese,Mannerism Late Renaissance,deploy/catalogo/imagens/39997.jpg
+paolo-veronese_adoration-of-the-shepherds-1558,Adoration of the shepherds 1558,Paolo Veronese,Mannerism Late Renaissance,deploy/catalogo/imagens/39999.jpg
+paolo-veronese_portrait-of-johann-jakob-1580,Portrait of johann jakob 1580,Paolo Veronese,Mannerism Late Renaissance,deploy/catalogo/imagens/40106.jpg
+parmigianino_portrait-of-gian-galeazzo-sanvitale-1529,Portrait of gian galeazzo sanvitale 1529,Parmigianino,Mannerism Late Renaissance,deploy/catalogo/imagens/40214.jpg
+rosso-fiorentino_assumption-of-the-virgin-1517,Assumption of the virgin 1517,Rosso Fiorentino,Mannerism Late Renaissance,deploy/catalogo/imagens/40249.jpg
+tintoretto_annunciation-1581,Annunciation 1581,Tintoretto,Mannerism Late Renaissance,deploy/catalogo/imagens/40300.jpg
+tintoretto_christ-washing-the-feet-of-his-disciples,Christ washing the feet of his disciples,Tintoretto,Mannerism Late Renaissance,deploy/catalogo/imagens/40322.jpg
+tintoretto_double-portrait-of-two-men,Double portrait of two men,Tintoretto,Mannerism Late Renaissance,deploy/catalogo/imagens/40340.jpg
+tintoretto_federico-i-gonzaga-the-city-of-legnano-1580,Federico i gonzaga the city of legnano 1580,Tintoretto,Mannerism Late Renaissance,deploy/catalogo/imagens/40347.jpg
+tintoretto_man-in-armour,Man in armour,Tintoretto,Mannerism Late Renaissance,deploy/catalogo/imagens/40363.jpg
+tintoretto_virgin-and-child-with-saint-catherine-saint-augustine-saint-marc-and-saint-john-the-baptist-1550,Virgin and child with saint catherine saint augustine saint marc and saint john the baptist 1550,Tintoretto,Mannerism Late Renaissance,deploy/catalogo/imagens/40509.jpg
+agnes-martin_untitled-15-peace-1996,Untitled 15 peace 1996,Agnes Martin,Minimalism,deploy/catalogo/imagens/40671.jpg
+agnes-martin_untitled-number-5-1975,Untitled number 5 1975,Agnes Martin,Minimalism,deploy/catalogo/imagens/40688.jpg
+anne-truitt_twining-court-ii-2002,Twining court ii 2002,Anne Truitt,Minimalism,deploy/catalogo/imagens/40797.jpg
+brice-marden_tour-iii,Tour iii,Brice Marden,Minimalism,deploy/catalogo/imagens/40851.jpg
+claude-tousignant_la-croix-supr-matiste-1991,La croix supr matiste 1991,Claude Tousignant,Minimalism,deploy/catalogo/imagens/40888.jpg
+fernando-calhau_unknown-title-2,Unknown title 2,Fernando Calhau,Minimalism,deploy/catalogo/imagens/41075.jpg
+genevieve-asse_structure-lumi-re-2005,Structure lumi re 2005,Genevieve Asse,Minimalism,deploy/catalogo/imagens/41156.jpg
+jiro-yoshihara_untitled(2),Untitled(2),Jiro Yoshihara,Minimalism,deploy/catalogo/imagens/41252.jpg
+joan-hernandez-pijuan_evora-sobre-paper-jap-1990,Evora sobre paper jap 1990,Joan Hernandez Pijuan,Minimalism,deploy/catalogo/imagens/41284.jpg
+john-mccracken_untitled-1976,Untitled 1976,John Mccracken,Minimalism,deploy/catalogo/imagens/41323.jpg
+marko-pogacnik_untitled-3,Untitled 3,Marko Pogacnik,Minimalism,deploy/catalogo/imagens/41465.jpg
+myron-stout_untitled-5-2-17-55-1955,Untitled 5 2 17 55 1955,Myron Stout,Minimalism,deploy/catalogo/imagens/41507.jpg
+perle-fine_untitled-1973,Untitled 1973,Perle Fine,Minimalism,deploy/catalogo/imagens/41555.jpg
+richard-tuttle_the-duck-iv-1987-minimalism,The duck iv 1987,Richard Tuttle,Minimalism,deploy/catalogo/imagens/41669.jpg
+robert-mangold_plane-figure-iii-1992,Plane figure iii 1992,Robert Mangold,Minimalism,deploy/catalogo/imagens/41700.jpg
+robert-ryman_surface-veil-1970,Surface veil 1970,Robert Ryman,Minimalism,deploy/catalogo/imagens/41747.jpg
+walter-de-maria_broken-kilometer-1979,Broken kilometer 1979,Walter De Maria,Minimalism,deploy/catalogo/imagens/41908.jpg
+yves-gaucher_deux-bleus-deux-gris-first-version-1975,Deux bleus deux gris first version 1975,Yves Gaucher,Minimalism,deploy/catalogo/imagens/41925.jpg
+yves-gaucher_trinome-6-2-c-32,Trinome 6 2 c 32,Yves Gaucher,Minimalism,deploy/catalogo/imagens/41939.jpg
+yves-klein_untitled-blue-monochrome-1959,Untitled blue monochrome 1959,Yves Klein,Minimalism,deploy/catalogo/imagens/41959.jpg
+arman-manookian_polynesian-woman-and-tiki,Polynesian woman and tiki,Arman Manookian,Naive Art Primitivism,deploy/catalogo/imagens/42059.jpg
+boris-kustodiev_gate-laputin-s-house-1922,Gate laputin s house 1922,Boris Kustodiev,Naive Art Primitivism,deploy/catalogo/imagens/42076.jpg
+david-burliuk_lobster-shack-long-island,Lobster shack long island,David Burliuk,Naive Art Primitivism,deploy/catalogo/imagens/42168.jpg
+david-burliuk_refugees-the-horrors-of-the-war,Refugees the horrors of the war,David Burliuk,Naive Art Primitivism,deploy/catalogo/imagens/42196.jpg
+fernand-leger_manufacturers-on-a-blue-background-1950,Manufacturers on a blue background 1950,Fernand Leger,Naive Art Primitivism,deploy/catalogo/imagens/42304.jpg
+fernand-leger_pylons-study-for-the-city,Pylons study for the city,Fernand Leger,Naive Art Primitivism,deploy/catalogo/imagens/42320.jpg
+fernando-botero_nuncio,Nuncio,Fernando Botero,Naive Art Primitivism,deploy/catalogo/imagens/42470.jpg
+fred-yates_on-the-promenade-1,On the promenade 1,Fred Yates,Naive Art Primitivism,deploy/catalogo/imagens/42570.jpg
+grandma-moses_not_detected_251645,Sem título (251645),Grandma Moses,Naive Art Primitivism,deploy/catalogo/imagens/42607.jpg
+gr├г┬йgoire-michonze_figures,Figures,Gr├г┬йgoire Michonze,Naive Art Primitivism,deploy/catalogo/imagens/42639.jpg
+marc-chagall_illustration-for-louis-aragon-s-work-one-who-says-things-without-saying-anything-1976-20,Illustration for louis aragon s work one who says things without saying anything 1976 20,Marc Chagall,Naive Art Primitivism,deploy/catalogo/imagens/43193.jpg
+marc-chagall_the-creation-of-man-7,The creation of man 7,Marc Chagall,Naive Art Primitivism,deploy/catalogo/imagens/43524.jpg
+niko-pirosmani_kakheti-epic-alazani-valley-1,Kakheti epic alazani valley 1,Niko Pirosmani,Naive Art Primitivism,deploy/catalogo/imagens/43945.jpg
+niko-pirosmani_kakhetian-wine,Kakhetian wine,Niko Pirosmani,Naive Art Primitivism,deploy/catalogo/imagens/43953.jpg
+niko-pirosmani_the-tiflis-funicular,The tiflis funicular,Niko Pirosmani,Naive Art Primitivism,deploy/catalogo/imagens/44027.jpg
+niko-pirosmani_two-georgians-at-marani,Two georgians at marani,Niko Pirosmani,Naive Art Primitivism,deploy/catalogo/imagens/44036.jpg
+pablo-picasso_studio-pigeons-velazquez-1957-3,Studio pigeons velazquez 1957 3,Pablo Picasso,Naive Art Primitivism,deploy/catalogo/imagens/44141.jpg
+raoul-dufy_henley-regatta,Henley regatta,Raoul Dufy,Naive Art Primitivism,deploy/catalogo/imagens/44182.jpg
+seraphine-louis_unknown-title-1,Unknown title 1,Seraphine Louis,Naive Art Primitivism,deploy/catalogo/imagens/44236.jpg
+william-h.-johnson_abraham-lincoln-1945,Abraham lincoln 1945,William H. Johnson,Naive Art Primitivism,deploy/catalogo/imagens/44299.jpg
+edward-hopper_coast-guard-station,Coast guard station,Edward Hopper,New Realism,deploy/catalogo/imagens/44397.jpg
+edward-hopper_new-york-restaurant,New york restaurant,Edward Hopper,New Realism,deploy/catalogo/imagens/44437.jpg
+edward-hopper_reclining-nude,Reclining nude,Edward Hopper,New Realism,deploy/catalogo/imagens/44455.jpg
+edward-hopper_seven-a-m,Seven a m,Edward Hopper,New Realism,deploy/catalogo/imagens/44463.jpg
+edward-hopper_the-city,The city,Edward Hopper,New Realism,deploy/catalogo/imagens/44482.jpg
+edward-hopper_the-new-bridge,The new bridge,Edward Hopper,New Realism,deploy/catalogo/imagens/44487.jpg
+george-luks_in-the-corner,In the corner,George Luks,New Realism,deploy/catalogo/imagens/44518.jpg
+john-french-sloan_backyards-greenwich-village-1914,Backyards greenwich village 1914,John French Sloan,New Realism,deploy/catalogo/imagens/44541.jpg
+john-french-sloan_blond-nude-with-orange-blue-couch-1925,Blond nude with orange blue couch 1925,John French Sloan,New Realism,deploy/catalogo/imagens/44543.jpg
+john-french-sloan_eagles-of-tesuque-1921,Eagles of tesuque 1921,John French Sloan,New Realism,deploy/catalogo/imagens/44556.jpg
+john-french-sloan_rainbow-new-york-city-1912,Rainbow new york city 1912,John French Sloan,New Realism,deploy/catalogo/imagens/44600.jpg
+john-french-sloan_sally-and-paul-reds-and-greens,Sally and paul reds and greens,John French Sloan,New Realism,deploy/catalogo/imagens/44605.jpg
+john-french-sloan_scrubwoman-astor-library-1911,Scrubwoman astor library 1911,John French Sloan,New Realism,deploy/catalogo/imagens/44607.jpg
+michael-bell_getaway-car-2009,Getaway car 2009,Michael Bell,New Realism,deploy/catalogo/imagens/44640.jpg
+william-james-glackens_nude-with-hat-1909,Nude with hat 1909,William James Glackens,New Realism,deploy/catalogo/imagens/44665.jpg
+william-james-glackens_skating-in-central-park-1910,Skating in central park 1910,William James Glackens,New Realism,deploy/catalogo/imagens/44670.jpg
+william-james-glackens_summer-hotel-1909,Summer hotel 1909,William James Glackens,New Realism,deploy/catalogo/imagens/44671.jpg
+yiannis-tsaroychis_dominic-as-summer-1975,Dominic as summer 1975,Yiannis Tsaroychis,New Realism,deploy/catalogo/imagens/44684.jpg
+yiannis-tsaroychis_schizophrenic-1968,Schizophrenic 1968,Yiannis Tsaroychis,New Realism,deploy/catalogo/imagens/44690.jpg
+yiannis-tsaroychis_the-forgoten-guards,The forgoten guards,Yiannis Tsaroychis,New Realism,deploy/catalogo/imagens/44692.jpg
+albrecht-durer_bauer-goose-with-a-fountain-figure,Bauer goose with a fountain figure,Albrecht Durer,Northern Renaissance,deploy/catalogo/imagens/44836.jpg
+albrecht-durer_calvary,Calvary,Albrecht Durer,Northern Renaissance,deploy/catalogo/imagens/44846.jpg
+albrecht-durer_study-of-a-man-with-a-drill,Study of a man with a drill,Albrecht Durer,Northern Renaissance,deploy/catalogo/imagens/45388.jpg
+albrecht-durer_the-sea-monster-and-the-beast-with-the-lamb-s-horn-1498,The sea monster and the beast with the lamb s horn 1498,Albrecht Durer,Northern Renaissance,deploy/catalogo/imagens/45528.jpg
+albrecht-durer_virgin-suckling-the-child-1503,Virgin suckling the child 1503,Albrecht Durer,Northern Renaissance,deploy/catalogo/imagens/45585.jpg
+bernhard-strigel_portrait-of-a-gentleman,Portrait of a gentleman,Bernhard Strigel,Northern Renaissance,deploy/catalogo/imagens/45617.jpg
+dirk-bouts_portrait-of-a-man-1,Portrait of a man 1,Dirk Bouts,Northern Renaissance,deploy/catalogo/imagens/45654.jpg
+gerard-david_the-transfiguration-of-christ,The transfiguration of christ,Gerard David,Northern Renaissance,deploy/catalogo/imagens/45719.jpg
+hans-baldung_aristotle-and-phyllis-1513,Aristotle and phyllis 1513,Hans Baldung,Northern Renaissance,deploy/catalogo/imagens/45743.jpg
+hans-holbein-the-younger_portrait-of-jane-seymour-1537,Portrait of jane seymour 1537,Hans Holbein The Younger,Northern Renaissance,deploy/catalogo/imagens/45924.jpg
+hans-holbein-the-younger_portrait-of-mary-wotton-lady-guildenford-1527,Portrait of mary wotton lady guildenford 1527,Hans Holbein The Younger,Northern Renaissance,deploy/catalogo/imagens/45928.jpg
+hans-memling_portrait-of-an-old-woman-1470,Portrait of an old woman 1470,Hans Memling,Northern Renaissance,deploy/catalogo/imagens/46043.jpg
+hieronymus-bosch_temptation-of-st-anthony,Temptation of st anthony,Hieronymus Bosch,Northern Renaissance,deploy/catalogo/imagens/46230.jpg
+jan-provoost_the-martyrdom-of-st-catherine,The martyrdom of st catherine,Jan Provoost,Northern Renaissance,deploy/catalogo/imagens/46365.jpg
+jan-van-eyck_virgin-annunciate-from-the-exterior-of-the-right-panel-of-the-ghent-altarpiece-1432,Virgin annunciate from the exterior of the right panel of the ghent altarpiece 1432,Jan Van Eyck,Northern Renaissance,deploy/catalogo/imagens/46441.jpg
+joachim-patinir_st-jerome-in-the-desert,St jerome in the desert,Joachim Patinir,Northern Renaissance,deploy/catalogo/imagens/46619.jpg
+lucas-cranach-the-elder_adam-and-eve-1533,Adam and eve 1533,Lucas Cranach The Elder,Northern Renaissance,deploy/catalogo/imagens/46673.jpg
+robert-campin_holy-trinity-gold-silver-and-silk-embroidery-pearls-glass-beads-and-velvet-applique-on-linen-1433,Holy trinity gold silver and silk embroidery pearls glass beads and velvet applique on linen 1433,Robert Campin,Northern Renaissance,deploy/catalogo/imagens/47128.jpg
+rogier-van-der-weyden_kneeling-woman,Kneeling woman,Rogier Van Der Weyden,Northern Renaissance,deploy/catalogo/imagens/47177.jpg
+rogier-van-der-weyden_saints-margaret-and-apollonia-1450,Saints margaret and apollonia 1450,Rogier Van Der Weyden,Northern Renaissance,deploy/catalogo/imagens/47221.jpg
+georges-seurat_study-for-the-channel-at-gravelines-1890,Study for the channel at gravelines 1890,Georges Seurat,Pointillism,deploy/catalogo/imagens/47356.jpg
+georges-seurat_the-circus-1891,The circus 1891,Georges Seurat,Pointillism,deploy/catalogo/imagens/47372.jpg
+henri-edmond-cross_the-canal-near-st-tropez,The canal near st tropez,Henri Edmond Cross,Pointillism,deploy/catalogo/imagens/47467.jpg
+henri-edmond-cross_the-choppy-sea-1903,The choppy sea 1903,Henri Edmond Cross,Pointillism,deploy/catalogo/imagens/47468.jpg
+henri-edmond-cross_the-hair,The hair,Henri Edmond Cross,Pointillism,deploy/catalogo/imagens/47481.jpg
+henri-edmond-cross_the-washerwoman-1896,The washerwoman 1896,Henri Edmond Cross,Pointillism,deploy/catalogo/imagens/47493.jpg
+henri-edmond-cross_view-of-menton-1902,View of menton 1902,Henri Edmond Cross,Pointillism,deploy/catalogo/imagens/47499.jpg
+henri-martin_july-14-in-collioure,July 14 in collioure,Henri Martin,Pointillism,deploy/catalogo/imagens/47513.jpg
+henri-martin_port-collioure-2,Port collioure 2,Henri Martin,Pointillism,deploy/catalogo/imagens/47520.jpg
+henri-martin_terrace-in-the-rain-in-marquayrol,Terrace in the rain in marquayrol,Henri Martin,Pointillism,deploy/catalogo/imagens/47528.jpg
+henri-martin_woman-sewing-on-a-veranda,Woman sewing on a veranda,Henri Martin,Pointillism,deploy/catalogo/imagens/47544.jpg
+kazimir-malevich_portrait-of-a-member-of-the-artist-s-family,Portrait of a member of the artist s family,Kazimir Malevich,Pointillism,deploy/catalogo/imagens/47564.jpg
+marsden-hartley_the-ice-hole-1908,The ice hole 1908,Marsden Hartley,Pointillism,deploy/catalogo/imagens/47586.jpg
+nicolae-vermont_view-of-dieppe-s-beach-1929,View of dieppe s beach 1929,Nicolae Vermont,Pointillism,deploy/catalogo/imagens/47596.jpg
+paul-signac_antibes-thunderstorms-1919,Antibes thunderstorms 1919,Paul Signac,Pointillism,deploy/catalogo/imagens/47602.jpg
+paul-signac_breakfast-the-dining-room,Breakfast the dining room,Paul Signac,Pointillism,deploy/catalogo/imagens/47603.jpg
+paul-signac_le-clipper-asnieres-1887,Le clipper asnieres 1887,Paul Signac,Pointillism,deploy/catalogo/imagens/47619.jpg
+paul-signac_the-milliner-1885,The milliner 1885,Paul Signac,Pointillism,deploy/catalogo/imagens/47637.jpg
+paul-signac_the-railway-at-bois-colombes-1886,The railway at bois colombes 1886,Paul Signac,Pointillism,deploy/catalogo/imagens/47644.jpg
+theo-van-rysselberghe_moroccan-market,Moroccan market,Theo Van Rysselberghe,Pointillism,deploy/catalogo/imagens/47703.jpg
+aldo-mondino_dans-des-jarres,Dans des jarres,Aldo Mondino,Pop Art,deploy/catalogo/imagens/47774.jpg
+aldo-mondino_untitled,Untitled,Aldo Mondino,Pop Art,deploy/catalogo/imagens/47789.jpg
+allen-jones_hatstand-1969,Hatstand 1969,Allen Jones,Pop Art,deploy/catalogo/imagens/47820.jpg
+allen-jones_table-1969,Table 1969,Allen Jones,Pop Art,deploy/catalogo/imagens/47826.jpg
+andy-warhol_committee-2000-champagne-glasses-1979,Committee 2000 champagne glasses 1979,Andy Warhol,Pop Art,deploy/catalogo/imagens/47871.jpg
+andy-warhol_cow-3,Cow 3,Andy Warhol,Pop Art,deploy/catalogo/imagens/47874.jpg
+billy-apple_self-portrait-1963,Self portrait 1963,Billy Apple,Pop Art,deploy/catalogo/imagens/48073.jpg
+burhan-dogancay_wool-madonna-1990,Wool madonna 1990,Burhan Dogancay,Pop Art,deploy/catalogo/imagens/48128.jpg
+claes-oldenburg_pastry-case-1961,Pastry case 1961,Claes Oldenburg,Pop Art,deploy/catalogo/imagens/48150.jpg
+edward-ruscha_ancock-rooftops-series-4,Ancock rooftops series 4,Edward Ruscha,Pop Art,deploy/catalogo/imagens/48215.jpg
+gianfranco-baruchello_ardiglione-2009,Ardiglione 2009,Gianfranco Baruchello,Pop Art,deploy/catalogo/imagens/48327.jpg
+gianfranco-baruchello_hebdomeros-e-l-architetto-1988,Hebdomeros e l architetto 1988,Gianfranco Baruchello,Pop Art,deploy/catalogo/imagens/48332.jpg
+hiro-yamagata_magician-1986,Magician 1986,Hiro Yamagata,Pop Art,deploy/catalogo/imagens/48378.jpg
+keith-haring_radiant-baby-from-icons-series-1990,Radiant baby from icons series 1990,Keith Haring,Pop Art,deploy/catalogo/imagens/48511.jpg
+lourdes-castro_auto-retrato-1965,Auto retrato 1965,Lourdes Castro,Pop Art,deploy/catalogo/imagens/48538.jpg
+patrick-procktor_hangchow-1980,Hangchow 1980,Patrick Procktor,Pop Art,deploy/catalogo/imagens/48742.jpg
+patrick-procktor_hrh-prince-charles-b-1948-1987,Hrh prince charles b 1948 1987,Patrick Procktor,Pop Art,deploy/catalogo/imagens/48743.jpg
+roy-lichtenstein_blam-1962(1),Blam 1962(1),Roy Lichtenstein,Pop Art,deploy/catalogo/imagens/49032.jpg
+walter-battiss_birth-of-a-new-nation,Birth of a new nation,Walter Battiss,Pop Art,deploy/catalogo/imagens/49194.jpg
+walter-battiss_fragments-1976,Fragments 1976,Walter Battiss,Pop Art,deploy/catalogo/imagens/49201.jpg
+albert-marquet_self-portrait-1904,Self portrait 1904,Albert Marquet,Post Impressionism,deploy/catalogo/imagens/49322.jpg
+anita-malfatti_a-estudante-russa-1915,A estudante russa 1915,Anita Malfatti,Post Impressionism,deploy/catalogo/imagens/49410.jpg
+david-burliuk_majorca-spain,Majorca spain,David Burliuk,Post Impressionism,deploy/catalogo/imagens/49808.jpg
+david-burliuk_the-ballerina,The ballerina,David Burliuk,Post Impressionism,deploy/catalogo/imagens/49863.jpg
+gustave-loiseau_l-avant-port-de-fecamp-1912,L avant port de fecamp 1912,Gustave Loiseau,Post Impressionism,deploy/catalogo/imagens/50584.jpg
+gustave-loiseau_pont-aven-rain,Pont aven rain,Gustave Loiseau,Post Impressionism,deploy/catalogo/imagens/50621.jpg
+gwen-john_girl-with-bare-shoulders-1909,Girl with bare shoulders 1909,Gwen John,Post Impressionism,deploy/catalogo/imagens/50752.jpg
+henri-martin_saint-cirq-lapopie-over-the-roofs,Saint cirq lapopie over the roofs,Henri Martin,Post Impressionism,deploy/catalogo/imagens/51083.jpg
+janos-tornyai_window-of-the-atelier-1934,Window of the atelier 1934,Janos Tornyai,Post Impressionism,deploy/catalogo/imagens/51550.jpg
+martiros-saryan_flowers-a-nook-of-the-garden-1940,Flowers a nook of the garden 1940,Martiros Saryan,Post Impressionism,deploy/catalogo/imagens/51813.jpg
+maurice-prendergast_the-balloon,The balloon,Maurice Prendergast,Post Impressionism,deploy/catalogo/imagens/52134.jpg
+maurice-prendergast_the-mall-central-park-also-known-as-steps-central-park-or-the-terrace-bridge-central-park-1901,The mall central park also known as steps central park or the terrace bridge central park 1901,Maurice Prendergast,Post Impressionism,deploy/catalogo/imagens/52152.jpg
+paul-cezanne_sugarbowl-pears-and-tablecloth,Sugarbowl pears and tablecloth,Paul Cezanne,Post Impressionism,deploy/catalogo/imagens/53167.jpg
+pyotr-konchalovsky_female-portrait-1923,Female portrait 1923,Pyotr Konchalovsky,Post Impressionism,deploy/catalogo/imagens/53760.jpg
+pyotr-konchalovsky_paris-the-boy-with-the-apple-portrait-of-mikhail-petrovich-konchalovsky-1908,Paris the boy with the apple portrait of mikhail petrovich konchalovsky 1908,Pyotr Konchalovsky,Post Impressionism,deploy/catalogo/imagens/53889.jpg
+theodor-pallady_woman-in-black,Woman in black,Theodor Pallady,Post Impressionism,deploy/catalogo/imagens/54437.jpg
+theophrastos-triantafyllidis_cypresses,Cypresses,Theophrastos Triantafyllidis,Post Impressionism,deploy/catalogo/imagens/54440.jpg
+umberto-boccioni_ferruccio-busoni-1916,Ferruccio busoni 1916,Umberto Boccioni,Post Impressionism,deploy/catalogo/imagens/54487.jpg
+vincent-van-gogh_pine-trees-near-the-wall-of-the-asylum-1889,Pine trees near the wall of the asylum 1889,Vincent Van Gogh,Post Impressionism,deploy/catalogo/imagens/54987.jpg
+walter-sickert_ennui,Ennui,Walter Sickert,Post Impressionism,deploy/catalogo/imagens/55626.jpg
+aleksey-savrasov_drifting-of-ice,Drifting of ice,Aleksey Savrasov,Realism,deploy/catalogo/imagens/55768.jpg
+boris-kustodiev_portrait-of-a-a-polovtsev-1903,Portrait of a a polovtsev 1903,Boris Kustodiev,Realism,deploy/catalogo/imagens/56485.jpg
+camille-corot_on-the-banks-of-the-tiber-1826,On the banks of the tiber 1826,Camille Corot,Realism,deploy/catalogo/imagens/56930.jpg
+eugene-boudin_a-hen-and-her-chicks-after-melchior-d-hondecoeter,A hen and her chicks after melchior d hondecoeter,Eugene Boudin,Realism,deploy/catalogo/imagens/57671.jpg
+eugene-boudin_seascape-with-large-sky-1860,Seascape with large sky 1860,Eugene Boudin,Realism,deploy/catalogo/imagens/57702.jpg
+gustave-courbet_view-of-ornans-and-its-church-steeple,View of ornans and its church steeple,Gustave Courbet,Realism,deploy/catalogo/imagens/58426.jpg
+isaac-levitan_road,Road,Isaac Levitan,Realism,deploy/catalogo/imagens/59686.jpg
+john-singer-sargent_portrait-of-mrs-ernest-g-raphael-nee-florence-cecilia-sassoon-1905,Portrait of mrs ernest g raphael nee florence cecilia sassoon 1905,John Singer Sargent,Realism,deploy/catalogo/imagens/61537.jpg
+john-singer-sargent_sir-edmund-gosse,Sir edmund gosse,John Singer Sargent,Realism,deploy/catalogo/imagens/61569.jpg
+martiros-saryan_in-the-botanical-garden-1951,In the botanical garden 1951,Martiros Saryan,Realism,deploy/catalogo/imagens/62047.jpg
+n.c.-wyeth_blind-pew,Blind pew,N.c. Wyeth,Realism,deploy/catalogo/imagens/62325.jpg
+odilon-redon_carnations-and-baby-s-breath-in-a-green-pitcher,Carnations and baby s breath in a green pitcher,Odilon Redon,Realism,deploy/catalogo/imagens/62748.jpg
+odilon-redon_vase-of-flowers-12,Vase of flowers 12,Odilon Redon,Realism,deploy/catalogo/imagens/62787.jpg
+odilon-redon_vase-of-flowers-3,Vase of flowers 3,Odilon Redon,Realism,deploy/catalogo/imagens/62791.jpg
+vasily-polenov_oka-river-vladimir-steamer-converted-into-a-tow-1926,Oka river vladimir steamer converted into a tow 1926,Vasily Polenov,Realism,deploy/catalogo/imagens/64348.jpg
+vincent-van-gogh_girl-kneeling-by-a-cradle-1883(1),Girl kneeling by a cradle 1883(1),Vincent Van Gogh,Realism,deploy/catalogo/imagens/65232.jpg
+vincent-van-gogh_head-of-a-woman-16,Head of a woman 16,Vincent Van Gogh,Realism,deploy/catalogo/imagens/65298.jpg
+vincent-van-gogh_scheveningen-woman-1881,Scheveningen woman 1881,Vincent Van Gogh,Realism,deploy/catalogo/imagens/65626.jpg
+vincent-van-gogh_the-old-tower-1884,The old tower 1884,Vincent Van Gogh,Realism,deploy/catalogo/imagens/65771.jpg
+winslow-homer_girl-on-a-swing,Girl on a swing,Winslow Homer,Realism,deploy/catalogo/imagens/66330.jpg
+antoine-pesne_henriette-karoline-von-pfalz-zweibr-cken-landgrave-of-hesse-darmstadt-with-the-moor,Henriette karoline von pfalz zweibr cken landgrave of hesse darmstadt with the moor,Antoine Pesne,Rococo,deploy/catalogo/imagens/66489.jpg
+benjamin-west_the-battle-of-la-hogue-destruction-of-the-french-fleet-may-22-1692-detail,The battle of la hogue destruction of the french fleet may 22 1692 detail,Benjamin West,Rococo,deploy/catalogo/imagens/66647.jpg
+carl-ludwig-johann-christineck_heinrich-friedrich-wilhelm-von-ploets,Heinrich friedrich wilhelm von ploets,Carl Ludwig Johann Christineck,Rococo,deploy/catalogo/imagens/66823.jpg
+dmitry-levitzky_alexander-bezborodko,Alexander bezborodko,Dmitry Levitzky,Rococo,deploy/catalogo/imagens/66856.jpg
+dmitry-levitzky_portrait-of-priest-peter-levitzky-1812,Portrait of priest peter levitzky 1812,Dmitry Levitzky,Rococo,deploy/catalogo/imagens/66944.jpg
+dmitry-levitzky_portrait-of-v-i-mitrofanov-and-m-a-mitrofanova,Portrait of v i mitrofanov and m a mitrofanova,Dmitry Levitzky,Rococo,deploy/catalogo/imagens/66953.jpg
+francois-boucher_head-of-king-louis-xv,Head of king louis xv,Francois Boucher,Rococo,deploy/catalogo/imagens/66988.jpg
+giovanni-battista-tiepolo_the-banquet-of-cleopatra-1744,The banquet of cleopatra 1744,Giovanni Battista Tiepolo,Rococo,deploy/catalogo/imagens/67250.jpg
+giovanni-domenico-tiepolo_the-rest-on-the-flight-to-egypt,The rest on the flight to egypt,Giovanni Domenico Tiepolo,Rococo,deploy/catalogo/imagens/67344.jpg
+jean-baptiste-simeon-chardin_portrait-of-fran-oise-marguerite-pouget-1775,Portrait of fran oise marguerite pouget 1775,Jean Baptiste Simeon Chardin,Rococo,deploy/catalogo/imagens/67425.jpg
+jean-baptiste-simeon-chardin_young-man-with-a-violin-portrait-of-charles-theodose-godefroy,Young man with a violin portrait of charles theodose godefroy,Jean Baptiste Simeon Chardin,Rococo,deploy/catalogo/imagens/67468.jpg
+jean-honore-fragonard_the-bathers,The bathers,Jean Honore Fragonard,Rococo,deploy/catalogo/imagens/67498.jpg
+jean-honore-fragonard_the-blind-man-s-bluff-game,The blind man s bluff game,Jean Honore Fragonard,Rococo,deploy/catalogo/imagens/67501.jpg
+joshua-reynolds_elizabeth-duchess-of-hamilton-and-argyll-1759,Elizabeth duchess of hamilton and argyll 1759,Joshua Reynolds,Rococo,deploy/catalogo/imagens/67667.jpg
+joshua-reynolds_portrait-of-george-colman-the-elder,Portrait of george colman the elder,Joshua Reynolds,Rococo,deploy/catalogo/imagens/67768.jpg
+joshua-reynolds_portrait-of-rebecca-watson,Portrait of rebecca watson,Joshua Reynolds,Rococo,deploy/catalogo/imagens/67784.jpg
+joshua-reynolds_the-marlborough-family-1778,The marlborough family 1778,Joshua Reynolds,Rococo,deploy/catalogo/imagens/67812.jpg
+louise-elisabeth-vigee-le-brun_portrait-of-countess-golovine,Portrait of countess golovine,Louise Elisabeth Vigee Le Brun,Rococo,deploy/catalogo/imagens/67860.jpg
+maurice-quentin-de-la-tour_study-to-the-portrait-of-the-magistrate-jacques-laura-cooper-breteuil,Study to the portrait of the magistrate jacques laura cooper breteuil,Maurice Quentin De La Tour,Rococo,deploy/catalogo/imagens/68034.jpg
+vieira-portuense_retrato-de-uma-mulher-1800,Retrato de uma mulher 1800,Vieira Portuense,Rococo,deploy/catalogo/imagens/68290.jpg
+caspar-david-friedrich_the-dreamer-1840,The dreamer 1840,Caspar David Friedrich,Romanticism,deploy/catalogo/imagens/69047.jpg
+cornelis-springer_altstadtmarkt-in-brunswijk,Altstadtmarkt in brunswijk,Cornelis Springer,Romanticism,deploy/catalogo/imagens/69127.jpg
+dante-gabriel-rossetti_arthur-s-tomb-1855,Arthur s tomb 1855,Dante Gabriel Rossetti,Romanticism,deploy/catalogo/imagens/69203.jpg
+edwin-henry-landseer_the-arab-tent,The arab tent,Edwin Henry Landseer,Romanticism,deploy/catalogo/imagens/69636.jpg
+eliseu-visconti_the-charte,The charte,Eliseu Visconti,Romanticism,deploy/catalogo/imagens/69659.jpg
+ferdinand-georg-waldm├г┬╝ller_der-wolfgangsee-1835,Der wolfgangsee 1835,Ferdinand Georg Waldm├г┬╝ller,Romanticism,deploy/catalogo/imagens/69821.jpg
+ferdinand-georg-waldm├г┬╝ller_the-radhausberg-at-gastein-1837,The radhausberg at gastein 1837,Ferdinand Georg Waldm├г┬╝ller,Romanticism,deploy/catalogo/imagens/69840.jpg
+franz-xaver-winterhalter_portrait-of-a-lady-with-a-fan,Portrait of a lady with a fan,Franz Xaver Winterhalter,Romanticism,deploy/catalogo/imagens/70395.jpg
+fyodor-bronnikov_street-in-italy,Street in italy,Fyodor Bronnikov,Romanticism,deploy/catalogo/imagens/70465.jpg
+gustave-dore_apocalyptic-procession,Apocalyptic procession,Gustave Dore,Romanticism,deploy/catalogo/imagens/70686.jpg
+gustave-dore_idylls-of-the-king-14,Idylls of the king 14,Gustave Dore,Romanticism,deploy/catalogo/imagens/70982.jpg
+henryk-siemiradzki_the-pond-fauna,The pond fauna,Henryk Siemiradzki,Romanticism,deploy/catalogo/imagens/71509.jpg
+jan-matejko_wladyslaw-the-short-1,Wladyslaw the short 1,Jan Matejko,Romanticism,deploy/catalogo/imagens/72317.jpg
+jean-leon-gerome_a-bashi-bazouk,A bashi bazouk,Jean Leon Gerome,Romanticism,deploy/catalogo/imagens/72325.jpg
+konstantin-makovsky_oriental-motif,Oriental motif,Konstantin Makovsky,Romanticism,deploy/catalogo/imagens/73433.jpg
+orest-kiprensky_girl-wearing-the-poppy-wreath-1819,Girl wearing the poppy wreath 1819,Orest Kiprensky,Romanticism,deploy/catalogo/imagens/73831.jpg
+orest-kiprensky_portrait-caricature-of-giacomo-quarenghi-1814,Portrait caricature of giacomo quarenghi 1814,Orest Kiprensky,Romanticism,deploy/catalogo/imagens/73866.jpg
+orest-kiprensky_view-from-the-window-1807,View from the window 1807,Orest Kiprensky,Romanticism,deploy/catalogo/imagens/74024.jpg
+vasily-tropinin_self-portrait-with-brushes-and-a-palette-against-a-window-facing-the-kremlin-1844,Self portrait with brushes and a palette against a window facing the kremlin 1844,Vasily Tropinin,Romanticism,deploy/catalogo/imagens/75079.jpg
+william-turner_flint-castle,Flint castle,William Turner,Romanticism,deploy/catalogo/imagens/75354.jpg
+felix-vallotton_the-lake-lema-effect-of-the-evening-1900,The lake lema effect of the evening 1900,Felix Vallotton,Symbolism,deploy/catalogo/imagens/75859.jpg
+gustave-moreau_apollo-receiving-the-shepherds-offerings-1895,Apollo receiving the shepherds offerings 1895,Gustave Moreau,Symbolism,deploy/catalogo/imagens/76211.jpg
+hugo-simberg_devil-by-the-pot-1897,Devil by the pot 1897,Hugo Simberg,Symbolism,deploy/catalogo/imagens/76476.jpg
+james-tissot_the-pharisee-and-the-publican-1894,The pharisee and the publican 1894,James Tissot,Symbolism,deploy/catalogo/imagens/76695.jpg
+kuzma-petrov-vodkin_the-daughter-of-a-fisherman-1936,The daughter of a fisherman 1936,Kuzma Petrov Vodkin,Symbolism,deploy/catalogo/imagens/77353.jpg
+louis-janmot_po-me-de-l-me-2-le-passage-des-mes-symbolism,Po me de l me 2 le passage des mes,Louis Janmot,Symbolism,deploy/catalogo/imagens/77418.jpg
+mikalojus-ciurlionis_the-hymn-1904,The hymn 1904,Mikalojus Ciurlionis,Symbolism,deploy/catalogo/imagens/77668.jpg
+mikhail-vrubel_head-of-angel-1887,Head of angel 1887,Mikhail Vrubel,Symbolism,deploy/catalogo/imagens/77797.jpg
+mstislav-dobuzhinsky_a-street-scene-from-riga-1925,A street scene from riga 1925,Mstislav Dobuzhinsky,Symbolism,deploy/catalogo/imagens/77890.jpg
+mstislav-dobuzhinsky_gates-of-dawn-1914,Gates of dawn 1914,Mstislav Dobuzhinsky,Symbolism,deploy/catalogo/imagens/77911.jpg
+mstislav-dobuzhinsky_pskov-1923,Pskov 1923,Mstislav Dobuzhinsky,Symbolism,deploy/catalogo/imagens/77946.jpg
+nicholas-roerich_caucasus-arc-mountain-1913,Caucasus arc mountain 1913,Nicholas Roerich,Symbolism,deploy/catalogo/imagens/78095.jpg
+nicholas-roerich_chandra-bhaga-path-to-triloknath-1932,Chandra bhaga path to triloknath 1932,Nicholas Roerich,Symbolism,deploy/catalogo/imagens/78101.jpg
+nicholas-roerich_fog-in-the-mountains-1945,Fog in the mountains 1945,Nicholas Roerich,Symbolism,deploy/catalogo/imagens/78185.jpg
+nicholas-roerich_kuluta-mountains-before-the-sunset-1936,Kuluta mountains before the sunset 1936,Nicholas Roerich,Symbolism,deploy/catalogo/imagens/78494.jpg
+nicholas-roerich_sissu-monastery-1932,Sissu monastery 1932,Nicholas Roerich,Symbolism,deploy/catalogo/imagens/78895.jpg
+nicholas-roerich_three-jewels-1932,Three jewels 1932,Nicholas Roerich,Symbolism,deploy/catalogo/imagens/79066.jpg
+nicholas-roerich_tibet-1937-1,Tibet 1937 1,Nicholas Roerich,Symbolism,deploy/catalogo/imagens/79075.jpg
+odilon-redon_the-smiling-spider-1891,The smiling spider 1891,Odilon Redon,Symbolism,deploy/catalogo/imagens/79538.jpg
+victor-borisov-musatov_phantoms-1903,Phantoms 1903,Victor Borisov Musatov,Symbolism,deploy/catalogo/imagens/79854.jpg
+georges-braque_mandolin-1914,Mandolin 1914,Georges Braque,Synthetic Cubism,deploy/catalogo/imagens/80076.jpg
+georges-braque_still-life-with-le-jour-1929,Still life with le jour 1929,Georges Braque,Synthetic Cubism,deploy/catalogo/imagens/80087.jpg
+georges-braque_the-gray-table-1930,The gray table 1930,Georges Braque,Synthetic Cubism,deploy/catalogo/imagens/80091.jpg
+georges-braque_violin-and-newspaper-musical-forms,Violin and newspaper musical forms,Georges Braque,Synthetic Cubism,deploy/catalogo/imagens/80101.jpg
+juan-gris_a-pot-of-geraniums-1915,A pot of geraniums 1915,Juan Gris,Synthetic Cubism,deploy/catalogo/imagens/80113.jpg
+juan-gris_bottle-newspaper-and-fruit-bowl-1915,Bottle newspaper and fruit bowl 1915,Juan Gris,Synthetic Cubism,deploy/catalogo/imagens/80121.jpg
+juan-gris_fantomas-1915,Fantomas 1915,Juan Gris,Synthetic Cubism,deploy/catalogo/imagens/80131.jpg
+juan-gris_glass-cup-and-newspaper-1913,Glass cup and newspaper 1913,Juan Gris,Synthetic Cubism,deploy/catalogo/imagens/80140.jpg
+juan-gris_guitar-on-a-table-1915,Guitar on a table 1915,Juan Gris,Synthetic Cubism,deploy/catalogo/imagens/80149.jpg
+juan-gris_the-bull-fighter-1913,The bull fighter 1913,Juan Gris,Synthetic Cubism,deploy/catalogo/imagens/80198.jpg
+juan-gris_the-violin-1916,The violin 1916,Juan Gris,Synthetic Cubism,deploy/catalogo/imagens/80214.jpg
+juan-gris_violin-and-ink-bottle-on-a-table-1913,Violin and ink bottle on a table 1913,Juan Gris,Synthetic Cubism,deploy/catalogo/imagens/80220.jpg
+jury-annenkov_music-1922,Music 1922,Jury Annenkov,Synthetic Cubism,deploy/catalogo/imagens/80223.jpg
+pablo-picasso_couple-of-dancers-1915,Couple of dancers 1915,Pablo Picasso,Synthetic Cubism,deploy/catalogo/imagens/80232.jpg
+pablo-picasso_figure,Figure,Pablo Picasso,Synthetic Cubism,deploy/catalogo/imagens/80234.jpg
+pablo-picasso_glass-and-bottle-of-bass-1914,Glass and bottle of bass 1914,Pablo Picasso,Synthetic Cubism,deploy/catalogo/imagens/80238.jpg
+pablo-picasso_glass-and-bottle-of-straw-rum-1914,Glass and bottle of straw rum 1914,Pablo Picasso,Synthetic Cubism,deploy/catalogo/imagens/80239.jpg
+pablo-picasso_guitar-1920,Guitar 1920,Pablo Picasso,Synthetic Cubism,deploy/catalogo/imagens/80245.jpg
+pablo-picasso_portrait-of-young-girl-1914,Portrait of young girl 1914,Pablo Picasso,Synthetic Cubism,deploy/catalogo/imagens/80265.jpg
+pablo-picasso_violin-1,Violin 1,Pablo Picasso,Synthetic Cubism,deploy/catalogo/imagens/80274.jpg
+hiroshige_evening-view-of-a-temple-in-the-hills,Evening view of a temple in the hills,Hiroshige,Ukiyo e,deploy/catalogo/imagens/80301.jpg
+hiroshige_kameyama,Kameyama,Hiroshige,Ukiyo e,deploy/catalogo/imagens/80314.jpg
+ito-shinsui_before-the-storm-1920,Before the storm 1920,Ito Shinsui,Ukiyo e,deploy/catalogo/imagens/80401.jpg
+katsushika-hokusai_falcon-in-flight,Falcon in flight,Katsushika Hokusai,Ukiyo e,deploy/catalogo/imagens/80457.jpg
+katsushika-hokusai_tea-house-at-koishikawa-the-morning-after-a-snowfall,Tea house at koishikawa the morning after a snowfall,Katsushika Hokusai,Ukiyo e,deploy/catalogo/imagens/80602.jpg
+katsushika-hokusai_the-poet-li-po,The poet li po,Katsushika Hokusai,Ukiyo e,deploy/catalogo/imagens/80625.jpg
+keisai-eisen_an-allegory-of-komachi-visiting,An allegory of komachi visiting,Keisai Eisen,Ukiyo e,deploy/catalogo/imagens/80662.jpg
+keisai-eisen_shinagawa-wakana-of-the-wakanaya-1823(1),Shinagawa wakana of the wakanaya 1823(1),Keisai Eisen,Ukiyo e,deploy/catalogo/imagens/80728.jpg
+keisai-eisen_the-third-month-cherry-blossoms-in-naka-no-ch(1),The third month cherry blossoms in naka no ch(1),Keisai Eisen,Ukiyo e,deploy/catalogo/imagens/80741.jpg
+kitagawa-utamaro_amorous-couple-1803,Amorous couple 1803,Kitagawa Utamaro,Ukiyo e,deploy/catalogo/imagens/80762.jpg
+kitagawa-utamaro_the-drunken-courtesan,The drunken courtesan,Kitagawa Utamaro,Ukiyo e,deploy/catalogo/imagens/80833.jpg
+kitagawa-utamaro_the-lazy-bone,The lazy bone,Kitagawa Utamaro,Ukiyo e,deploy/catalogo/imagens/80849.jpg
+kitagawa-utamaro_three-beauties-of-the-present-day-1793,Three beauties of the present day 1793,Kitagawa Utamaro,Ukiyo e,deploy/catalogo/imagens/80852.jpg
+utagawa-kunisada-ii_mother-and-baby,Mother and baby,Utagawa Kunisada Ii,Ukiyo e,deploy/catalogo/imagens/80965.jpg
+utagawa-kunisada_ohnomatsu_midorinosuke,Ohnomatsu midorinosuke,Utagawa Kunisada,Ukiyo e,deploy/catalogo/imagens/81026.jpg
+utagawa-kuniyoshi_at-first-glance-he-looks-very-fiarce-but-he-s-really-a-nice-person,At first glance he looks very fiarce but he s really a nice person,Utagawa Kuniyoshi,Ukiyo e,deploy/catalogo/imagens/81067.jpg
+utagawa-kuniyoshi_hasebe-nobutsura-during-the-taira-attack-on-the-takakura-palace,Hasebe nobutsura during the taira attack on the takakura palace,Utagawa Kuniyoshi,Ukiyo e,deploy/catalogo/imagens/81107.jpg
+utagawa-kuniyoshi_keyamura-rokusuke-under-the-hikosan-gongen-waterfall,Keyamura rokusuke under the hikosan gongen waterfall,Utagawa Kuniyoshi,Ukiyo e,deploy/catalogo/imagens/81137.jpg
+utagawa-kuniyoshi_the-actor-15,The actor 15,Utagawa Kuniyoshi,Ukiyo e,deploy/catalogo/imagens/81256.jpg
+utagawa-kuniyoshi_the-actor-16,The actor 16,Utagawa Kuniyoshi,Ukiyo e,deploy/catalogo/imagens/81257.jpg

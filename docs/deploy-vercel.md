@@ -1,135 +1,103 @@
-# Deploy com frontend na Vercel
+# Deploy com frontend na Vercel e API no Render
 
-## Estado atual
+## Catálogo local e publicado
 
-`frontend/vercel.json` configura o build Vite e os endereços das páginas.
-A API tem `Dockerfile`, `deploy/start-backend.sh` e `render.yaml` preparados
-para Render Free, mas ainda precisa ser publicada e obter uma URL HTTPS. Sem o proxy
-descrito abaixo, a interface publicada não consegue carregar o catálogo.
+A execução local continua usando `data/classes.csv` e as imagens originais em
+`data/archive`. Nenhum desses arquivos é modificado pelo gerador da amostra.
+A configuração padrão em `application.properties` permanece a mesma.
 
-## Frontend
+O Docker usa `deploy/catalogo/classes.csv`, acompanhado de JPEGs reduzidos em
+`deploy/catalogo/imagens`. A amostra contém 20 obras por estilo (540 obras nos
+27 estilos), com **17.847.903 bytes (17,02 MiB)** no total, incluindo CSV
+e imagens. Os JPEGs têm até 480 pixels no maior lado, qualidade 75, sem
+ampliação de imagens pequenas. No deploy, a rota de imagem “original” entrega
+essa mesma versão reduzida; os originais completos continuam apenas locais.
 
-Importe o repositório na Vercel e configure:
+O CSV preserva código de acervo, título, artista e estilo. Somente o caminho da
+imagem muda para o derivado incluído no pacote. Os IDs internos são atribuídos
+pela ordem das linhas: os IDs da amostra podem diferir dos IDs locais. Use o
+código de acervo para identificar a mesma obra nos dois ambientes.
 
-| Campo | Valor |
-| --- | --- |
-| Root Directory | `frontend` |
-| Framework Preset | Vite |
-| Node.js Version | 22.x |
-| Install Command | `npm ci` |
-| Build Command | `npm run build` |
-| Output Directory | `dist` |
+O frontend usa `/api/imagens/{id}/miniatura` e `/original`, sem interpretar
+`caminhoImagem`. A API retorna esse campo como registrado no CSV e lê o arquivo
+no disco. Todas as áreas do frontend mostram “Imagem indisponível” quando uma
+requisição de imagem falha, sem impedir consultas ou buscas.
 
-O proxy em `vite.config.ts` funciona apenas no desenvolvimento local.
+## Gerar a amostra
 
-Quando o backend tiver uma URL, adicione a regra abaixo como primeiro elemento
-de `rewrites` em `frontend/vercel.json`, substituindo o domínio de exemplo:
-
-```json
-{
-  "source": "/api/:path*",
-  "destination": "https://SEU-BACKEND.example/api/:path*"
-}
-```
-
-As requisições continuam no domínio do frontend. Mantenha cookies sem um
-`Domain` exclusivo do backend e não habilite cache compartilhado nos endpoints
-de sessão e busca. Valide a persistência da sessão no deploy antes de publicar
-o endereço: selecionar um período e executar duas buscas deve manter o filtro
-e incrementar os acumulados.
-
-## Render Free e catálogo fora dos commits
-
-O plano gratuito oferece 512 MB de RAM. O Docker limita o heap Java a 320 MB
-para reservar espaço para a JVM. A capacidade real depende das sessões ativas.
-O serviço dorme após 15 minutos sem tráfego; reinicializações apagam as sessões,
-as métricas em memória e os arquivos temporários. O catálogo é baixado novamente
-ao iniciar. A primeira visita pode demorar enquanto o serviço acorda.
-
-1. Abra as Releases do repositório no GitHub e crie uma release para o catálogo,
-   por exemplo com a tag `catalogo-2026-10-02`.
-2. Anexe `data/deploy/classes.csv.gz` e `data/deploy/classes.csv.sha256`.
-   Esses arquivos não precisam de `git add`: são anexos da release, não arquivos
-   de um commit. O repositório precisa ser público para usar a URL sem credenciais.
-3. No Render, crie um Web Service ligado ao repositório. Escolha Docker, deixe
-   a raiz do serviço na raiz do repositório, use `./Dockerfile` e selecione **Free**.
-   Alternativamente, importe o `render.yaml` como Blueprint.
-4. Configure as variáveis abaixo e use `/api/periodos` como Health Check Path.
-5. Publique o serviço, copie sua URL HTTPS e configure o proxy da Vercel.
-
-| Variável no Render | Valor |
-| --- | --- |
-| `WIKIART_CATALOGO_URL` | URL de download do anexo `classes.csv.gz` |
-| `WIKIART_CATALOGO_SHA256` | Hash do CSV descompactado, em `classes.csv.sha256` |
-
-Se usar a tag sugerida no repositório atual, a URL será:
-
-```text
-https://github.com/larissagondim/ed2-busca/releases/download/catalogo-2026-10-02/classes.csv.gz
-```
-
-A URL só funciona depois de publicar a release e anexar o arquivo. Não use
-a URL de uma página de visualização; o script precisa baixar o gzip diretamente.
-O build do backend não incorpora os CSVs versionados nem as imagens. A imagem
-Docker exclui `data/` do contexto de build e usa o catálogo externo configurado.
-
-O script aceita apenas downloads HTTPS, verifica o hash configurado e só
-inicia a aplicação depois de baixar e descompactar o catálogo com sucesso.
-O Render fornece `PORT`; o script repassa esse valor para `SERVER_PORT`.
-
-Na validação local com o Docker limitado a 512 MB e 0,1 CPU, o catálogo de
-81.444 obras iniciou em aproximadamente 3 minutos e 18 segundos. Uma busca
-com as nove estratégias retornou HTTP 200; a memória observada depois de criar
-uma sessão foi aproximadamente 285 MB. Isso valida um uso básico, não garante
-capacidade para muitas sessões simultâneas nem o tempo de inicialização no Render.
-
-## Comportamento do backend
-
-O backend atual mantém as estruturas e as sessões HTTP na memória. Use uma
-única instância para preservar o comportamento enquanto o processo estiver ativo;
-reiniciar a aplicação ainda apaga essas sessões. Escalar para várias instâncias
-exige uma estratégia adicional para o estado.
-
-O pacote local `data/deploy/catalogo.tar.gz`, ignorado pelo Git, contém os CSVs,
-instruções e hashes SHA-256. Guarde uma cópia em armazenamento externo e extraia
-no servidor Java. Esse pacote ainda não foi enviado para a nuvem.
-
-Exemplo de execução com catálogo extraído em `/srv/wikiart/data`:
+Na raiz, com Python 3 e Pillow instalado (`python3-pil`):
 
 ```bash
-WIKIART_CATALOGO=/srv/wikiart/data/classes.csv \
-WIKIART_THUMBNAILS=/srv/wikiart/data/thumbnails \
-SERVER_PORT=8080 \
+python3 deploy/gerar-amostra.py
+```
+
+A seleção usa uma semente fixa, distribui as obras pelos estilos e pula arquivos
+inexistentes ou ilegíveis. O gerador recusa um diretório de saída não vazio.
+Para revisar uma nova amostra sem sobrescrever a atual:
+
+```bash
+python3 deploy/gerar-amostra.py --saida deploy/catalogo-revisao
+```
+
+Os caminhos no CSV incluem o diretório de saída. Ao adotar uma amostra gerada
+em outro diretório, ajuste também o `COPY` e `WIKIART_CATALOGO` no Docker.
+Versione apenas a amostra adotada. Não adicione `data/archive` ou o catálogo
+completo ao pacote de produção. `.dockerignore` exclui toda a pasta `data`;
+o Docker copia somente a amostra para a imagem final.
+
+## Atualizar o Render
+
+1. Envie as alterações de código e `deploy/catalogo` ao repositório.
+   Os CSVs locais já modificados antes desta tarefa não fazem parte da correção.
+2. Mantenha o serviço Docker com raiz do repositório, `./Dockerfile` e health
+   check `/api/periodos`. O `render.yaml` já aponta para a amostra incorporada.
+3. No serviço existente, configure `WIKIART_CATALOGO` como
+   `/app/deploy/catalogo/classes.csv` ou remova a variável para usar o padrão
+   do Docker. Remova os antigos `WIKIART_CATALOGO_URL` e
+   `WIKIART_CATALOGO_SHA256`: a amostra não depende mais de downloads da release.
+4. Mantenha `WIKIART_THUMBNAILS=/tmp/wikiart/thumbnails` (padrão do Docker).
+   Não use um cache de miniaturas do catálogo completo com os IDs da amostra.
+5. Faça o redeploy da API. `PORT` continua sendo repassada para `SERVER_PORT`.
+
+O script mantém suporte ao download HTTPS do CSV para instalações que
+explicitamente precisem dele. Essa opção baixa apenas metadados, sem imagens;
+para o site publicado, use o catálogo incorporado ao Docker.
+
+## Atualizar a Vercel
+
+Mantenha Root Directory `frontend`, Node.js 22.x, instalação `npm ci`, build
+`npm run build` e saída `dist`. Faça o redeploy após atualizar a API.
+
+O primeiro rewrite de `frontend/vercel.json` encaminha `/api/:path*` para
+`https://ed2-busca.onrender.com/api/:path*`. Se a URL da API mudar, atualize
+esse destino. As demais regras preservam o acesso direto às páginas do site.
+O placeholder SVG é servido pela própria Vercel e pelo frontend do JAR local.
+
+## Validação
+
+Build, testes unitários, tipos, lint e cobertura:
+
+```bash
+./mvnw verify
+```
+
+Para testar a amostra com o JAR local (execute na raiz):
+
+```bash
+WIKIART_CATALOGO=deploy/catalogo/classes.csv \
+WIKIART_THUMBNAILS=/tmp/wikiart-amostra-thumbnails \
 java -jar target/wikiart-catalogo-1.0.0-SNAPSHOT.jar
 ```
 
-## Imagens
+Em outro terminal, com Chromium do Playwright instalado:
 
-As imagens locais ocupam aproximadamente 32 GB e não estão no pacote dos CSVs.
-O código atual lê arquivos do disco; ele não lê URLs de um bucket diretamente.
-Para usar as imagens sem alterar o código, disponibilize `data/archive` no
-diretório de execução do backend, preservando os caminhos relativos do CSV, e
-permita escrita no diretório de miniaturas.
+```bash
+cd frontend
+WIKIART_E2E_AMOSTRA=1 npx playwright test producao.spec.ts
+```
 
-Sem os JPGs, o catálogo e as buscas funcionam, mas as imagens retornam 404.
-Para servir imagens por armazenamento de objetos, será necessário adaptar a
-integração de imagens e escolher o armazenamento antes do upload.
-
-## Verificação após conectar a API
-
-1. Abrir `/api/periodos`: deve responder JSON, não HTML.
-2. Abrir `/museu` diretamente e recarregar: a página deve abrir.
-3. Selecionar um período e executar duas buscas: filtro e acumulados devem persistir.
-4. Abrir detalhes e verificar recentes e mais vistas.
-5. Se os JPGs estiverem no servidor, verificar uma miniatura e um original.
-
-## Referências
-
-- [Vite na Vercel](https://vercel.com/docs/frameworks/frontend/vite)
-- [Proxy por rewrites](https://vercel.com/docs/routing/rewrites)
-- [Containers na Vercel, em beta](https://vercel.com/docs/functions/container-images)
-- [Limites e preços do Vercel Blob](https://vercel.com/docs/vercel-blob/usage-and-pricing)
-- [Render gratuito e suas limitações](https://render.com/docs/free)
-- [Render Compute Plans](https://render.com/docs/compute-plans)
-- [Docker no Render](https://render.com/docs/docker)
-- [GitHub Releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
+Depois do redeploy, confira `/api/periodos` e `/api/obras` (540 registros),
+`/api/imagens/0/miniatura` e `/api/imagens/0/original` (JPEG), abra e recarregue
+`/acervo`, `/buscar`, `/estruturas`, `/museu` e `/sobre`, faça duas buscas pela
+mesma obra e confira os acumulados, os detalhes e os destaques. As sessões
+continuam em memória e são apagadas ao reiniciar o backend.

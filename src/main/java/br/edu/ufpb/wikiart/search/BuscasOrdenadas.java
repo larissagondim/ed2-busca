@@ -67,45 +67,6 @@ public final class BuscasOrdenadas {
         return ResultadoBusca.vazio(TipoBusca.INTERPOLACAO, comparacoes);
     }
 
-    public static ResultadoBusca fibonacci(TabelaOrdenadaObras tabela, long id) {
-        int n = tabela.tamanho();
-        int fibAnterior2 = 0;
-        int fibAnterior1 = 1;
-        int fibAtual = fibAnterior1;
-        while (fibAtual < n) {
-            fibAnterior2 = fibAnterior1;
-            fibAnterior1 = fibAtual;
-            fibAtual = fibAnterior1 + fibAnterior2;
-        }
-
-        int deslocamento = -1;
-        long comparacoes = 0;
-        while (fibAtual > 1) {
-            int indice = Math.min(deslocamento + fibAnterior2, n - 1);
-            long atual = tabela.obter(indice).id();
-            comparacoes++;
-            if (atual < id) {
-                fibAtual = fibAnterior1;
-                fibAnterior1 = fibAnterior2;
-                fibAnterior2 = fibAtual - fibAnterior1;
-                deslocamento = indice;
-            } else if (atual > id) {
-                fibAtual = fibAnterior2;
-                fibAnterior1 = fibAnterior1 - fibAnterior2;
-                fibAnterior2 = fibAtual - fibAnterior1;
-            } else {
-                return unico(TipoBusca.FIBONACCI, tabela.obter(indice), comparacoes);
-            }
-        }
-        if (fibAnterior1 == 1 && deslocamento + 1 < n) {
-            comparacoes++;
-            if (tabela.obter(deslocamento + 1).id() == id) {
-                return unico(TipoBusca.FIBONACCI, tabela.obter(deslocamento + 1), comparacoes);
-            }
-        }
-        return ResultadoBusca.vazio(TipoBusca.FIBONACCI, comparacoes);
-    }
-
     public static ResultadoBusca piso(TabelaOrdenadaObras tabela, long id) {
         int esquerda = 0;
         int direita = tabela.tamanho() - 1;

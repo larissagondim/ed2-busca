@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 public final class SessaoBusca {
-    public static final List<TipoBusca> TIPOS = List.of(TipoBusca.SEQUENCIAL, TipoBusca.TRANSPOSICAO, TipoBusca.MOVER_PARA_INICIO, TipoBusca.BINARIA, TipoBusca.INTERPOLACAO, TipoBusca.LISTA_COM_SALTOS, TipoBusca.FIBONACCI, TipoBusca.DEDILHADA);
+    public static final List<TipoBusca> TIPOS = List.of(TipoBusca.SEQUENCIAL, TipoBusca.TRANSPOSICAO, TipoBusca.MOVER_PARA_INICIO, TipoBusca.BINARIA, TipoBusca.INTERPOLACAO, TipoBusca.LISTA_COM_SALTOS, TipoBusca.ARVORE_AVL, TipoBusca.DEDILHADA);
     private final CatalogoService catalogo;
     private final MedidorBusca medidor = new MedidorBusca();
     private String periodo;
@@ -50,18 +50,19 @@ public final class SessaoBusca {
             case BINARIA -> () -> motor.binaria(id);
             case INTERPOLACAO -> () -> motor.interpolacao(id);
             case LISTA_COM_SALTOS -> () -> motor.listaComSaltos(id);
-            case FIBONACCI -> () -> motor.fibonacci(id);
+            case ARVORE_AVL -> () -> motor.arvoreAvl(id);
             case DEDILHADA -> () -> motor.dedilhada(id);
             default -> throw new IllegalArgumentException("Busca sem chave exata: " + tipo);
         };
     }
     /** As seis consultas que não procuram uma chave exata: respondem com várias obras ou com um extremo. */
-    public static final List<TipoBusca> CONSULTAS = List.of(TipoBusca.CHAVE_SECUNDARIA, TipoBusca.PISO, TipoBusca.TETO, TipoBusca.INTERVALO, TipoBusca.MENOR_CHAVE, TipoBusca.MAIOR_CHAVE);
+    public static final List<TipoBusca> CONSULTAS = List.of(TipoBusca.CHAVE_SECUNDARIA, TipoBusca.CHAVE_SECUNDARIA_AVL, TipoBusca.PISO, TipoBusca.TETO, TipoBusca.INTERVALO, TipoBusca.MENOR_CHAVE, TipoBusca.MAIOR_CHAVE);
     private static final int LIMITE_CONSULTA = 24;
     /** Roda a consulta no subconjunto da sessão; não entra nos acumulados das buscas exatas. */
     public synchronized Consulta consultar(TipoBusca tipo, String artista, Long inicio, Long fim) {
         Supplier<ResultadoBusca> operacao = switch (tipo) {
             case CHAVE_SECUNDARIA -> () -> motor.porArtista(artista);
+            case CHAVE_SECUNDARIA_AVL -> () -> motor.porArtistaAvl(artista);
             case PISO -> () -> motor.piso(inicio);
             case TETO -> () -> motor.teto(inicio);
             case INTERVALO -> () -> motor.intervalo(inicio, fim);
@@ -71,9 +72,16 @@ public final class SessaoBusca {
         };
         MedicaoBusca medicao = medidor.medir(operacao);
         List<Obra> obras = medicao.resultado().obras();
-        return new Consulta(tipo.name(), tipo.nome(), List.copyOf(obras.subList(0, Math.min(LIMITE_CONSULTA, obras.size()))), obras.size(), medicao.resultado().comparacoes(), medicao.tempoDecorridoMicros());
+        Comparativo comparativo = null;
+        if (tipo == TipoBusca.CHAVE_SECUNDARIA) {
+            // Mostra o ganho da árvore: a mesma pergunta respondida pela AVL.
+            MedicaoBusca avl = medidor.medir(() -> motor.porArtistaAvl(artista));
+            comparativo = new Comparativo(medicao.resultado().comparacoes(), avl.resultado().comparacoes(), medicao.tempoDecorridoMicros(), avl.tempoDecorridoMicros(), medicao.resultado().obras().equals(avl.resultado().obras()));
+        }
+        return new Consulta(tipo.name(), tipo.nome(), List.copyOf(obras.subList(0, Math.min(LIMITE_CONSULTA, obras.size()))), obras.size(), medicao.resultado().comparacoes(), medicao.tempoDecorridoMicros(), comparativo);
     }
-    public record Consulta(String tipo, String nome, List<Obra> obras, int total, long comparacoes, double tempoMicros) {}
+    public record Comparativo(long comparacoesSequencial, long comparacoesAvl, double tempoSequencialMicros, double tempoAvlMicros, boolean mesmoResultado) {}
+    public record Consulta(String tipo, String nome, List<Obra> obras, int total, long comparacoes, double tempoMicros, Comparativo comparativo) {}
     public synchronized Resumo resumo() { return new Resumo(periodo, catalogo.obras(periodo).size(), Arrays.stream(acumulados).map(AcumuladoDto::de).toList()); }
     public String periodo() { return periodo; }
     public record Comparacao(Obra obra, List<MedicaoDto> medicoes, Resumo resumo) {}

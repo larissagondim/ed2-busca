@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { HEIGHTS, KEYS, MISSING_KEY, binaria, dedilhada, fibonacci, interpolacao, listaComSaltos, moverParaInicio, sequencial, simulate, transposicao } from './search-steps'
+import { HEIGHTS, KEYS, MISSING_KEY, binaria, arvoreAvl, dedilhada, interpolacao, listaComSaltos, moverParaInicio, sequencial, simulate, transposicao } from './search-steps'
 
 const last = (run: { steps: { comparisons: number; result?: string }[] }) => run.steps[run.steps.length - 1]
 
@@ -8,11 +8,12 @@ describe('simulações das buscas', () => {
   it('conta comparações como o backend nas buscas em tabela', () => {
     expect([3, 11, 24, 31, 57, 92].map(key => last(binaria(KEYS, key)).comparisons)).toEqual([3, 2, 4, 1, 2, 4])
     expect([3, 24, 76, 92, 100].map(key => last(interpolacao(KEYS, key)).comparisons)).toEqual([1, 3, 2, 1, 1])
-    expect([3, 8, 24, 46, 63, 92].map(key => last(fibonacci(KEYS, key)).comparisons)).toEqual([3, 2, 1, 2, 3, 5])
-    expect(last(fibonacci(KEYS, MISSING_KEY))).toMatchObject({ comparisons: 4, result: 'missing' })
+    expect([3, 11, 24, 31, 57, 92].map(key => last(arvoreAvl(KEYS, key)).comparisons)).toEqual([3, 2, 4, 1, 2, 4])
+    expect(last(arvoreAvl(KEYS, MISSING_KEY))).toMatchObject({ comparisons: 4, result: 'missing' })
+    expect(arvoreAvl(KEYS, 24).steps[0].note).toBe('Raiz: 31 > 24, desce para o filho esquerdo.')
   })
   it('encontra todas as chaves e recusa ausentes em qualquer estratégia', () => {
-    for (const tipo of ['SEQUENCIAL', 'TRANSPOSICAO', 'MOVER_PARA_INICIO', 'DEDILHADA', 'BINARIA', 'INTERPOLACAO', 'FIBONACCI', 'LISTA_COM_SALTOS']) {
+    for (const tipo of ['SEQUENCIAL', 'TRANSPOSICAO', 'MOVER_PARA_INICIO', 'DEDILHADA', 'BINARIA', 'INTERPOLACAO', 'ARVORE_AVL', 'LISTA_COM_SALTOS']) {
       for (const key of KEYS) expect(simulate(tipo, key, { order: KEYS, finger: null }).steps.some(step => step.result === 'found'), `${tipo} ${key}`).toBe(true)
       expect(last(simulate(tipo, MISSING_KEY, { order: KEYS, finger: null })).result, tipo).toBe('missing')
     }

@@ -6,7 +6,7 @@ import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
 import { AboutPage } from '@/pages/about'
 import { HomePage } from '@/pages/home'
-import { CollectionPage, MuseumPage, SearchPage, StructuresPage } from '@/pages/inner-pages'
+import { ArtistsPage, CollectionPage, MuseumPage, SearchPage, StructuresPage } from '@/pages/inner-pages'
 import { RotaProvider, TITULOS, useRoteador } from '@/lib/router'
 import { TODAS } from '@/lib/strategies'
 
@@ -14,7 +14,7 @@ type Pedido = { type: TipoEntrada; value: string; strategies: string[] }
 
 export function App() {
   const roteador = useRoteador(), { rota, navegar } = roteador
-  const [periods, setPeriods] = useState<Periodo[]>([]), [period, setPeriod] = useState(''), [page, setPage] = useState<Pagina | null>(null), [pageNumber, setPageNumber] = useState(0)
+  const [periods, setPeriods] = useState<Periodo[]>([]), [period, setPeriod] = useState(''), [sessionPeriod, setSessionPeriod] = useState(''), [page, setPage] = useState<Pagina | null>(null), [pageNumber, setPageNumber] = useState(0)
   const [loading, setLoading] = useState(true), [comparing, setComparing] = useState(false), [error, setError] = useState(''), [details, setDetails] = useState<Obra | null>(null)
   const [type, setType] = useState<TipoEntrada>('ID'), [value, setValue] = useState(''), [comparison, setComparison] = useState<Comparacao | null>(null), [summary, setSummary] = useState<Resumo | null>(null)
   const [strategies, setStrategies] = useState<string[]>(TODAS), [flipped, setFlipped] = useState<number | null>(null), [flash, setFlash] = useState(0), [destaques, setDestaques] = useState<Destaques | null>(null)
@@ -63,8 +63,11 @@ export function App() {
     return () => document.removeEventListener('keydown', atalho)
   }, [navegar])
 
+  // oi
   const nomePeriodo = (slug: string | null) => slug ? periods.find(item => item.slug === slug)?.nome ?? slug : ''
-  async function changePeriod(next: string) { setError(''); try { await api.selecionar(next); setPeriod(next); setPageNumber(0); setDetails(null); setComparison(null); setSummary(null) } catch (reason) { setError((reason as Error).message) } }
+  /** O filtro do acervo só muda a listagem: não restringe as buscas, que correm sobre o período da sessão (por padrão, todos). */
+  function changeCollectionPeriod(next: string) { setPeriod(next); setPageNumber(0); setDetails(null) }
+  async function changeSessionPeriod(next: string) { setError(''); try { await api.selecionar(next); setSessionPeriod(next); setComparison(null); setSummary(null) } catch (reason) { setError((reason as Error).message) } }
   /** Abrir uma obra a move para o início dos recentes e transpõe o ranking no backend. */
   function registerView(obra: Obra) { api.visualizar(obra.id).then(setDestaques).catch(() => undefined) }
   async function runSearch(pedido: Pedido) {
@@ -77,14 +80,14 @@ export function App() {
   }
   /** Leva o pedido para a página de busca, preenche o formulário e já executa. */
   function searchFor(pedido: Pedido) { setType(pedido.type); setValue(pedido.value); setStrategies(pedido.strategies); setFlipped(null); navegar('/buscar'); void runSearch(pedido) }
-  async function reset() { setError(''); try { await api.reiniciar(); setPeriod(''); setPageNumber(0); setValue(''); setComparison(null); setDetails(null); setSummary(await api.resumo()) } catch (reason) { setError((reason as Error).message) } }
+  async function reset() { setError(''); try { await api.reiniciar(); setPeriod(''); setSessionPeriod(''); setPageNumber(0); setValue(''); setComparison(null); setDetails(null); setSummary(await api.resumo()) } catch (reason) { setError((reason as Error).message) } }
   function selectPage(next: number) { setPageNumber(next); requestAnimationFrame(() => document.getElementById('acervo')?.scrollIntoView({ behavior: 'smooth', block: 'start' })) }
   function openDetails(obra: Obra, trigger: HTMLButtonElement) { detailTrigger.current = trigger; setDetails(obra) }
   function flip(obra: Obra) { if (flipped !== obra.id) registerView(obra); setFlipped(current => current === obra.id ? null : obra.id) }
   function openHighlight(obra: Obra, trigger: HTMLButtonElement) { openDetails(obra, trigger); registerView(obra) }
   function applyOnly(tipo: string) { setStrategies([tipo]); setFlash(count => count + 1); navegar('/buscar'); requestAnimationFrame(() => (value ? submitRef : inputRef).current?.focus()) }
 
-  const panel = { periods, period, onPeriod: changePeriod, onReset: reset, type, onType: setType, value, onValue: setValue, strategies, onStrategies: setStrategies, comparing, flash, inputRef, submitRef,
+  const panel = { periods, period: sessionPeriod, onPeriod: changeSessionPeriod, onReset: reset, type, onType: setType, value, onValue: setValue, strategies, onStrategies: setStrategies, comparing, flash, inputRef, submitRef,
     onSubmit: (event: React.FormEvent<HTMLFormElement>) => { event.preventDefault(); void runSearch({ type, value, strategies }) } }
   return <RotaProvider value={roteador}>
     <SiteHeader />
@@ -92,7 +95,8 @@ export function App() {
       {rota === '/' && <HomePage obras={page?.conteudo ?? []} total={periods.length ? periods.reduce((soma, item) => soma + item.quantidade, 0) : null} destaques={destaques} onOpen={openHighlight} onQuickSearch={valor => searchFor({ type: /^\d+$/.test(valor) ? 'ID' : 'CODIGO', value: valor, strategies: TODAS })} />}
       {rota === '/buscar' && <SearchPage panel={panel} error={error} comparison={comparison} summary={summary} periodoResumo={nomePeriodo(summary?.periodo ?? null)} onZoom={openHighlight} />}
       {rota === '/estruturas' && <StructuresPage inicial={roteador.busca.get('busca') ?? undefined} onUse={applyOnly} />}
-      {rota === '/acervo' && <CollectionPage periods={periods} period={period} onPeriod={changePeriod} loading={loading} error={error} page={page} pageNumber={pageNumber} onPage={selectPage} flipped={flipped} onFlip={flip} onZoom={openDetails} onSearch={obra => searchFor({ type: 'ID', value: String(obra.id), strategies })} />}
+      {rota === '/acervo' && <CollectionPage periods={periods} period={period} onPeriod={changeCollectionPeriod} loading={loading} error={error} page={page} pageNumber={pageNumber} onPage={selectPage} flipped={flipped} onFlip={flip} onZoom={openDetails} onSearch={obra => searchFor({ type: 'ID', value: String(obra.id), strategies })} />}
+      {rota === '/artistas' && <ArtistsPage flipped={flipped} onFlip={flip} onZoom={openDetails} onSearch={obra => searchFor({ type: 'ID', value: String(obra.id), strategies })} />}
       {rota === '/sobre' && <AboutPage />}
       {rota === '/museu' && <MuseumPage periodos={periods} onOpen={openHighlight} onMeasured={result => { setComparison(result); setSummary(result.resumo) }} onBuscar={id => searchFor({ type: 'ID', value: String(id), strategies: TODAS })} />}
     </main>

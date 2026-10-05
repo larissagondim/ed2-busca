@@ -6,7 +6,5 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/periodos
     envVars:
-      - key: WIKIART_CATALOGO_URL
-        sync: false
-      - key: WIKIART_CATALOGO_SHA256
-        sync: false
+      - key: WIKIART_CATALOGO
+        value: /app/deploy/catalogo/classes.csv

@@ -12,8 +12,9 @@ RUN apt-get update \
 WORKDIR /app
 COPY --from=build /build/target/wikiart-catalogo-1.0.0-SNAPSHOT.jar /app/app.jar
 COPY deploy/start-backend.sh /app/start-backend.sh
+COPY --chown=wikiart:wikiart deploy/catalogo /app/deploy/catalogo
 USER wikiart
-ENV WIKIART_CATALOGO=/tmp/wikiart/classes.csv \
+ENV WIKIART_CATALOGO=/app/deploy/catalogo/classes.csv \
     WIKIART_THUMBNAILS=/tmp/wikiart/thumbnails \
     JAVA_TOOL_OPTIONS="-Xms64m -Xmx320m -XX:+ExitOnOutOfMemoryError -Djava.awt.headless=true"
 EXPOSE 8080
