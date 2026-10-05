@@ -148,6 +148,11 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         return tamanho;
     }
 
+    /** Número de níveis em uso (nível 0 incluído), para a tela que explica a estrutura. */
+    public int niveis() {
+        return nivelAtual + 1;
+    }
+
     private No<K, V> no(int indice) {
         if (indice < 0 || indice >= tamanho) {
             throw new IndexOutOfBoundsException("Posição " + indice + " fora de 0.." + (tamanho - 1));

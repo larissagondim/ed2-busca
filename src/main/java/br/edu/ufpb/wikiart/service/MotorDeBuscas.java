@@ -6,6 +6,8 @@ import br.edu.ufpb.wikiart.search.BuscasEncadeadas;
 import br.edu.ufpb.wikiart.search.BuscasOrdenadas;
 import br.edu.ufpb.wikiart.search.ResultadoBusca;
 import br.edu.ufpb.wikiart.search.TipoBusca;
+import br.edu.ufpb.wikiart.structure.ArvoreAvlArtistas;
+import br.edu.ufpb.wikiart.structure.ArvoreAvlObras;
 import br.edu.ufpb.wikiart.structure.ListaComSaltos;
 import br.edu.ufpb.wikiart.structure.ListaEncadeadaObras;
 import br.edu.ufpb.wikiart.structure.TabelaOrdenadaObras;
@@ -26,6 +28,8 @@ public final class MotorDeBuscas {
     private final ListaEncadeadaObras dedilhada;
     private final TabelaOrdenadaObras ordenada;
     private final ListaComSaltos<Long, Obra> listaComSaltos;
+    private final ArvoreAvlArtistas arvoreArtistas;
+    private final ArvoreAvlObras arvoreObras;
     private final BuscaDedilhada buscaDedilhada = new BuscaDedilhada();
 
     public MotorDeBuscas(Collection<Obra> obras) {
@@ -36,11 +40,16 @@ public final class MotorDeBuscas {
         transposicao = base.copiar();
         dedilhada = base.copiar();
         List<Obra> copiaEstavel = base.comoLista();
-        ordenada = new TabelaOrdenadaObras(copiaEstavel);
         listaComSaltos = new ListaComSaltos<>(SEMENTE_SKIP_LIST);
+        arvoreArtistas = new ArvoreAvlArtistas();
+        arvoreObras = new ArvoreAvlObras();
         for (Obra obra : copiaEstavel) {
             listaComSaltos.inserir(obra.id(), obra);
+            arvoreArtistas.inserir(obra);
+            arvoreObras.inserir(obra);
         }
+        // O nível 0 da Skip List já está ordenado por ID: nenhuma ordenação extra.
+        ordenada = new TabelaOrdenadaObras(listaComSaltos.paraLista());
     }
 
     public ResultadoBusca sequencial(long id) {
@@ -69,12 +78,21 @@ public final class MotorDeBuscas {
                 busca.encontrou() ? List.of(busca.valor()) : List.of(), busca.comparacoes(), 0);
     }
 
-    public ResultadoBusca fibonacci(long id) {
-        return BuscasOrdenadas.fibonacci(ordenada, id);
+    /** Busca por ID na Árvore AVL (estrutura hierárquica): O(log n), com profundidade do nó. */
+    public ResultadoBusca arvoreAvl(long id) {
+        ArvoreAvlObras.Busca busca = arvoreObras.buscar(id);
+        return new ResultadoBusca(TipoBusca.ARVORE_AVL,
+                busca.encontrou() ? List.of(busca.obra()) : List.of(), busca.comparacoes(), 0);
     }
 
     public ResultadoBusca porArtista(String artista) {
         return BuscasEncadeadas.porArtista(sequencial, artista);
+    }
+
+    /** Mesma consulta de {@link #porArtista}, mas pela Árvore AVL: O(log n) em vez de O(n). */
+    public ResultadoBusca porArtistaAvl(String artista) {
+        ArvoreAvlArtistas.Busca busca = arvoreArtistas.buscar(artista);
+        return new ResultadoBusca(TipoBusca.CHAVE_SECUNDARIA_AVL, busca.obras(), busca.comparacoes(), 0);
     }
 
     public ResultadoBusca piso(long id) {
