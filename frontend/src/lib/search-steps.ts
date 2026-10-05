@@ -117,29 +117,21 @@ export function interpolacao(keys: number[], target: number): Run {
   return { steps }
 }
 
-export function fibonacci(keys: number[], target: number): Run {
+export function arvoreAvl(keys: number[], target: number): Run {
+  // Árvore balanceada sobre as chaves ordenadas: a raiz de cada subárvore é o nó do meio do intervalo (low..high).
   const steps: Step[] = []
-  const n = keys.length
-  let f2 = 0, f1 = 1, f = f1
-  while (f < n) { f2 = f1; f1 = f; f = f1 + f2 }
-  let offset = -1, comparisons = 0
-  while (f > 1) {
-    const index = Math.min(offset + f2, n - 1)
-    const value = keys[index]
+  let low = 0, high = keys.length - 1, comparisons = 0, depth = 0
+  while (low <= high) {
+    const node = low + Math.floor((high - low) / 2)
+    const value = keys[node]
     comparisons++
-    const window = { low: offset + 1, high: Math.min(offset + f, n - 1) }
-    const prefix = `F = ${f} (${f1} + ${f2}): testa a posição ${offset + 1} + ${f2} → ${index + 1}.`
-    if (value === target) { steps.push({ probe: index, ...window, comparisons, note: `${prefix} ${value} = ${target}. Encontrada.`, result: 'found' }); return { steps } }
-    steps.push({ probe: index, ...window, comparisons, note: `${prefix} ${value} ${relation(value, target)} ${target}, ${value < target ? 'avança um Fibonacci' : 'recua dois Fibonacci'}.` })
-    if (value < target) { f = f1; f1 = f2; f2 = f - f1; offset = index } else { f = f2; f1 = f1 - f2; f2 = f - f1 }
+    const where = depth === 0 ? 'Raiz' : `Profundidade ${depth}`
+    if (value === target) { steps.push({ probe: node, low, high, comparisons, note: `${where}: ${value} = ${target}. Encontrada.`, result: 'found' }); return { steps } }
+    steps.push({ probe: node, low, high, comparisons, note: `${where}: ${value} ${relation(value, target)} ${target}, desce para o filho ${value < target ? 'direito' : 'esquerdo'}.` })
+    if (value < target) low = node + 1; else high = node - 1
+    depth++
   }
-  if (f1 === 1 && offset + 1 < n) {
-    comparisons++
-    const found = keys[offset + 1] === target
-    steps.push({ probe: offset + 1, low: offset + 1, high: offset + 1, comparisons, note: `Última candidata: ${keys[offset + 1]} ${relation(keys[offset + 1], target)} ${target}.${found ? ' Encontrada.' : ''}`, result: found ? 'found' : undefined })
-    if (found) return { steps }
-  }
-  steps.push({ probe: null, comparisons, note: `Sem candidatas após ${comparisons} comparações: ${target} não está no catálogo.`, result: 'missing' })
+  steps.push({ probe: null, low, high, comparisons, note: `Chegou a um filho vazio após ${comparisons} comparações: ${target} não está no catálogo.`, result: 'missing' })
   return { steps }
 }
 
@@ -176,7 +168,7 @@ export function simulate(tipo: string, target: number, state: ListState): Run {
     case 'DEDILHADA': return dedilhada(state.order, target, state.finger)
     case 'BINARIA': return binaria(KEYS, target)
     case 'INTERPOLACAO': return interpolacao(KEYS, target)
-    case 'FIBONACCI': return fibonacci(KEYS, target)
+    case 'ARVORE_AVL': return arvoreAvl(KEYS, target)
     default: return listaComSaltos(KEYS, HEIGHTS, target)
   }
 }
@@ -195,7 +187,7 @@ export function simularEm(tipo: string, keys: number[], target: number, state: L
     case 'DEDILHADA': return dedilhada(state.order, target, state.finger)
     case 'BINARIA': return binaria(keys, target)
     case 'INTERPOLACAO': return interpolacao(keys, target)
-    case 'FIBONACCI': return fibonacci(keys, target)
+    case 'ARVORE_AVL': return arvoreAvl(keys, target)
     default: return listaComSaltos(keys, alturas(keys.length), target)
   }
 }

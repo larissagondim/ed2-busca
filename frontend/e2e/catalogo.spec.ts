@@ -12,12 +12,12 @@ test('busca, estruturas, acervo e museu em páginas próprias, sem overflow', as
   // Início: busca rápida e o mapa das estruturas.
   await page.goto('/')
   await expect(page.getByRole('heading', { name: 'Encontre uma obra. Compare as buscas.' })).toBeVisible()
-  await expect(page.getByRole('region', { name: 'O que está por trás de cada busca' }).getByRole('heading', { level: 3 })).toHaveCount(3)
+  await expect(page.getByRole('region', { name: 'O que está por trás de cada busca' }).getByRole('heading', { level: 3 })).toHaveCount(4)
   await page.getByLabel('ID ou código da obra').fill('B1')
   await page.getByRole('button', { name: 'Buscar', exact: true }).click()
   await expect(page).toHaveURL(/\/buscar$/)
   await expect(page.getByRole('heading', { name: 'Obra B1', level: 3 })).toBeVisible()
-  await expect(page.getByRole('region', { name: 'Resultado das buscas' }).getByRole('row')).toHaveCount(10)
+  await expect(page.getByRole('region', { name: 'Resultado das buscas' }).getByRole('row')).toHaveCount(9)
   expect(await semRolagemLateral(page)).toBe(true)
 
   // Buscar: só duas buscas, por código.
@@ -61,9 +61,18 @@ test('busca, estruturas, acervo e museu em páginas próprias, sem overflow', as
   await expect(page.getByRole('list', { name: 'Vistas recentemente' }).getByRole('button', { name: /Abrir Obra B1/ })).toBeAttached()
   await expect(page.getByRole('list', { name: 'Mais vistas' })).toContainText('Obra B1')
 
+  // Artistas: lista pela AVL, obras do artista e comparações da busca na árvore.
+  await irPeloMenu(page, 'Artistas')
+  await expect(page.getByRole('heading', { name: 'Artistas', level: 1 })).toBeVisible()
+  await page.getByRole('button', { name: 'Abrir obras de Artista desconhecido' }).click()
+  await expect(page.getByText('Encontrado em 1 comparação, profundidade 0 na AVL.')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Obra B1', level: 3 })).toBeVisible()
+  expect(await semRolagemLateral(page)).toBe(true)
+
   // Estruturas: aberta direto pelo endereço (o SpaController devolve o index.html).
   await page.goto('/estruturas?busca=MOVER_PARA_INICIO')
   await expect(page.getByRole('heading', { name: 'Estruturas de dados', level: 1 })).toBeVisible()
+  await expect(page.getByRole('group', { name: 'Altura da AVL contra a ABB' })).toBeVisible()
   await page.getByRole('button', { name: 'Procurar 19, posição 4' }).click()
   await page.getByRole('button', { name: 'Reproduzir' }).click()
   await expect(page.getByRole('button', { name: 'Procurar 19, posição 1' })).toBeVisible({ timeout: 10_000 })

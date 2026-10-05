@@ -8,7 +8,7 @@ test('amostra: rotas, imagens, busca, detalhes e placeholder', async ({ page, re
   const pagina = await catalogo.json()
   expect(pagina.totalElementos).toBe(540)
   const obra = pagina.conteudo[0]
-  for (const rota of ['/', '/buscar', '/estruturas', '/acervo', '/museu', '/sobre', '/catalogo', '/resumo']) {
+  for (const rota of ['/', '/buscar', '/estruturas', '/acervo', '/artistas', '/museu', '/sobre', '/catalogo', '/resumo']) {
     await page.goto(rota)
     await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeAttached()
     expect(await page.locator('body').innerText()).not.toContain('Whitelabel Error')
@@ -29,7 +29,7 @@ test('amostra: rotas, imagens, busca, detalhes e placeholder', async ({ page, re
   await page.getByRole('button', { name: 'Fechar detalhes' }).click()
   await page.getByRole('button', { name: 'Buscar esta obra' }).first().click()
   await expect(page).toHaveURL(/\/buscar$/)
-  await expect(page.getByRole('region', { name: 'Resultado das buscas' }).getByRole('row')).toHaveCount(10)
+  await expect(page.getByRole('region', { name: 'Resultado das buscas' }).getByRole('row')).toHaveCount(9)
   await page.getByRole('button', { name: 'Comparar buscas' }).click()
   await expect.poll(async () => page.evaluate(async () => {
     const resumo = await (await fetch('/api/sessao/resumo')).json()

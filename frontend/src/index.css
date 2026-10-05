@@ -813,3 +813,40 @@ tbody tr.is-best td:first-child { font-weight: 650; }
   .scroll-progress, .section-heading > * { animation: none !important; }
   .scroll-progress { display: none; }
 }
+
+/* Artistas, painel "Estruturas por dentro" e comparação sequencial x AVL */
+.artists-search { display: flex; margin-bottom: 1.25rem; flex-wrap: wrap; align-items: end; gap: 1rem 1.25rem; }
+.artists-search label { display: grid; flex: 1; min-width: 14rem; max-width: 26rem; gap: .3rem; color: var(--ink-soft); font-size: .8rem; font-weight: 600; }
+.artists-search input { min-height: 46px; padding: .55rem .25rem; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 1rem; box-shadow: inset 0 -1px 0 var(--rule); transition: box-shadow .35s var(--ease-out); }
+.artists-search input:focus { outline: none; box-shadow: inset 0 -3px 0 var(--ochre); }
+.artist-list { display: grid; margin: 0; padding: 0; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: .5rem; list-style: none; }
+.artist-item, .artist-row { display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; align-items: center; gap: .75rem; width: 100%; padding: .65rem .75rem; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper); color: var(--ink); text-align: left; }
+.artist-item { cursor: pointer; transition: background-color .2s ease, border-color .2s ease; }
+.artist-item:hover { border-color: var(--velvet); background: var(--wall); }
+.artist-item:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.artist-row { margin: 0 .75rem .25rem; width: auto; border-color: transparent; }
+.artist-rank { color: var(--ink-soft); font-size: .8rem; font-variant-numeric: tabular-nums; text-align: right; }
+.artist-name { display: grid; min-width: 0; }
+.artist-name strong, .artist-name small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.artist-name small { color: var(--ink-soft); }
+.artist-open { display: grid; gap: .75rem; }
+.artist-title h2 { margin: 0; font-size: 2rem; }
+.artist-title p, .avl-note { margin: 0; color: var(--ink-soft); font-size: .9rem; }
+.avl-note { font-size: .8rem; }
+.inside-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 1.25rem; }
+.inside-wide { grid-column: 1 / -1; }
+.big-row { display: flex; padding: 0 1.5rem 1rem; flex-wrap: wrap; gap: 1rem 2.5rem; }
+.big-stat { display: grid; min-width: 9rem; gap: .15rem; }
+.big-number { color: var(--ink); font-family: var(--display); font-size: clamp(3rem, 9vw, 5.5rem); font-variant-numeric: tabular-nums; font-weight: 600; line-height: 1; }
+.big-stat.is-highlight .big-number { color: var(--velvet); }
+.big-label { color: var(--ink-soft); font-size: 1rem; font-weight: 600; }
+.inside-note { margin: 0; padding: 0 1.5rem 1.25rem; color: var(--ink-soft); font-size: .9rem; }
+.inside-table { width: 100%; margin: 0 0 .5rem; border-collapse: collapse; font-size: 1rem; }
+.inside-table th, .inside-table td { padding: .6rem 1.5rem; border-top: 1px solid var(--rule); text-align: left; }
+.inside-table td { font-variant-numeric: tabular-nums; }
+.compare-sides { display: flex; padding: 0 1.5rem 1rem; flex-wrap: wrap; align-items: stretch; gap: 1rem; }
+.compare-side { display: grid; flex: 1; min-width: 14rem; padding: 1rem 1.25rem; gap: .35rem; border: 1px solid var(--rule); border-radius: 12px; background: var(--wall); color: var(--ink-soft); }
+.compare-side.is-best { border-color: rgb(var(--brass-rgb) / 70%); background: rgb(var(--brass-rgb) / 12%); }
+.compare-side .structure-tag { justify-self: start; }
+.compare-number { color: var(--ink); font-family: var(--display); font-size: 2.6rem; font-variant-numeric: tabular-nums; line-height: 1; }
+.compare-note { width: 100%; margin: 0; color: var(--ink-soft); font-size: .85rem; }

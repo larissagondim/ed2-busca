@@ -7,8 +7,8 @@ import { HEIGHTS, KEYS, type ListState, MISSING_KEY, type Run, type Step, simula
 
 const STEP_MS = 1100
 /** Abas agrupadas por estrutura, na mesma ordem do mapa de estruturas. */
-const GRUPOS = ['lista', 'tabela', 'saltos'] as const
-const ESTRUTURA = { lista: 'Lista encadeada', tabela: 'Tabela ordenada', saltos: 'Lista com saltos' }
+const GRUPOS = ['lista', 'tabela', 'saltos', 'arvore'] as const
+const ESTRUTURA = { lista: 'Lista encadeada', tabela: 'Tabela ordenada', saltos: 'Lista com saltos', arvore: 'Árvore AVL' }
 const initialLists = (): Record<string, ListState> => Object.fromEntries(ESTRATEGIAS.map(item => [item.tipo, { order: [...KEYS], finger: null }]))
 const vars = (values: Record<string, string | number>) => values as CSSProperties
 
@@ -119,7 +119,7 @@ export function SearchExplainer({ onUse, inicial }: { onUse: (tipo: string) => v
           </div>
           <div className="viz-stage">
             {estrategia.estrutura === 'lista' ? <ListStage order={order} finger={finger} step={step} target={target} onPick={pick} />
-              : estrategia.estrutura === 'tabela' ? <TableStage step={step} target={target} onPick={pick} />
+              : estrategia.estrutura === 'tabela' || estrategia.estrutura === 'arvore' ? <TableStage step={step} target={target} onPick={pick} />
               : <SkipStage step={step} target={target} onPick={pick} />}
           </div>
           <p className={step?.result ? `viz-note is-${step.result}` : 'viz-note'} aria-live="polite">{step?.note ?? 'Aperte reproduzir para ver cada comparação.'}</p>
