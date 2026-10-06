@@ -15,6 +15,7 @@ public final class BuscasOrdenadas {
         int esquerda = 0;
         int direita = tabela.tamanho() - 1;
         long comparacoes = 0;
+        // A cada comparação, metade do intervalo é descartada; exige tabela ordenada e acesso por índice.
         while (esquerda <= direita) {
             // Esta forma evita overflow que poderia ocorrer em (esquerda + direita) / 2.
             int meio = esquerda + (direita - esquerda) / 2;
@@ -36,6 +37,7 @@ public final class BuscasOrdenadas {
         int inferior = 0;
         int superior = tabela.tamanho() - 1;
         long comparacoes = 0;
+        // Estima a posição pela proporção do ID no intervalo; IDs uniformes favorecem O(log log n) médio.
         while (inferior <= superior && tabela.tamanho() > 0) {
             long menorId = tabela.obter(inferior).id();
             long maiorId = tabela.obter(superior).id();

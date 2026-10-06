@@ -55,6 +55,8 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
     public Busca<V> buscar(K chave) {
         No<K, V> atual = cabeca;
         long comparacoes = 0;
+        // Busca clássica da Skip List: do nível mais alto para o mais baixo.
+        // Em cada nível avança enquanto a próxima chave ainda é menor que a procurada.
         for (int nivel = nivelAtual; nivel >= 0; nivel--) {
             while (atual.proximos[nivel] != null) {
                 comparacoes++;
@@ -64,6 +66,7 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
                 atual = atual.proximos[nivel];
             }
         }
+        // No nível 0, o próximo nó é o primeiro candidato que pode ser igual à chave.
         atual = atual.proximos[0];
         if (atual != null) {
             comparacoes++;
@@ -82,6 +85,8 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         int[] posicaoDosAnteriores = new int[NIVEL_MAXIMO + 1];
         No<K, V> atual = cabeca;
         int posicao = 0; // a cabeça ocupa a posição 0; o primeiro dado, a 1
+        // Guarda o predecessor em cada nível; as posições acumuladas permitem
+        // atualizar as larguras sem percorrer a lista inteira após inserir.
         for (int nivel = nivelAtual; nivel >= 0; nivel--) {
             while (atual.proximos[nivel] != null
                     && atual.proximos[nivel].chave.compareTo(chave) < 0) {
@@ -160,6 +165,8 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         int alvo = indice + 1;
         int posicao = 0;
         No<K, V> atual = cabeca;
+        // A largura informa quantos nós do nível 0 o ponteiro cobre.
+        // Avançamos sem ultrapassar a posição desejada e descemos quando necessário.
         for (int nivel = nivelAtual; nivel >= 0; nivel--) {
             while (atual.proximos[nivel] != null && posicao + atual.larguras[nivel] <= alvo) {
                 posicao += atual.larguras[nivel];

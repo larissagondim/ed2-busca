@@ -51,6 +51,8 @@ public final class ArvoreAvlObras {
         long comparacoes = 0;
         int profundidade = 0;
         while (atual != null) {
+            // Em cada nó, uma comparação escolhe a subárvore que ainda pode conter o ID.
+            // O rebalanceamento da AVL limita o caminho a O(log n), inclusive com IDs ordenados.
             comparacoes++;
             if (id == atual.obra.id()) {
                 return new Busca(atual.obra, comparacoes, profundidade);
@@ -88,12 +90,14 @@ public final class ArvoreAvlObras {
     private static No balancear(No no) {
         int fator = altura(no.esquerda) - altura(no.direita);
         if (fator > 1) {
+            // Peso à esquerda: caso esquerda-direita exige primeiro rotação filha.
             if (altura(no.esquerda.esquerda) < altura(no.esquerda.direita)) {
                 no.esquerda = rotacionarEsquerda(no.esquerda);
             }
             return rotacionarDireita(no);
         }
         if (fator < -1) {
+            // Peso à direita: caso direita-esquerda exige primeiro rotação filha.
             if (altura(no.direita.direita) < altura(no.direita.esquerda)) {
                 no.direita = rotacionarDireita(no.direita);
             }

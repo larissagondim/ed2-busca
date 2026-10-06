@@ -24,6 +24,7 @@ public final class BuscasEncadeadas {
         return ResultadoBusca.vazio(TipoBusca.SEQUENCIAL, comparacoes);
     }
 
+    /** Busca em lista e, quando encontra a obra, reorganiza os ponteiros para trazê-la à cabeça. */
     public static ResultadoBusca moverParaInicio(ListaEncadeadaObras lista, long id) {
         No anterior = null;
         No atual = lista.inicio();
@@ -41,6 +42,7 @@ public final class BuscasEncadeadas {
         return ResultadoBusca.vazio(TipoBusca.MOVER_PARA_INICIO, comparacoes);
     }
 
+    /** Busca em lista e troca o nó encontrado apenas com seu predecessor imediato. */
     public static ResultadoBusca transposicao(ListaEncadeadaObras lista, long id) {
         No anteriorDoAnterior = null;
         No anterior = null;
