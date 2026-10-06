@@ -183,6 +183,7 @@ public final class ArvoreAvlArtistas {
     }
 
     /** O i-ésimo artista (base zero) em ordem alfabética, descendo pelos tamanhos das subárvores: O(log n). */
+    // IMPORTANTE, OLHAR AQUI
     public Artista artistaNaPosicao(int indice) {
         if (indice < 0 || indice >= tamanho()) {
             throw new IndexOutOfBoundsException("Posição " + indice + " fora de 0.." + (tamanho() - 1));

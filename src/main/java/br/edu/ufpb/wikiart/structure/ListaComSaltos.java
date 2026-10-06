@@ -52,6 +52,7 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         cabeca.larguras[0] = 1;
     }
 
+    // IMPORTANTE, OLHAR AQUI
     public Busca<V> buscar(K chave) {
         No<K, V> atual = cabeca;
         long comparacoes = 0;
@@ -158,6 +159,7 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         return nivelAtual + 1;
     }
 
+    // IMPORTANTE, OLHAR AQUI
     private No<K, V> no(int indice) {
         if (indice < 0 || indice >= tamanho) {
             throw new IndexOutOfBoundsException("Posição " + indice + " fora de 0.." + (tamanho - 1));

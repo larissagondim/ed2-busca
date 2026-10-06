@@ -87,6 +87,7 @@ public final class ArvoreAvlObras {
         return balancear(no);
     }
 
+    // IMPORTANTE, OLHAR AQUI
     private static No balancear(No no) {
         int fator = altura(no.esquerda) - altura(no.direita);
         if (fator > 1) {

@@ -42,6 +42,7 @@ public final class ListaMaisVistas {
     private No fim;
     private int tamanho;
 
+    // IMPORTANTE, OLHAR AQUI
     public Registro registrar(Obra obra) {
         Objects.requireNonNull(obra);
         No anteriorDoAnterior = null;

@@ -39,6 +39,7 @@ public final class ListaRecentes {
     }
 
     /** Leva a obra ao início; se ainda não estava na lista, insere e descarta o excesso no fim. */
+    // IMPORTANTE, OLHAR AQUI
     public void registrar(Obra obra) {
         Objects.requireNonNull(obra);
         No anterior = null;
