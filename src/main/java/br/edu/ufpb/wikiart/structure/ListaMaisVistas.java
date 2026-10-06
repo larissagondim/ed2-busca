@@ -49,6 +49,7 @@ public final class ListaMaisVistas {
         No atual = inicio;
         long comparacoes = 0;
         int posicao = 1;
+        // Localiza a obra pelo ID e atualiza sua frequência no próprio nó.
         while (atual != null) {
             comparacoes++;
             if (atual.obra.id() == obra.id()) {
@@ -64,6 +65,7 @@ public final class ListaMaisVistas {
             atual = atual.proximo;
             posicao++;
         }
+        // Primeira visualização: adiciona ao final para preservar a ordem do ranking.
         No novo = new No(obra);
         novo.visualizacoes = 1;
         if (fim == null) {

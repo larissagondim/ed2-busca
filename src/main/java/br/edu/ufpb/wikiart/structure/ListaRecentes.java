@@ -46,6 +46,7 @@ public final class ListaRecentes {
         for (No atual = inicio; atual != null; atual = atual.proximo) {
             if (atual.obra.id() == obra.id()) {
                 if (anterior != null) {
+                    // Desvincula a obra da posição antiga antes de torná-la a mais recente.
                     anterior.proximo = atual.proximo;
                     atual.proximo = inicio;
                     inicio = atual;
@@ -55,6 +56,7 @@ public final class ListaRecentes {
             penultimo = anterior;
             anterior = atual;
         }
+        // Uma obra nova entra na cabeça; se exceder a capacidade, o fim será removido.
         No novo = new No(obra);
         novo.proximo = inicio;
         inicio = novo;

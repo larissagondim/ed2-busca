@@ -32,6 +32,7 @@ public final class TabelaOrdenadaObras {
     }
 
     public Obra obter(int indice) {
+        // Acesso direto em O(1), usado pelas buscas binária e por interpolação.
         return obras[indice];
     }
 }
