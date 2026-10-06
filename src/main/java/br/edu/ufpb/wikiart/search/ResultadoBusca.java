@@ -5,7 +5,7 @@ import br.edu.ufpb.wikiart.model.Obra;
 import java.util.List;
 import java.util.Optional;
 
-/**
+/*
  * Resultado e métricas viajam juntos para ninguém precisar medir o algoritmo
  * imprimindo mensagens no meio da busca — I/O distorceria o experimento.
  */

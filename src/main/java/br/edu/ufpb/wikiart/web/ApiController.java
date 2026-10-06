@@ -51,7 +51,7 @@ public class ApiController {
         try { long id = req.tipo() == TipoEntrada.ID ? Long.parseLong(req.valor()) : -1; if (req.tipo() == TipoEntrada.ID && id < 0) throw new NumberFormatException(); return req.tipo() == TipoEntrada.ID ? sessao(http).comparar(id, estrategias) : sessao(http).compararCodigo(req.valor(), estrategias); }
         catch (NumberFormatException e) { throw new EntradaInvalida("ID_INVALIDO", "O ID deve ser um inteiro não negativo.", "valor"); }
     }
-    /** Abrir os detalhes de uma obra a move para o início dos recentes e transpõe o ranking (mais vistas). */
+    /* Abrir os detalhes de uma obra a move para o início dos recentes e transpõe o ranking (mais vistas). */
     @PostMapping("/obras/{id}/visualizacoes") public CatalogoService.Destaques visualizar(@PathVariable long id, @RequestParam(defaultValue="8") int limite) { return catalogo.visualizar(id, validarLimite(limite)); }
     @GetMapping("/destaques") public CatalogoService.Destaques destaques(@RequestParam(defaultValue="8") int limite) { return catalogo.destaques(validarLimite(limite)); }
     @PostMapping("/buscas/consulta") public SessaoBusca.Consulta consultar(@Valid @RequestBody ConsultaRequest req, HttpSession http) {

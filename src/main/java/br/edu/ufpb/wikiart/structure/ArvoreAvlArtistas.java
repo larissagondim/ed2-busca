@@ -8,43 +8,43 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-/**
+/*
  * Índice hierárquico dos artistas: uma Árvore AVL cuja chave é o nome do artista
  * normalizado (sem acentos, minúsculas, sem espaços nas pontas) e cujo valor é uma
- * {@link ListaEncadeadaObras} com as obras daquele artista. A árvore indexa
+ * ListaEncadeadaObras com as obras daquele artista. A árvore indexa
  * artistas; cada nó aponta para a lista de obras dele.
  *
- * <p><b>Algoritmo clássico:</b> a AVL é uma árvore binária de busca que, após cada
+ * Algoritmo clássico: a AVL é uma árvore binária de busca que, após cada
  * inserção, confere o fator de balanceamento (altura da esquerda − altura da
  * direita) de cada ancestral do nó novo. Se algum chega a ±2, uma rotação simples
  * (casos esquerda-esquerda e direita-direita) ou dupla (esquerda-direita e
  * direita-esquerda) restaura |fator| ≤ 1. Isso limita a altura a ≈ 1,44·log2 n
  * mesmo quando as chaves chegam ordenadas — o caso em que uma ABB comum vira uma
- * lista (ver {@link ArvoreBuscaBinariaArtistas}).
+ * lista (ver ArvoreBuscaBinariaArtistas).
  *
- * <p><b>Modificação 1 — árvore de estatística de ordem:</b> cada nó guarda, além da
- * altura, o <i>tamanho da subárvore</i> (quantos artistas ela contém, contando o
+ * Modificação 1 — árvore de estatística de ordem: cada nó guarda, além da
+ * altura, o tamanho da subárvore (quantos artistas ela contém, contando o
  * próprio nó), e todas as rotações o atualizam. Com isso
- * {@link #artistaNaPosicao(int)}, {@link #posicaoDe(String)} e {@link #fatia(int, int)}
+ * artistaNaPosicao(int), posicaoDe(String) e fatia(int, int)
  * funcionam em O(log n) (mais O(k) para os k itens da página), sem percorrer i nós.
- * É a mesma ideia das <i>larguras</i> da {@link ListaComSaltos} indexável — guardar
+ * É a mesma ideia das larguras da ListaComSaltos indexável — guardar
  * no ponteiro/nó quantos elementos ele cobre —, aplicada a uma estrutura
  * hierárquica. A aplicação precisa disso para paginar ~1.100 artistas em ordem
  * alfabética sem ordenar nem copiar a árvore a cada requisição.
  *
- * <p><b>Modificação 2 — visualizações agregadas:</b> cada nó guarda a soma das
- * visualizações das obras do artista. {@link #registrarVisualizacao(Obra)} faz uma
+ * Modificação 2 — visualizações agregadas: cada nó guarda a soma das
+ * visualizações das obras do artista. registrarVisualizacao(Obra) faz uma
  * busca O(log n) e incrementa o contador, sem estrutura paralela; a mesma árvore
  * responde "quantas vezes as obras deste artista foram vistas" e "em que posição
  * alfabética ele está".
  *
- * <p>Também são contadas as rotações executadas, por tipo, para a tela que explica
+ * Também são contadas as rotações executadas, por tipo, para a tela que explica
  * a estrutura. Uma rotação dupla conta como uma só (e não como duas simples).
  *
- * <p>Convenção de altura: árvore vazia = 0; nó único = 1. A profundidade da raiz é 0.
+ * Convenção de altura: árvore vazia = 0; nó único = 1. A profundidade da raiz é 0.
  */
 public final class ArvoreAvlArtistas {
-    /** Nó visível (somente leitura) para verificadores de invariantes e para a tela de métricas. */
+    /* Nó visível (somente leitura) para verificadores de invariantes e para a tela de métricas. */
     public static final class No {
         private final String chave;
         private final String nome;
@@ -93,10 +93,10 @@ public final class ArvoreAvlArtistas {
         }
     }
 
-    /** Um artista como a API o mostra: nome original, obras, visualizações e posição alfabética (base zero). */
+    /* Um artista como a API o mostra: nome original, obras, visualizações e posição alfabética (base zero). */
     public record Artista(String nome, int quantidadeObras, long visualizacoes, int posicao) {}
 
-    /**
+    /*
      * Resultado de uma busca: o artista (ou vazio), suas obras, as comparações de chave
      * feitas e a profundidade do nó (raiz = 0; −1 se não encontrado).
      */
@@ -106,7 +106,7 @@ public final class ArvoreAvlArtistas {
         }
     }
 
-    /** Rotações executadas durante a construção, por tipo. */
+    /* Rotações executadas durante a construção, por tipo. */
     public record Rotacoes(long simplesEsquerda, long simplesDireita, long duplaEsquerdaDireita, long duplaDireitaEsquerda) {
         public long total() {
             return simplesEsquerda + simplesDireita + duplaEsquerdaDireita + duplaDireitaEsquerda;
@@ -119,7 +119,7 @@ public final class ArvoreAvlArtistas {
     private long duplaEsquerdaDireita;
     private long duplaDireitaEsquerda;
 
-    /** Sem acentos, minúsculo e sem espaços nas pontas: a forma usada para comparar nomes de artistas. */
+    /* Sem acentos, minúsculo e sem espaços nas pontas: a forma usada para comparar nomes de artistas. */
     public static String normalizar(String nome) {
         String texto = nome.strip();
         boolean ascii = true;
@@ -142,13 +142,13 @@ public final class ArvoreAvlArtistas {
         return limpo.toString().toLowerCase(Locale.ROOT);
     }
 
-    /** Anexa a obra à lista do artista, criando o nó dele (e rebalanceando) se ainda não existir. */
+    /* Anexa a obra à lista do artista, criando o nó dele (e rebalanceando) se ainda não existir. */
     public void inserir(Obra obra) {
         Objects.requireNonNull(obra);
         raiz = inserir(raiz, normalizar(obra.artista()), obra);
     }
 
-    /** Busca O(log n): devolve o artista, suas obras, as comparações e a profundidade do nó. */
+    /* Busca O(log n): devolve o artista, suas obras, as comparações e a profundidade do nó. */
     public Busca buscar(String artista) {
         String chave = normalizar(artista);
         No atual = raiz;
@@ -173,7 +173,7 @@ public final class ArvoreAvlArtistas {
         return new Busca(null, List.of(), comparacoes, -1);
     }
 
-    /** Soma uma visualização ao artista da obra; devolve o novo total (ou 0 se o artista não existe). */
+    /* Soma uma visualização ao artista da obra; devolve o novo total (ou 0 se o artista não existe). */
     public long registrarVisualizacao(Obra obra) {
         No no = localizar(normalizar(obra.artista()));
         if (no == null) {
@@ -182,7 +182,7 @@ public final class ArvoreAvlArtistas {
         return ++no.visualizacoes;
     }
 
-    /** O i-ésimo artista (base zero) em ordem alfabética, descendo pelos tamanhos das subárvores: O(log n). */
+    /* O i-ésimo artista (base zero) em ordem alfabética, descendo pelos tamanhos das subárvores: O(log n). */
     // IMPORTANTE, OLHAR AQUI
     public Artista artistaNaPosicao(int indice) {
         if (indice < 0 || indice >= tamanho()) {
@@ -203,7 +203,7 @@ public final class ArvoreAvlArtistas {
         }
     }
 
-    /** Posição alfabética (base zero) do artista, ou −1 se ele não existe: O(log n). */
+    /* Posição alfabética (base zero) do artista, ou −1 se ele não existe: O(log n). */
     public int posicaoDe(String artista) {
         String chave = normalizar(artista);
         No atual = raiz;
@@ -223,8 +223,8 @@ public final class ArvoreAvlArtistas {
         return -1;
     }
 
-    /**
-     * Até {@code quantidade} artistas a partir da posição {@code inicio}: desce em
+    /*
+     * Até quantidade artistas a partir da posição inicio: desce em
      * O(log n) até o início da página e segue pelo sucessor em ordem.
      */
     public List<Artista> fatia(int inicio, int quantidade) {
@@ -265,17 +265,17 @@ public final class ArvoreAvlArtistas {
         return resultado;
     }
 
-    /** Todos os artistas em ordem alfabética (percurso em ordem). */
+    /* Todos os artistas em ordem alfabética (percurso em ordem). */
     public List<Artista> emOrdem() {
         return fatia(0, tamanho());
     }
 
-    /** Número de artistas. */
+    /* Número de artistas. */
     public int tamanho() {
         return tamanho(raiz);
     }
 
-    /** Altura em níveis (vazia = 0; nó único = 1). */
+    /* Altura em níveis (vazia = 0; nó único = 1). */
     public int altura() {
         return altura(raiz);
     }
@@ -284,7 +284,7 @@ public final class ArvoreAvlArtistas {
         return new Rotacoes(simplesEsquerda, simplesDireita, duplaEsquerdaDireita, duplaDireitaEsquerda);
     }
 
-    /** Raiz para inspeção (somente leitura); {@code null} se a árvore está vazia. */
+    /* Raiz para inspeção (somente leitura); null se a árvore está vazia. */
     public No raiz() {
         return raiz;
     }
@@ -362,7 +362,7 @@ public final class ArvoreAvlArtistas {
         return novaRaiz;
     }
 
-    /** Recalcula altura e tamanho da subárvore a partir dos filhos (que já estão corretos). */
+    /* Recalcula altura e tamanho da subárvore a partir dos filhos (que já estão corretos). */
     private static void atualizar(No no) {
         no.altura = 1 + Math.max(altura(no.esquerda), altura(no.direita));
         no.tamanhoSubarvore = 1 + tamanho(no.esquerda) + tamanho(no.direita);

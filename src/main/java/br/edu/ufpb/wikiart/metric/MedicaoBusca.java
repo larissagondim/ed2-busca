@@ -2,7 +2,7 @@ package br.edu.ufpb.wikiart.metric;
 
 import br.edu.ufpb.wikiart.search.ResultadoBusca;
 
-/** Uma execução medida sem misturar impressão ou leitura de arquivo ao algoritmo. */
+/* Uma execução medida sem misturar impressão ou leitura de arquivo ao algoritmo. */
 public record MedicaoBusca(ResultadoBusca resultado, long tempoDecorridoNanos, long tempoCpuNanos) {
     public MedicaoBusca {
         if (tempoDecorridoNanos < 0 || tempoCpuNanos < -1) {

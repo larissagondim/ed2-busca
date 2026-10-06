@@ -6,7 +6,7 @@ import br.edu.ufpb.wikiart.structure.TabelaOrdenadaObras;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Buscas que dependem de acesso direto a posições de uma tabela ordenada. */
+/* Buscas que dependem de acesso direto a posições de uma tabela ordenada. */
 public final class BuscasOrdenadas {
     private BuscasOrdenadas() {
     }

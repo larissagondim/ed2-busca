@@ -2,7 +2,7 @@ package br.edu.ufpb.wikiart.model;
 
 import java.util.Objects;
 
-/**
+/*
  * Os metadados ficam em memória; a imagem, não. Guardar apenas o caminho evita
  * que um experimento de busca acabe medindo o custo de decodificar milhares de JPGs.
  */
@@ -18,7 +18,7 @@ public record Obra(long id, String codigoAcervo, String titulo, String artista, 
         caminhoImagem = textoObrigatorio(caminhoImagem, "caminho da imagem");
     }
 
-    /** Compatibilidade com os exercícios anteriores: deriva o código do arquivo. */
+    /* Compatibilidade com os exercícios anteriores: deriva o código do arquivo. */
     public Obra(long id, String titulo, String artista, String estilo, String caminhoImagem) {
         this(id, codigoDoCaminho(caminhoImagem), titulo, artista, estilo, caminhoImagem);
     }

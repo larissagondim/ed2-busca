@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 
-/** Interface textual independente do servidor web. */
+/* Interface textual independente do servidor web. */
 public final class CatalogoCli {
     private static final int DESTAQUES = 8;
     private CatalogoCli() {}
@@ -40,7 +40,7 @@ public final class CatalogoCli {
             } catch (RuntimeException e) { System.out.println("Erro: " + e.getMessage()); }
         }
     }
-    /** A página vem direto da Skip List indexável: um salto até a posição e 24 passos no nível 0. */
+    /* A página vem direto da Skip List indexável: um salto até a posição e 24 passos no nível 0. */
     private static void listar(Scanner entrada, CatalogoService catalogo, String periodo) { int tamanho=24; long pagina=lerLong(entrada,"Página (a partir de 0): "); int total=catalogo.quantidade(periodo); long inicio=Math.max(0,pagina)*tamanho; if(inicio<total) catalogo.fatia(periodo,CatalogoService.Ordem.ID,(int)inicio,tamanho).forEach(CatalogoCli::mostrar); System.out.printf("%,d obra(s).%n",total); }
     private static void visualizar(Obra obra,String periodo,CatalogoService catalogo){mostrar(obra,periodo,catalogo);catalogo.visualizar(obra.id(),DESTAQUES);}
     private static void destaques(CatalogoService.Destaques d){System.out.println("Vistas recentemente (lista com movimentação para o início):");d.recentes().forEach(CatalogoCli::mostrar);System.out.println("Mais vistas (lista com transposição):");d.maisVistas().forEach(item->{System.out.printf("%,dx  ",item.visualizacoes());mostrar(item.obra());});}

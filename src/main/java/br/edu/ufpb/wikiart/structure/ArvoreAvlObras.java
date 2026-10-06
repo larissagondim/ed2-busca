@@ -4,20 +4,20 @@ import br.edu.ufpb.wikiart.model.Obra;
 
 import java.util.Objects;
 
-/**
+/*
  * Estrutura hierárquica da busca por ID: uma Árvore AVL ordenada pelo ID da obra.
  *
- * <p><b>Algoritmo clássico:</b> árvore binária de busca que, após cada inserção, confere
+ * Algoritmo clássico: árvore binária de busca que, após cada inserção, confere
  * o fator de balanceamento dos ancestrais e aplica rotações simples ou duplas para manter
  * |fator| ≤ 1. A altura fica em ≈ 1,44·log2 n e a busca custa O(log n) comparações no
  * pior caso, mesmo que os IDs cheguem em ordem crescente (como no CSV).
  *
- * <p><b>Modificação para o catálogo:</b> cada nó guarda a altura <i>e</i> o tamanho da
+ * Modificação para o catálogo: cada nó guarda a altura e o tamanho da
  * subárvore (estatística de ordem), atualizados nas rotações, e a busca devolve junto
  * com a obra o número de comparações e a profundidade do nó, métricas que a tela de
  * comparação mostra. É o índice por ID análogo à Skip List, mas hierárquico.
  *
- * <p>Convenção de altura: árvore vazia = 0; nó único = 1.
+ * Convenção de altura: árvore vazia = 0; nó único = 1.
  */
 public final class ArvoreAvlObras {
     private static final class No {
@@ -32,7 +32,7 @@ public final class ArvoreAvlObras {
         }
     }
 
-    /** Obra encontrada (ou {@code null}), comparações de chave e profundidade do nó (raiz = 0; −1 se ausente). */
+    /* Obra encontrada (ou null), comparações de chave e profundidade do nó (raiz = 0; −1 se ausente). */
     public record Busca(Obra obra, long comparacoes, int profundidade) {
         public boolean encontrou() {
             return obra != null;

@@ -8,7 +8,7 @@ import br.edu.ufpb.wikiart.structure.ListaEncadeadaObras.No;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Algoritmos cujo caminho natural é percorrer uma lista nó a nó. */
+/* Algoritmos cujo caminho natural é percorrer uma lista nó a nó. */
 public final class BuscasEncadeadas {
     private BuscasEncadeadas() {
     }
@@ -24,7 +24,7 @@ public final class BuscasEncadeadas {
         return ResultadoBusca.vazio(TipoBusca.SEQUENCIAL, comparacoes);
     }
 
-    /** Busca em lista e, quando encontra a obra, reorganiza os ponteiros para trazê-la à cabeça. */
+    /* Busca em lista e, quando encontra a obra, reorganiza os ponteiros para trazê-la à cabeça. */
     public static ResultadoBusca moverParaInicio(ListaEncadeadaObras lista, long id) {
         No anterior = null;
         No atual = lista.inicio();
@@ -42,7 +42,7 @@ public final class BuscasEncadeadas {
         return ResultadoBusca.vazio(TipoBusca.MOVER_PARA_INICIO, comparacoes);
     }
 
-    /** Busca em lista e troca o nó encontrado apenas com seu predecessor imediato. */
+    /* Busca em lista e troca o nó encontrado apenas com seu predecessor imediato. */
     public static ResultadoBusca transposicao(ListaEncadeadaObras lista, long id) {
         No anteriorDoAnterior = null;
         No anterior = null;
@@ -62,7 +62,7 @@ public final class BuscasEncadeadas {
         return ResultadoBusca.vazio(TipoBusca.TRANSPOSICAO, comparacoes);
     }
 
-    /**
+    /*
      * Linha de base O(n) da chave secundária. Usa a mesma normalização da AVL
      * (sem acentos, minúsculas) para que as duas devolvam exatamente as mesmas obras.
      */

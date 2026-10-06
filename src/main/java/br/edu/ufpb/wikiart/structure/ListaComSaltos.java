@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-/**
+/*
  * Skip List probabilística ordenada pela chave. A semente configurável permite
  * que benchmarks recriem exatamente a mesma topologia em execuções diferentes.
  *
- * <p><b>Modificação para o catálogo — lista indexável:</b> cada ponteiro guarda
- * também a sua <i>largura</i>, isto é, quantos nós do nível 0 ele pula. Com isso
- * {@link #obter(int)} desce pelos níveis somando larguras e chega à posição i em
+ * Modificação para o catálogo — lista indexável: cada ponteiro guarda
+ * também a sua largura, isto é, quantos nós do nível 0 ele pula. Com isso
+ * obter(int) desce pelos níveis somando larguras e chega à posição i em
  * O(log n) esperado, em vez de percorrer i nós. É isso que permite paginar
  * 42.500 obras (página 1.000 do catálogo) sem ordenar nem copiar nada a cada
  * requisição. A inserção mantém as larguras atualizadas.
@@ -23,7 +23,7 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         private final K chave;
         private final V valor;
         private final No<K, V>[] proximos;
-        /** larguras[n] = distância, em nós do nível 0, até proximos[n] (ou até o fim). */
+        /* larguras[n] = distância, em nós do nível 0, até proximos[n] (ou até o fim). */
         private final int[] larguras;
 
         @SuppressWarnings("unchecked")
@@ -35,7 +35,7 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         }
     }
 
-    /** Valor encontrado (ou {@code null}) e quantas chaves foram comparadas. */
+    /* Valor encontrado (ou null) e quantas chaves foram comparadas. */
     public record Busca<V>(V valor, long comparacoes) {
         public boolean encontrou() {
             return valor != null;
@@ -129,12 +129,12 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         tamanho++;
     }
 
-    /** Valor na posição {@code indice} (base zero) da ordem das chaves. */
+    /* Valor na posição indice (base zero) da ordem das chaves. */
     public V obter(int indice) {
         return no(indice).valor;
     }
 
-    /** Até {@code quantidade} valores a partir de {@code inicio}: um salto e depois o nível 0. */
+    /* Até quantidade valores a partir de inicio: um salto e depois o nível 0. */
     public List<V> fatia(int inicio, int quantidade) {
         List<V> resultado = new ArrayList<>(Math.max(0, Math.min(quantidade, tamanho - inicio)));
         if (inicio < 0 || inicio >= tamanho || quantidade <= 0) {
@@ -154,7 +154,7 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         return tamanho;
     }
 
-    /** Número de níveis em uso (nível 0 incluído), para a tela que explica a estrutura. */
+    /* Número de níveis em uso (nível 0 incluído), para a tela que explica a estrutura. */
     public int niveis() {
         return nivelAtual + 1;
     }

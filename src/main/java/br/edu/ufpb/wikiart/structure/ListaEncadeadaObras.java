@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
+/*
  * Lista simplesmente encadeada do projeto. Ela expõe nós somente para os
  * algoritmos educacionais poderem contar comparações e reorganizar ponteiros.
  */
