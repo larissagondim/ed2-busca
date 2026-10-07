@@ -6,21 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
+/*
  * Ranking "mais vistas": lista simplesmente encadeada, sem ordenação, que se
  * auto-organiza por transposição — como o "mais vendidos" do enunciado.
  *
- * <p><b>Modificações em relação à transposição clássica:</b>
- * <ol>
- *   <li><b>Crescimento sob demanda:</b> a lista começa vazia e uma obra só entra
+ * Modificações em relação à transposição clássica:
+ *
+ *   Crescimento sob demanda: a lista começa vazia e uma obra só entra
  *   (no fim) na primeira vez que é vista. Assim o ranking tem apenas obras
- *   realmente acessadas, e a busca sequencial percorre dezenas de nós, não 42.500.</li>
- *   <li><b>Transposição com guarda de frequência:</b> cada nó conta suas
+ *   realmente acessadas, e a busca sequencial percorre dezenas de nós, não 42.500.
+ *   Transposição com guarda de frequência: cada nó conta suas
  *   visualizações. Na clássica, qualquer acesso troca o nó com o anterior; aqui
- *   a troca só acontece se o nó passou a ter <i>mais</i> visualizações que o
+ *   a troca só acontece se o nó passou a ter mais visualizações que o
  *   anterior. Uma obra vista uma única vez não ultrapassa outra vista dez vezes,
- *   mas continua subindo uma posição por acesso quando merece.</li>
- * </ol>
+ *   mas continua subindo uma posição por acesso quando merece.
+ *
  */
 public final class ListaMaisVistas {
     private static final class No {
@@ -35,13 +35,14 @@ public final class ListaMaisVistas {
 
     public record Entrada(Obra obra, long visualizacoes) {}
 
-    /** Posição final (base 1), visualizações, comparações feitas e se houve troca. */
+    /* Posição final (base 1), visualizações, comparações feitas e se houve troca. */
     public record Registro(int posicao, long visualizacoes, long comparacoes, boolean transpos) {}
 
     private No inicio;
     private No fim;
     private int tamanho;
 
+    // IMPORTANTE, OLHAR AQUI
     public Registro registrar(Obra obra) {
         Objects.requireNonNull(obra);
         No anteriorDoAnterior = null;
@@ -49,6 +50,7 @@ public final class ListaMaisVistas {
         No atual = inicio;
         long comparacoes = 0;
         int posicao = 1;
+        // Localiza a obra pelo ID e atualiza sua frequência no próprio nó.
         while (atual != null) {
             comparacoes++;
             if (atual.obra.id() == obra.id()) {
@@ -64,6 +66,7 @@ public final class ListaMaisVistas {
             atual = atual.proximo;
             posicao++;
         }
+        // Primeira visualização: adiciona ao final para preservar a ordem do ranking.
         No novo = new No(obra);
         novo.visualizacoes = 1;
         if (fim == null) {
@@ -76,7 +79,7 @@ public final class ListaMaisVistas {
         return new Registro(tamanho, 1, comparacoes, false);
     }
 
-    /** Os {@code limite} primeiros nós: o topo do ranking. */
+    /* Os limite primeiros nós: o topo do ranking. */
     public List<Entrada> primeiros(int limite) {
         List<Entrada> resultado = new ArrayList<>();
         for (No atual = inicio; atual != null && resultado.size() < limite; atual = atual.proximo) {

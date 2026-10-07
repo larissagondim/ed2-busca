@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
+/*
  * Lista simplesmente encadeada do projeto. Ela expõe nós somente para os
  * algoritmos educacionais poderem contar comparações e reorganizar ponteiros.
  */
@@ -33,6 +33,7 @@ public final class ListaEncadeadaObras {
     private int tamanho;
 
     public void adicionar(Obra obra) {
+        // O ponteiro fim permite acrescentar sem percorrer a lista.
         No novo = new No(Objects.requireNonNull(obra));
         if (inicio == null) {
             inicio = fim = novo;
@@ -56,6 +57,7 @@ public final class ListaEncadeadaObras {
             return;
         }
         validarVizinhanca(anterior, encontrado);
+        // Retira o nó da posição atual e o religa antes do início antigo.
         anterior.proximo = encontrado.proximo;
         if (encontrado == fim) {
             fim = anterior;
@@ -69,6 +71,7 @@ public final class ListaEncadeadaObras {
             return;
         }
         validarVizinhanca(anterior, encontrado);
+        // Troca apenas os dois nós vizinhos; os demais mantêm a mesma ordem.
         anterior.proximo = encontrado.proximo;
         encontrado.proximo = anterior;
         if (anteriorDoAnterior == null) {

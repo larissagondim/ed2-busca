@@ -18,26 +18,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
+/*
  * Armazenamento do catálogo inteiramente nas estruturas do projeto:
- * <ul>
- *   <li>{@link ListaComSaltos} indexável por ID, código e título, global e por período — índice principal, paginação e busca por código;</li>
- *   <li>{@link ListaComSaltos} por slug — os períodos, listados em ordem alfabética pelo nível 0;</li>
- *   <li>{@link ListaRecentes} — histórico "vistas recentemente" por movimentação para o início;</li>
- *   <li>{@link ListaMaisVistas} — ranking por transposição;</li>
- *   <li>{@link ArvoreAvlArtistas} — estrutura hierárquica: índice dos artistas em ordem alfabética, com estatística de ordem e visualizações agregadas;</li>
- *   <li>{@link ArvoreBuscaBinariaArtistas} — ABB sem balanceamento, construída só para comparar alturas e comparações com a AVL.</li>
- * </ul>
+ *
+ *   ListaComSaltos indexável por ID, código e título, global e por período — índice principal, paginação e busca por código;
+ *   ListaComSaltos por slug — os períodos, listados em ordem alfabética pelo nível 0;
+ *   ListaRecentes — histórico "vistas recentemente" por movimentação para o início;
+ *   ListaMaisVistas — ranking por transposição;
+ *   ArvoreAvlArtistas — estrutura hierárquica: índice dos artistas em ordem alfabética, com estatística de ordem e visualizações agregadas;
+ *   ArvoreBuscaBinariaArtistas — ABB sem balanceamento, construída só para comparar alturas e comparações com a AVL.
+ *
  */
 @Service
 public class CatalogoService {
     private static final long SEMENTE = 20260911L;
-    /** Igual ao maior limite aceito pela API. */
+    /* Igual ao maior limite aceito pela API. */
     private static final int CAPACIDADE_RECENTES = 50;
 
     public enum Ordem { ID, CODIGO, TITULO }
 
-    /** Títulos se repetem ("Obra sem título"); o ID desempata e mantém a chave única. */
+    /* Títulos se repetem ("Obra sem título"); o ID desempata e mantém a chave única. */
     private record ChaveTitulo(String titulo, long id) implements Comparable<ChaveTitulo> {
         @Override
         public int compareTo(ChaveTitulo outra) {
@@ -46,7 +46,7 @@ public class CatalogoService {
         }
     }
 
-    /** Um subconjunto (global ou período) com uma Skip List por ordenação. */
+    /* Um subconjunto (global ou período) com uma Skip List por ordenação. */
     private static final class Grupo {
         private final String slug;
         private final String nome;
@@ -79,7 +79,7 @@ public class CatalogoService {
     private final ListaRecentes recentes = new ListaRecentes(CAPACIDADE_RECENTES);
     private final ListaMaisVistas maisVistas = new ListaMaisVistas();
     private final ArvoreAvlArtistas artistas = new ArvoreAvlArtistas();
-    /** Não é usada pela aplicação: existe só para as métricas AVL x ABB. */
+    /* Não é usada pela aplicação: existe só para as métricas AVL x ABB. */
     private final ArvoreBuscaBinariaArtistas arvoreSemBalanceamento = new ArvoreBuscaBinariaArtistas();
 
     @Autowired
@@ -107,7 +107,7 @@ public class CatalogoService {
         }
     }
 
-    /** Todas as obras do subconjunto, em ordem de ID. */
+    /* Todas as obras do subconjunto, em ordem de ID. */
     public List<Obra> obras(String periodo) {
         return grupo(periodo).porId.paraLista();
     }
@@ -116,12 +116,12 @@ public class CatalogoService {
         return grupo(periodo).porId.tamanho();
     }
 
-    /** Página do catálogo obtida pela Skip List indexável, sem ordenar nem copiar o subconjunto. */
+    /* Página do catálogo obtida pela Skip List indexável, sem ordenar nem copiar o subconjunto. */
     public List<Obra> fatia(String periodo, Ordem ordem, int inicio, int quantidade) {
         return grupo(periodo).fatia(ordem, inicio, quantidade);
     }
 
-    /** Leitura interna: não conta como visualização. */
+    /* Leitura interna: não conta como visualização. */
     public Obra porId(long id) {
         Obra obra = global.porId.buscar(id).valor();
         if (obra == null) throw new RecursoNaoEncontrado("OBRA_NAO_ENCONTRADA", "Obra inexistente: " + id);
@@ -134,7 +134,7 @@ public class CatalogoService {
         return obra;
     }
 
-    /** O usuário abriu a obra: vai para o início dos recentes e transpõe no ranking (mais vistas). */
+    /* O usuário abriu a obra: vai para o início dos recentes e transpõe no ranking (mais vistas). */
     public synchronized Destaques visualizar(long id, int limite) {
         Obra obra = porId(id);
         recentes.registrar(obra);
@@ -149,7 +149,7 @@ public class CatalogoService {
         return new Destaques(recentes.primeiros(limite), ranking, artistasVistos());
     }
 
-    /** Artistas com ao menos uma visualização, em ordem alfabética (percurso da AVL); quem ranqueia é o chamador. */
+    /* Artistas com ao menos uma visualização, em ordem alfabética (percurso da AVL); quem ranqueia é o chamador. */
     private List<ArvoreAvlArtistas.Artista> artistasVistos() {
         List<ArvoreAvlArtistas.Artista> vistos = new ArrayList<>();
         for (ArvoreAvlArtistas.Artista artista : artistas.emOrdem()) {
@@ -158,7 +158,7 @@ public class CatalogoService {
         return vistos;
     }
 
-    /** Página de artistas em ordem alfabética: desce pelos tamanhos das subárvores da AVL até o início da página. */
+    /* Página de artistas em ordem alfabética: desce pelos tamanhos das subárvores da AVL até o início da página. */
     public synchronized PaginaArtistas artistas(int pagina, int tamanho) {
         int total = artistas.tamanho();
         long inicio = (long) pagina * tamanho;
@@ -166,7 +166,7 @@ public class CatalogoService {
         return new PaginaArtistas(conteudo, pagina, tamanho, total, (total + tamanho - 1) / tamanho);
     }
 
-    /** Obras do artista (busca insensível a acentos e maiúsculas), com as comparações e a profundidade do nó na AVL. */
+    /* Obras do artista (busca insensível a acentos e maiúsculas), com as comparações e a profundidade do nó na AVL. */
     public synchronized ObrasDoArtista obrasDoArtista(String nome, int pagina, int tamanho) {
         ArvoreAvlArtistas.Busca busca = artistas.buscar(nome);
         if (!busca.encontrou()) throw new RecursoNaoEncontrado("ARTISTA_NAO_ENCONTRADO", "Artista inexistente: " + nome);
@@ -176,7 +176,7 @@ public class CatalogoService {
         return new ObrasDoArtista(busca.artista(), conteudo, pagina, tamanho, todas.size(), (todas.size() + tamanho - 1) / tamanho, busca.comparacoes(), busca.profundidade());
     }
 
-    /** AVL x ABB com os dados reais: alturas, rotações e comparações médias de busca sobre todos os artistas. */
+    /* AVL x ABB com os dados reais: alturas, rotações e comparações médias de busca sobre todos os artistas. */
     public synchronized MetricasArvores metricasArvores() {
         int n = artistas.tamanho();
         long soma = 0;
@@ -190,7 +190,7 @@ public class CatalogoService {
                 artistas.rotacoes(), mediaAvl, arvoreSemBalanceamento.mediaDeBusca().comparacoesMedias(), global.porId.tamanho());
     }
 
-    /** Métricas de todas as estruturas para a tela "Estruturas por dentro". */
+    /* Métricas de todas as estruturas para a tela "Estruturas por dentro". */
     public synchronized Estruturas estruturas() {
         List<SkipListInfo> skipLists = List.of(
                 new SkipListInfo("Por ID (global)", global.porId.tamanho(), global.porId.niveis()),

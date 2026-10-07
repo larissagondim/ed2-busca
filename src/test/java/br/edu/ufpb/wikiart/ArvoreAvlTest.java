@@ -38,7 +38,7 @@ class ArvoreAvlTest {
         return String.format("artista %05d", i);
     }
 
-    /** Verificador recursivo: ordem da ABB, alturas, tamanhos de subárvore e fator de balanceamento. */
+    /* Verificador recursivo: ordem da ABB, alturas, tamanhos de subárvore e fator de balanceamento. */
     private static int verificar(ArvoreAvlArtistas.No no, String minimo, String maximo) {
         if (no == null) return 0;
         if (minimo != null) assertTrue(no.chave().compareTo(minimo) > 0, "ordem da ABB violada em " + no.chave());

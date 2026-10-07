@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Stream;
 
-/**
- * Gera os CSVs a partir das pastas do dataset WikiArt ({@code Estilo/artista_titulo.jpg}).
+/*
+ * Gera os CSVs a partir das pastas do dataset WikiArt (Estilo/artista_titulo.jpg).
  * Artista e título saem do nome do arquivo; nenhuma imagem é aberta. A mesma
  * pintura pode aparecer em dois estilos, então o código repetido ganha o estilo
  * como sufixo para continuar único.
@@ -95,7 +95,7 @@ public final class GeradorCatalogoCsv {
         }
     }
 
-    /** "the-starry-night-1889" → "The starry night 1889"; "not_detected_220255" → "Sem título (220255)". */
+    /* "the-starry-night-1889" → "The starry night 1889"; "not_detected_220255" → "Sem título (220255)". */
     static String titulo(String slug) {
         String texto = slug.replace('_', ' ').replace('-', ' ').strip().replaceAll(" +", " ");
         if (texto.startsWith("not detected")) {
@@ -105,7 +105,7 @@ public final class GeradorCatalogoCsv {
         return texto.isEmpty() ? "Sem título" : Character.toUpperCase(texto.charAt(0)) + texto.substring(1);
     }
 
-    /** "vincent-van-gogh" → "Vincent Van Gogh". */
+    /* "vincent-van-gogh" → "Vincent Van Gogh". */
     static String capitalizarPalavras(String slug) {
         StringBuilder resultado = new StringBuilder();
         for (String palavra : slug.split("[-_ ]+")) {

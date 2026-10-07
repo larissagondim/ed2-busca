@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Lê o catálogo gerado pelo projeto sem carregar ou validar os arquivos JPG. */
+/* Lê o catálogo gerado pelo projeto sem carregar ou validar os arquivos JPG. */
 public final class LeitorCatalogoCsv {
     private static final List<String> CABECALHO =
             List.of("codigo_acervo", "titulo", "artista", "estilo", "caminho_imagem");

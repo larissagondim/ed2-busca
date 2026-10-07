@@ -14,7 +14,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-/** Testes sem biblioteca externa, para também rodarem nos laboratórios da disciplina. */
+/* Testes sem biblioteca externa, para também rodarem nos laboratórios da disciplina. */
 public final class BuscaTest {
     private static final Obra O30 = obra(30, "Guernica", "Pablo Picasso");
     private static final Obra O10 = obra(10, "Abaporu", "Tarsila do Amaral");

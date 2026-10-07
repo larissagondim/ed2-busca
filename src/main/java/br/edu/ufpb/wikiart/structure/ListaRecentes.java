@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
+/*
  * Histórico "vistas recentemente": lista simplesmente encadeada que se
  * auto-organiza por movimentação para o início.
  *
- * <p><b>Modificações em relação à movimentação clássica:</b>
- * <ol>
- *   <li><b>Crescimento sob demanda:</b> a lista começa vazia e uma obra só entra
- *   (no início) na primeira vez que é vista, então só guarda obras realmente acessadas.</li>
- *   <li><b>Capacidade limitada:</b> ao passar de {@code capacidade} nós, o último
+ * Modificações em relação à movimentação clássica:
+ *
+ *   Crescimento sob demanda: a lista começa vazia e uma obra só entra
+ *   (no início) na primeira vez que é vista, então só guarda obras realmente acessadas.
+ *   Capacidade limitada: ao passar de capacidade nós, o último
  *   (o visto há mais tempo) é descartado, e a busca sequencial nunca percorre
- *   mais do que {@code capacidade} nós.</li>
- * </ol>
+ *   mais do que capacidade nós.
+ *
  */
 public final class ListaRecentes {
     private static final class No {
@@ -38,7 +38,8 @@ public final class ListaRecentes {
         this.capacidade = capacidade;
     }
 
-    /** Leva a obra ao início; se ainda não estava na lista, insere e descarta o excesso no fim. */
+    /* Leva a obra ao início; se ainda não estava na lista, insere e descarta o excesso no fim. */
+    // IMPORTANTE, OLHAR AQUI
     public void registrar(Obra obra) {
         Objects.requireNonNull(obra);
         No anterior = null;
@@ -46,6 +47,7 @@ public final class ListaRecentes {
         for (No atual = inicio; atual != null; atual = atual.proximo) {
             if (atual.obra.id() == obra.id()) {
                 if (anterior != null) {
+                    // Desvincula a obra da posição antiga antes de torná-la a mais recente.
                     anterior.proximo = atual.proximo;
                     atual.proximo = inicio;
                     inicio = atual;
@@ -55,6 +57,7 @@ public final class ListaRecentes {
             penultimo = anterior;
             anterior = atual;
         }
+        // Uma obra nova entra na cabeça; se exceder a capacidade, o fim será removido.
         No novo = new No(obra);
         novo.proximo = inicio;
         inicio = novo;
@@ -67,7 +70,7 @@ public final class ListaRecentes {
         }
     }
 
-    /** Os {@code limite} primeiros nós: do visto mais recentemente ao mais antigo. */
+    /* Os limite primeiros nós: do visto mais recentemente ao mais antigo. */
     public List<Obra> primeiros(int limite) {
         List<Obra> resultado = new ArrayList<>();
         for (No atual = inicio; atual != null && resultado.size() < limite; atual = atual.proximo) {

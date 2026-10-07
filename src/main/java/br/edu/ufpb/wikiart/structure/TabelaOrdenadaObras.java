@@ -4,11 +4,11 @@ import br.edu.ufpb.wikiart.model.Obra;
 
 import java.util.List;
 
-/**
+/*
  * Visão indexada e ordenada por ID, necessária às buscas que pulam posições.
  *
- * <p>Nenhuma ordenação acontece aqui: o vetor é preenchido a partir de uma
- * sequência que já vem ordenada (o nível 0 da {@link ListaComSaltos} por ID), e o
+ * Nenhuma ordenação acontece aqui: o vetor é preenchido a partir de uma
+ * sequência que já vem ordenada (o nível 0 da ListaComSaltos por ID), e o
  * construtor apenas confere que os IDs são estritamente crescentes. Isso custa
  * O(n), contra O(n log n) de ordenar de novo.
  */
@@ -32,6 +32,7 @@ public final class TabelaOrdenadaObras {
     }
 
     public Obra obter(int indice) {
+        // Acesso direto em O(1), usado pelas buscas binária e por interpolação.
         return obras[indice];
     }
 }

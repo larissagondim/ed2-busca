@@ -6,7 +6,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import java.util.function.Supplier;
 
-/** Mede uma busca na thread atual e usa tempo de CPU somente quando a JVM oferece suporte. */
+/* Mede uma busca na thread atual e usa tempo de CPU somente quando a JVM oferece suporte. */
 public final class MedidorBusca {
     private final ThreadMXBean threads = ManagementFactory.getThreadMXBean();
     private final boolean cpuDisponivel;

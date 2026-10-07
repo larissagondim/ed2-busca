@@ -15,7 +15,7 @@ import br.edu.ufpb.wikiart.structure.TabelaOrdenadaObras;
 import java.util.Collection;
 import java.util.List;
 
-/**
+/*
  * Fachada usada pela CLI, pela API e pelos experimentos. Cada heurística mutável
  * recebe sua própria lista para que uma não contamine o resultado da outra.
  */
@@ -78,7 +78,7 @@ public final class MotorDeBuscas {
                 busca.encontrou() ? List.of(busca.valor()) : List.of(), busca.comparacoes(), 0);
     }
 
-    /** Busca por ID na Árvore AVL (estrutura hierárquica): O(log n), com profundidade do nó. */
+    /* Busca por ID na Árvore AVL (estrutura hierárquica): O(log n), com profundidade do nó. */
     public ResultadoBusca arvoreAvl(long id) {
         ArvoreAvlObras.Busca busca = arvoreObras.buscar(id);
         return new ResultadoBusca(TipoBusca.ARVORE_AVL,
@@ -89,7 +89,7 @@ public final class MotorDeBuscas {
         return BuscasEncadeadas.porArtista(sequencial, artista);
     }
 
-    /** Mesma consulta de {@link #porArtista}, mas pela Árvore AVL: O(log n) em vez de O(n). */
+    /* Mesma consulta de porArtista, mas pela Árvore AVL: O(log n) em vez de O(n). */
     public ResultadoBusca porArtistaAvl(String artista) {
         ArvoreAvlArtistas.Busca busca = arvoreArtistas.buscar(artista);
         return new ResultadoBusca(TipoBusca.CHAVE_SECUNDARIA_AVL, busca.obras(), busca.comparacoes(), 0);
@@ -119,7 +119,7 @@ public final class MotorDeBuscas {
         return BuscasEncadeadas.maior(sequencial);
     }
 
-    /** Útil para iniciar cada repetição de benchmark no mesmo estado. */
+    /* Útil para iniciar cada repetição de benchmark no mesmo estado. */
     public List<Obra> ordemMoverParaInicio() {
         return moverParaInicio.comoLista();
     }

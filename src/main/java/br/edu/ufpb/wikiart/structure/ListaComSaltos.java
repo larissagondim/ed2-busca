@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-/**
+/*
  * Skip List probabilística ordenada pela chave. A semente configurável permite
  * que benchmarks recriem exatamente a mesma topologia em execuções diferentes.
  *
- * <p><b>Modificação para o catálogo — lista indexável:</b> cada ponteiro guarda
- * também a sua <i>largura</i>, isto é, quantos nós do nível 0 ele pula. Com isso
- * {@link #obter(int)} desce pelos níveis somando larguras e chega à posição i em
+ * Modificação para o catálogo — lista indexável: cada ponteiro guarda
+ * também a sua largura, isto é, quantos nós do nível 0 ele pula. Com isso
+ * obter(int) desce pelos níveis somando larguras e chega à posição i em
  * O(log n) esperado, em vez de percorrer i nós. É isso que permite paginar
  * 42.500 obras (página 1.000 do catálogo) sem ordenar nem copiar nada a cada
  * requisição. A inserção mantém as larguras atualizadas.
@@ -23,7 +23,7 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         private final K chave;
         private final V valor;
         private final No<K, V>[] proximos;
-        /** larguras[n] = distância, em nós do nível 0, até proximos[n] (ou até o fim). */
+        /* larguras[n] = distância, em nós do nível 0, até proximos[n] (ou até o fim). */
         private final int[] larguras;
 
         @SuppressWarnings("unchecked")
@@ -35,7 +35,7 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         }
     }
 
-    /** Valor encontrado (ou {@code null}) e quantas chaves foram comparadas. */
+    /* Valor encontrado (ou null) e quantas chaves foram comparadas. */
     public record Busca<V>(V valor, long comparacoes) {
         public boolean encontrou() {
             return valor != null;
@@ -52,9 +52,12 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         cabeca.larguras[0] = 1;
     }
 
+    // IMPORTANTE, OLHAR AQUI
     public Busca<V> buscar(K chave) {
         No<K, V> atual = cabeca;
         long comparacoes = 0;
+        // Busca clássica da Skip List: do nível mais alto para o mais baixo.
+        // Em cada nível avança enquanto a próxima chave ainda é menor que a procurada.
         for (int nivel = nivelAtual; nivel >= 0; nivel--) {
             while (atual.proximos[nivel] != null) {
                 comparacoes++;
@@ -64,6 +67,7 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
                 atual = atual.proximos[nivel];
             }
         }
+        // No nível 0, o próximo nó é o primeiro candidato que pode ser igual à chave.
         atual = atual.proximos[0];
         if (atual != null) {
             comparacoes++;
@@ -82,6 +86,8 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         int[] posicaoDosAnteriores = new int[NIVEL_MAXIMO + 1];
         No<K, V> atual = cabeca;
         int posicao = 0; // a cabeça ocupa a posição 0; o primeiro dado, a 1
+        // Guarda o predecessor em cada nível; as posições acumuladas permitem
+        // atualizar as larguras sem percorrer a lista inteira após inserir.
         for (int nivel = nivelAtual; nivel >= 0; nivel--) {
             while (atual.proximos[nivel] != null
                     && atual.proximos[nivel].chave.compareTo(chave) < 0) {
@@ -123,12 +129,12 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         tamanho++;
     }
 
-    /** Valor na posição {@code indice} (base zero) da ordem das chaves. */
+    /* Valor na posição indice (base zero) da ordem das chaves. */
     public V obter(int indice) {
         return no(indice).valor;
     }
 
-    /** Até {@code quantidade} valores a partir de {@code inicio}: um salto e depois o nível 0. */
+    /* Até quantidade valores a partir de inicio: um salto e depois o nível 0. */
     public List<V> fatia(int inicio, int quantidade) {
         List<V> resultado = new ArrayList<>(Math.max(0, Math.min(quantidade, tamanho - inicio)));
         if (inicio < 0 || inicio >= tamanho || quantidade <= 0) {
@@ -148,11 +154,12 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         return tamanho;
     }
 
-    /** Número de níveis em uso (nível 0 incluído), para a tela que explica a estrutura. */
+    /* Número de níveis em uso (nível 0 incluído), para a tela que explica a estrutura. */
     public int niveis() {
         return nivelAtual + 1;
     }
 
+    // IMPORTANTE, OLHAR AQUI
     private No<K, V> no(int indice) {
         if (indice < 0 || indice >= tamanho) {
             throw new IndexOutOfBoundsException("Posição " + indice + " fora de 0.." + (tamanho - 1));
@@ -160,6 +167,8 @@ public final class ListaComSaltos<K extends Comparable<? super K>, V> {
         int alvo = indice + 1;
         int posicao = 0;
         No<K, V> atual = cabeca;
+        // A largura informa quantos nós do nível 0 o ponteiro cobre.
+        // Avançamos sem ultrapassar a posição desejada e descemos quando necessário.
         for (int nivel = nivelAtual; nivel >= 0; nivel--) {
             while (atual.proximos[nivel] != null && posicao + atual.larguras[nivel] <= alvo) {
                 posicao += atual.larguras[nivel];

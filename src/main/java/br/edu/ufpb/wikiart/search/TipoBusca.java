@@ -1,6 +1,6 @@
 package br.edu.ufpb.wikiart.search;
 
-/** Os 14 tipos levantados no material da disciplina, mais a variante da chave secundária em Árvore AVL. */
+/* Os 14 tipos levantados no material da disciplina, mais a variante da chave secundária em Árvore AVL. */
 public enum TipoBusca {
     SEQUENCIAL("Busca sequencial simples"),
     TRANSPOSICAO("Busca sequencial com transposição"),

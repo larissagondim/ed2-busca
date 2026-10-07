@@ -3,7 +3,7 @@ package br.edu.ufpb.wikiart.search;
 import br.edu.ufpb.wikiart.structure.ListaEncadeadaObras;
 import br.edu.ufpb.wikiart.structure.ListaEncadeadaObras.No;
 
-/**
+/*
  * Mantém um "dedo" no último acerto. A busca seguinte começa dali e dá a
  * volta na lista se necessário, preservando a correção mesmo sem ordenação.
  */

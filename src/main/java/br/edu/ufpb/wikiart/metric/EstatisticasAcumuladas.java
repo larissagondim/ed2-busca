@@ -2,7 +2,7 @@ package br.edu.ufpb.wikiart.metric;
 
 import br.edu.ufpb.wikiart.search.TipoBusca;
 
-/** Acumula a história da sessão para mostrar se uma estratégia melhora com repetição. */
+/* Acumula a história da sessão para mostrar se uma estratégia melhora com repetição. */
 public final class EstatisticasAcumuladas {
     private final TipoBusca tipo;
     private long buscas;

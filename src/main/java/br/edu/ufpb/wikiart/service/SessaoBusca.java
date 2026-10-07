@@ -13,7 +13,7 @@ public final class SessaoBusca {
     private final MedidorBusca medidor = new MedidorBusca();
     private String periodo;
     private MotorDeBuscas motor;
-    /** Uma posição por estratégia, na mesma ordem de {@link #TIPOS}. */
+    /* Uma posição por estratégia, na mesma ordem de TIPOS. */
     private EstatisticasAcumuladas[] acumulados;
 
     public SessaoBusca(CatalogoService catalogo) { this.catalogo = catalogo; reiniciar(null); }
@@ -25,7 +25,7 @@ public final class SessaoBusca {
         for (int i = 0; i < TIPOS.size(); i++) acumulados[i] = new EstatisticasAcumuladas(TIPOS.get(i));
     }
     public Comparacao comparar(long id) { return comparar(id, TIPOS); }
-    /** Executa só as estratégias pedidas, sempre na ordem de {@link #TIPOS}, e acumula apenas essas. */
+    /* Executa só as estratégias pedidas, sempre na ordem de TIPOS, e acumula apenas essas. */
     public synchronized Comparacao comparar(long id, Collection<TipoBusca> tipos) {
         if (tipos.isEmpty() || !TIPOS.containsAll(tipos)) throw new IllegalArgumentException("Escolha ao menos uma das oito buscas exatas.");
         Obra obra = catalogo.porId(id);
@@ -55,10 +55,10 @@ public final class SessaoBusca {
             default -> throw new IllegalArgumentException("Busca sem chave exata: " + tipo);
         };
     }
-    /** As seis consultas que não procuram uma chave exata: respondem com várias obras ou com um extremo. */
+    /* As seis consultas que não procuram uma chave exata: respondem com várias obras ou com um extremo. */
     public static final List<TipoBusca> CONSULTAS = List.of(TipoBusca.CHAVE_SECUNDARIA, TipoBusca.CHAVE_SECUNDARIA_AVL, TipoBusca.PISO, TipoBusca.TETO, TipoBusca.INTERVALO, TipoBusca.MENOR_CHAVE, TipoBusca.MAIOR_CHAVE);
     private static final int LIMITE_CONSULTA = 24;
-    /** Roda a consulta no subconjunto da sessão; não entra nos acumulados das buscas exatas. */
+    /* Roda a consulta no subconjunto da sessão; não entra nos acumulados das buscas exatas. */
     public synchronized Consulta consultar(TipoBusca tipo, String artista, Long inicio, Long fim) {
         Supplier<ResultadoBusca> operacao = switch (tipo) {
             case CHAVE_SECUNDARIA -> () -> motor.porArtista(artista);
